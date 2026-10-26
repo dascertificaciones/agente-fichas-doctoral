@@ -1,10 +1,14 @@
 {
   "name": "agente-fichas-doctoral",
-  "version": "6.0.0",
-  "description": "Agente bibliografico - Erandi Carrasco - UDEMEX 2026",
+  "version": "11.0.0",
+  "description": "Agente bibliografico con interfaz web — Erandi Carrasco — UDEMEX 2026",
   "type": "module",
   "scripts": {
-    "start": "node agente.js"
+    "start": "node server.js",
+    "cli": "node agente.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "chalk": "^5.3.0",

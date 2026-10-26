@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agente de Fichas Bibliográficas — Erandi Carrasco · UDEMEX 2026</title>
+<style>
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --border: #ddd8cc;
+    --text: #1a1a1a;
+    --muted: #6b6560;
+    --accent: #2d5a8e;
+    --accent-light: #e8f0f9;
+    --green: #2a6e46;
+    --green-light: #e8f4ec;
+    --red: #8e2d2d;
+    --red-light: #f9e8e8;
+    --yellow: #7a6020;
+    --yellow-light: #fdf8e8;
+    --dim1: #3b6f9e;
+    --dim2: #5b8a3c;
+    --dim3: #8a5b3c;
+    --dim4: #6b3c8a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Georgia', serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+  header { background: var(--accent); color: #fff; padding: 1.5rem 2rem; }
+  header h1 { font-size: 1.25rem; font-weight: normal; letter-spacing: 0.02em; }
+  header p { font-size: 0.85rem; opacity: 0.75; margin-top: 0.25rem; font-style: italic; }
+
+  nav { background: var(--surface); border-bottom: 2px solid var(--border); display: flex; gap: 0; padding: 0 2rem; }
+  nav button { background: none; border: none; border-bottom: 3px solid transparent; padding: 0.85rem 1.25rem; cursor: pointer; font-size: 0.9rem; color: var(--muted); font-family: inherit; transition: all .2s; }
+  nav button.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: bold; }
+  nav button:hover:not(.active) { color: var(--text); }
+
+  .tab { display: none; padding: 2rem; max-width: 1100px; margin: 0 auto; }
+  .tab.active { display: block; }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem 1rem; text-align: center; }
+  .stat-card .num { font-size: 2rem; font-weight: bold; color: var(--accent); line-height: 1; }
+  .stat-card .lbl { font-size: 0.78rem; color: var(--muted); margin-top: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .stat-card.green .num { color: var(--green); }
+  .stat-card.red .num { color: var(--red); }
+
+  .progress-bar { background: var(--border); border-radius: 4px; height: 10px; margin: 0.5rem 0 1.5rem; }
+  .progress-bar .fill { background: var(--accent); height: 100%; border-radius: 4px; transition: width 0.5s; }
+
+  .dim-label { font-size: 0.78rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
+
+  .dim-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.6rem; }
+  .dim-row .dlabel { width: 30px; font-weight: bold; font-size: 0.85rem; }
+  .dim-row .dbar { flex: 1; background: var(--border); border-radius: 3px; height: 8px; }
+  .dim-row .dbar .fill { height: 100%; border-radius: 3px; }
+  .dim-row .dcount { width: 40px; text-align: right; font-size: 0.85rem; color: var(--muted); }
+  .d1-fill { background: var(--dim1); }
+  .d2-fill { background: var(--dim2); }
+  .d3-fill { background: var(--dim3); }
+  .d4-fill { background: var(--dim4); }
+
+  .section-title { font-size: 1rem; font-weight: bold; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin: 2rem 0 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+
+  .dim-header { font-size: 0.95rem; font-weight: bold; color: var(--accent); margin: 2rem 0 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+  .dim-badge { background: var(--accent-light); color: var(--accent); font-size: 0.75rem; padding: 0.2rem 0.5rem; border-radius: 3px; }
+
+  .ficha-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+  .ficha-head { padding: 1rem 1.25rem; display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; }
+  .ficha-head:hover { background: var(--bg); }
+  .ficha-folio { font-size: 0.78rem; font-weight: bold; color: var(--accent); white-space: nowrap; }
+  .ficha-ref { flex: 1; font-size: 0.88rem; font-style: italic; }
+  .badge { font-size: 0.72rem; padding: 0.2rem 0.55rem; border-radius: 3px; font-weight: bold; white-space: nowrap; }
+  .badge.aprobada { background: var(--green-light); color: var(--green); }
+  .badge.rechazada { background: var(--red-light); color: var(--red); }
+  .badge.pendiente { background: var(--yellow-light); color: var(--yellow); }
+
+  .ficha-body { display: none; padding: 1.25rem; border-top: 1px solid var(--border); }
+  .ficha-body.open { display: block; }
+  .ficha-body dl { display: grid; grid-template-columns: 140px 1fr; gap: 0.4rem 1rem; }
+  .ficha-body dt { font-size: 0.8rem; color: var(--muted); font-weight: bold; text-transform: uppercase; letter-spacing: 0.04em; padding-top: 0.1rem; }
+  .ficha-body dd { font-size: 0.87rem; }
+  .ficha-body ul { margin: 0.2rem 0 0 1rem; }
+  .ficha-body ul li { font-size: 0.87rem; margin-bottom: 0.2rem; }
+  .decision-box { margin-top: 1rem; background: var(--bg); border-radius: 6px; padding: 0.85rem 1rem; border-left: 4px solid var(--border); }
+  .decision-box.aprobada { border-color: var(--green); }
+  .decision-box.rechazada { border-color: var(--red); }
+  .decision-box .dlbl { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+  .decision-box.aprobada .dlbl { color: var(--green); }
+  .decision-box.rechazada .dlbl { color: var(--red); }
+  .doi-link { font-size: 0.8rem; color: var(--accent); }
+  .chip { display: inline-block; background: var(--bg); border: 1px solid var(--border); border-radius: 3px; padding: 0.1rem 0.45rem; font-size: 0.75rem; margin: 0.1rem 0.1rem 0; }
+  .chip.oa { background: var(--green-light); border-color: var(--green); color: var(--green); }
+
+  /* Búsqueda */
+  .search-form { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .form-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; min-width: 180px; }
+  .form-group label { font-size: 0.8rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+  .form-group select, .form-group input { border: 1px solid var(--border); border-radius: 5px; padding: 0.55rem 0.75rem; font-size: 0.9rem; font-family: inherit; background: var(--bg); }
+  button.btn { background: var(--accent); color: #fff; border: none; border-radius: 5px; padding: 0.6rem 1.4rem; font-size: 0.9rem; cursor: pointer; font-family: inherit; }
+  button.btn:hover { opacity: 0.9; }
+  button.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  button.btn.green { background: var(--green); }
+  button.btn.red { background: var(--red); }
+  button.btn.outline { background: none; color: var(--accent); border: 1px solid var(--accent); }
+
+  .log-box { background: #1a1a2e; color: #a8d8a8; font-family: monospace; font-size: 0.8rem; padding: 1rem; border-radius: 6px; margin: 1rem 0; min-height: 60px; white-space: pre-wrap; display: none; }
+  .log-box.visible { display: block; }
+
+  .source-list { display: grid; gap: 0.75rem; margin: 1rem 0; }
+  .source-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem 1.25rem; }
+  .source-card h4 { font-size: 0.9rem; margin-bottom: 0.4rem; }
+  .source-card p { font-size: 0.8rem; color: var(--muted); }
+  .source-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+
+  .ficha-preview { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; }
+  .ficha-preview h4 { font-size: 0.9rem; font-style: italic; margin-bottom: 0.75rem; }
+  .ficha-preview .field { margin-bottom: 0.5rem; }
+  .ficha-preview .field strong { font-size: 0.78rem; text-transform: uppercase; color: var(--muted); display: block; }
+  .decision-btns { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; align-items: center; }
+  .comment-input { flex: 1; min-width: 200px; border: 1px solid var(--border); border-radius: 5px; padding: 0.5rem 0.75rem; font-size: 0.85rem; font-family: inherit; }
+
+  .alert { padding: 0.85rem 1.25rem; border-radius: 6px; margin: 1rem 0; font-size: 0.88rem; }
+  .alert.info { background: var(--accent-light); color: var(--accent); }
+  .alert.success { background: var(--green-light); color: var(--green); }
+  .alert.error { background: var(--red-light); color: var(--red); }
+
+  .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; vertical-align: middle; margin-right: 6px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .empty { text-align: center; color: var(--muted); padding: 3rem 1rem; font-style: italic; }
+
+  @media (max-width: 600px) {
+    .tab { padding: 1rem; }
+    .form-row { flex-direction: column; }
+    .ficha-body dl { grid-template-columns: 1fr; }
+    .ficha-body dt { margin-top: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Agente de Fichas Bibliográficas · Corpus del Estado del Arte</h1>
+  <p>Erandi Carrasco Alcantara — Tesis doctoral · UDEMEX 2026 · Sistema gráfico de etiquetado de IA en contenidos educativos</p>
+</header>
+
+<nav>
+  <button class="active" onclick="showTab('dashboard')">Resumen</button>
+  <button onclick="showTab('corpus')">Corpus aprobado</button>
+  <button onclick="showTab('rechazadas')">Fuentes rechazadas</button>
+  <button onclick="showTab('buscar')">Buscar fuentes</button>
+</nav>
+
+<!-- DASHBOARD -->
+<div id="tab-dashboard" class="tab active">
+  <div class="stats-grid" id="stats-grid">
+    <div class="stat-card"><div class="num" id="st-total">—</div><div class="lbl">Fichas aprobadas</div></div>
+    <div class="stat-card green"><div class="num" id="st-meta">—</div><div class="lbl">Meta (60)</div></div>
+    <div class="stat-card red"><div class="num" id="st-rechazadas">—</div><div class="lbl">Rechazadas</div></div>
+    <div class="stat-card"><div class="num" id="st-pct">—</div><div class="lbl">% completado</div></div>
+  </div>
+
+  <div class="progress-bar"><div class="fill" id="prog-bar" style="width:0%"></div></div>
+
+  <div class="section-title">Avance por dimensión</div>
+  <div id="dim-bars">
+    <div class="dim-row"><span class="dlabel" style="color:var(--dim1)">D1</span><div class="dbar"><div class="fill d1-fill" id="db1" style="width:0%"></div></div><span class="dcount" id="dc1">0</span></div>
+    <div class="dim-row"><span class="dlabel" style="color:var(--dim2)">D2</span><div class="dbar"><div class="fill d2-fill" id="db2" style="width:0%"></div></div><span class="dcount" id="dc2">0</span></div>
+    <div class="dim-row"><span class="dlabel" style="color:var(--dim3)">D3</span><div class="dbar"><div class="fill d3-fill" id="db3" style="width:0%"></div></div><span class="dcount" id="dc3">0</span></div>
+    <div class="dim-row"><span class="dlabel" style="color:var(--dim4)">D4</span><div class="dbar"><div class="fill d4-fill" id="db4" style="width:0%"></div></div><span class="dcount" id="dc4">0</span></div>
+  </div>
+
+  <div class="section-title" style="margin-top:2rem;">¿Cómo funciona la selección de fuentes?</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;font-size:0.9rem;line-height:1.8;">
+    <p><strong>1. Búsqueda automatizada</strong> — El agente consulta tres bases de datos académicas: <strong>OpenAlex</strong>, <strong>Crossref</strong> y <strong>Semantic Scholar</strong>. Ninguna fuente es inventada; todas tienen DOI verificable.</p>
+    <br>
+    <p><strong>2. Criterios de relevancia</strong> — Claude analiza cada fuente y la filtra por pertinencia a la dimensión de investigación, año de publicación (2018-2025), número de citas y disponibilidad del resumen.</p>
+    <br>
+    <p><strong>3. Revisión y decisión humana</strong> — Cada ficha es revisada manualmente. La investigadora decide aprobar o rechazar con un comentario argumentado. Las rechazadas quedan bloqueadas para no volver a aparecer.</p>
+    <br>
+    <p><strong>4. Dimensiones del estado del arte:</strong></p>
+    <ul style="margin:0.5rem 0 0 1.5rem;">
+      <li>D1 — Gobernanza y ética de la IA en educación</li>
+      <li>D2 — Transparencia y etiquetado de IA en contenidos</li>
+      <li>D3 — Diseño participativo en tecnología educativa</li>
+      <li>D4 — Perspectiva crítica IA educación latinoamericana</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CORPUS -->
+<div id="tab-corpus" class="tab">
+  <div id="corpus-container"><div class="empty">Cargando corpus...</div></div>
+</div>
+
+<!-- RECHAZADAS -->
+<div id="tab-rechazadas" class="tab">
+  <div class="alert info">Las fuentes rechazadas quedan <strong>bloqueadas permanentemente</strong> para no reaparecer. Cada rechazo incluye el argumento de descarte.</div>
+  <div id="rechazadas-container"><div class="empty">Cargando...</div></div>
+</div>
+
+<!-- BUSCAR -->
+<div id="tab-buscar" class="tab">
+  <div class="alert info">Esta sección demuestra en tiempo real cómo el agente busca y filtra fuentes académicas. Los resultados son fuentes reales con DOI verificable.</div>
+
+  <div class="search-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Dimensión</label>
+        <select id="s-dim">
+          <option value="D1">D1 — Gobernanza y ética</option>
+          <option value="D2">D2 — Transparencia y etiquetado</option>
+          <option value="D3">D3 — Diseño participativo</option>
+          <option value="D4">D4 — Perspectiva crítica</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tipo de fuente</label>
+        <select id="s-tipo">
+          <option value="1">Solo artículos</option>
+          <option value="2">Solo tesis</option>
+          <option value="3" selected>Artículos + tesis</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Fichas a generar</label>
+        <select id="s-n">
+          <option value="2">2</option>
+          <option value="3" selected>3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <button class="btn" id="btn-buscar" onclick="iniciarBusqueda()">Buscar fuentes</button>
+    </div>
+  </div>
+
+  <div id="search-log" class="log-box"></div>
+  <div id="search-results"></div>
+</div>
+
+<script>
+const DIMS = {
+  D1: "Gobernanza y ética de la IA en educación",
+  D2: "Transparencia y etiquetado de IA en contenidos",
+  D3: "Diseño participativo en tecnología educativa",
+  D4: "Perspectiva crítica IA educación latinoamericana"
+};
+
+// ── Tab navigation ───────────────────────────────────────────────────────────
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+  if (id === 'corpus') loadCorpus();
+  if (id === 'rechazadas') loadRechazadas();
+  if (id === 'dashboard') loadStats();
+}
+
+// ── Stats ────────────────────────────────────────────────────────────────────
+async function loadStats() {
+  const s = await fetch('/api/stats').then(r => r.json());
+  document.getElementById('st-total').textContent = s.total;
+  document.getElementById('st-meta').textContent = s.meta;
+  document.getElementById('st-rechazadas').textContent = s.rechazadas;
+  const pct = Math.round((s.total / s.meta) * 100);
+  document.getElementById('st-pct').textContent = pct + '%';
+  document.getElementById('prog-bar').style.width = Math.min(pct, 100) + '%';
+  ['D1','D2','D3','D4'].forEach((d,i) => {
+    const n = s.dims[d] || 0;
+    const w = Math.min(Math.round((n / 15) * 100), 100);
+    document.getElementById('db' + (i+1)).style.width = w + '%';
+    document.getElementById('dc' + (i+1)).textContent = n;
+  });
+}
+
+// ── Corpus ───────────────────────────────────────────────────────────────────
+let corpusLoaded = false;
+async function loadCorpus() {
+  if (corpusLoaded) return;
+  const corpus = await fetch('/api/corpus').then(r => r.json());
+  const container = document.getElementById('corpus-container');
+  if (!corpus.length) { container.innerHTML = '<div class="empty">No hay fichas aprobadas aún.</div>'; return; }
+  const byDim = { D1:[], D2:[], D3:[], D4:[] };
+  corpus.forEach(f => { if (byDim[f.dimension]) byDim[f.dimension].push(f); });
+  let html = '';
+  for (const [dim, fichas] of Object.entries(byDim)) {
+    if (!fichas.length) continue;
+    html += `<div class="dim-header"><span class="dim-badge">${dim}</span>${DIMS[dim]} <span style="color:var(--muted);font-weight:normal;font-size:0.85rem;">(${fichas.length} fichas)</span></div>`;
+    fichas.forEach(f => { html += renderFichaCard(f, true); });
+  }
+  container.innerHTML = html;
+  corpusLoaded = true;
+}
+
+function renderFichaCard(f, showDecision) {
+  const decCls = (f.decision || 'PENDIENTE').toLowerCase();
+  const v = f.verificacion || {};
+  const chips = [
+    f.anio ? `<span class="chip">${f.anio}</span>` : '',
+    f.metodologia ? `<span class="chip">${f.metodologia}</span>` : '',
+    f.paradigma ? `<span class="chip">${f.paradigma}</span>` : '',
+    v.citas > 0 ? `<span class="chip">${v.citas} citas</span>` : '',
+    v.acceso_abierto ? `<span class="chip oa">Acceso abierto</span>` : '',
+  ].join('');
+  const hallazgos = (f.hallazgos || []).map(h => `<li>${h}</li>`).join('');
+  const decisionBox = showDecision && f.decision ? `
+    <div class="decision-box ${decCls}">
+      <div class="dlbl">Decisión: ${f.decision} — ${f.fecha_decision || ''}</div>
+      <div>${f.comentario || '--'}</div>
+    </div>` : '';
+  return `
+  <div class="ficha-card">
+    <div class="ficha-head" onclick="toggleFicha(this)">
+      <span class="ficha-folio">${f.folio}</span>
+      <span class="ficha-ref">${f.referencia_apa}</span>
+      <span class="badge ${decCls}">${f.decision || 'PENDIENTE'}</span>
+    </div>
+    <div class="ficha-body">
+      <dl>
+        <dt>Tipo</dt><dd>${f.tipo || '--'}</dd>
+        <dt>Revista/Repo</dt><dd>${f.revista_repositorio || '--'}</dd>
+        <dt>DOI</dt><dd>${f.doi ? `<a class="doi-link" href="https://doi.org/${f.doi}" target="_blank">${f.doi}</a>` : 'No disponible'}</dd>
+        <dt>País</dt><dd>${f.pais_contexto || '--'}</dd>
+        <dt>Objeto</dt><dd>${f.objeto_estudio || '--'}</dd>
+        <dt>Hallazgos</dt><dd><ul>${hallazgos}</ul></dd>
+        <dt>Aportación</dt><dd>${f.aportacion || '--'}</dd>
+        <dt>Brecha</dt><dd>${f.brecha || '--'}</dd>
+      </dl>
+      <div style="margin-top:0.75rem;">${chips}</div>
+      ${decisionBox}
+    </div>
+  </div>`;
+}
+
+function toggleFicha(el) {
+  const body = el.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+// ── Rechazadas ───────────────────────────────────────────────────────────────
+async function loadRechazadas() {
+  const r = await fetch('/api/rechazados').then(x => x.json());
+  const container = document.getElementById('rechazadas-container');
+  const titulos = r.titulos || [];
+  if (!titulos.length) { container.innerHTML = '<div class="empty">No hay fuentes rechazadas registradas.</div>'; return; }
+  let html = `<p style="color:var(--muted);font-size:0.85rem;margin-bottom:1rem;">${titulos.length} fuentes descartadas permanentemente.</p>`;
+  html += '<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;">';
+  titulos.forEach((t, i) => {
+    const doi = (r.dois || [])[i];
+    html += `<div style="padding:0.75rem 1.25rem;border-bottom:1px solid var(--border);display:flex;gap:1rem;align-items:baseline;">
+      <span style="font-size:0.78rem;color:var(--muted);min-width:28px;">${i+1}</span>
+      <div>
+        <div style="font-size:0.85rem;font-style:italic;">${t}</div>
+        ${doi && doi !== '--' ? `<a class="doi-link" href="https://doi.org/${doi}" target="_blank" style="font-size:0.78rem;">DOI: ${doi}</a>` : ''}
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+// ── Búsqueda ─────────────────────────────────────────────────────────────────
+let fuentesActuales = [];
+
+async function iniciarBusqueda() {
+  const dim = document.getElementById('s-dim').value;
+  const tipo = document.getElementById('s-tipo').value;
+  const n = parseInt(document.getElementById('s-n').value);
+  const btn = document.getElementById('btn-buscar');
+  const logBox = document.getElementById('search-log');
+  const results = document.getElementById('search-results');
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Buscando...';
+  logBox.className = 'log-box visible';
+  logBox.textContent = '→ Iniciando búsqueda en OpenAlex, Crossref y Semantic Scholar...\n';
+  results.innerHTML = '';
+
+  try {
+    const r = await fetch('/api/buscar', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ dim, tipo }) });
+    const data = await r.json();
+    fuentesActuales = data.fuentes || [];
+    (data.log || []).forEach(l => { logBox.textContent += l + '\n'; });
+    logBox.textContent += `\n✓ ${fuentesActuales.length} fuentes nuevas encontradas.\n`;
+
+    if (!fuentesActuales.length) {
+      results.innerHTML = '<div class="alert info">Sin resultados nuevos en esta consulta. El agente avanzará a la siguiente página en la próxima sesión.</div>';
+      return;
+    }
+
+    // Mostrar fuentes
+    let html = `<div class="section-title">Fuentes encontradas (${fuentesActuales.length})</div>`;
+    html += '<div class="source-list">';
+    fuentesActuales.slice(0, 8).forEach((f, i) => {
+      const ico = f.tipo?.includes('Tesis') ? '📕' : '📄';
+      html += `<div class="source-card">
+        <h4>${ico} ${f.titulo}</h4>
+        <p>${f.autores || '--'} · ${f.revista || ''} · ${f.anio}</p>
+        <div class="source-meta">
+          <span class="chip">${f.api}</span>
+          <span class="chip">${f.tipo}</span>
+          ${f.citas > 0 ? `<span class="chip">${f.citas} citas</span>` : ''}
+          ${f.doi ? `<a class="doi-link" href="https://doi.org/${f.doi}" target="_blank" style="font-size:0.78rem;">DOI ↗</a>` : ''}
+        </div>
+      </div>`;
+    });
+    html += '</div>';
+    html += `<button class="btn" onclick="generarFichas('${dim}', ${n})" id="btn-generar">Generar ${n} fichas con Claude</button>`;
+    results.innerHTML = html;
+
+  } catch (e) {
+    logBox.textContent += '✗ Error: ' + e.message;
+    results.innerHTML = `<div class="alert error">${e.message}</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Buscar fuentes';
+  }
+}
+
+async function generarFichas(dim, n) {
+  const btn = document.getElementById('btn-generar');
+  const results = document.getElementById('search-results');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Claude analizando fuentes...';
+
+  try {
+    const r = await fetch('/api/generar', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ dim, fuentes: fuentesActuales, n }) });
+    const data = await r.json();
+    if (data.error) throw new Error(data.error);
+    const fichas = data.fichas || [];
+
+    let html = `<div class="section-title">Fichas generadas (${fichas.length}) — Revisión y decisión</div>`;
+    fichas.forEach((f, i) => {
+      const hallazgos = (f.hallazgos || []).map(h => `<li style="margin-bottom:0.2rem;">${h}</li>`).join('');
+      html += `<div class="ficha-preview" id="fp-${i}">
+        <h4>${f.folio} — ${f.referencia_apa}</h4>
+        <div class="field"><strong>Objeto de estudio</strong>${f.objeto_estudio}</div>
+        <div class="field"><strong>Hallazgos</strong><ul>${hallazgos}</ul></div>
+        <div class="field"><strong>Aportación a la tesis</strong>${f.aportacion}</div>
+        <div class="field"><strong>Brecha identificada</strong>${f.brecha}</div>
+        ${f.doi ? `<div class="field"><a class="doi-link" href="https://doi.org/${f.doi}" target="_blank">Verificar fuente: DOI ${f.doi} ↗</a></div>` : ''}
+        <div class="decision-btns">
+          <input class="comment-input" placeholder="Comenta tu decisión (opcional)..." id="cmt-${i}">
+          <button class="btn green" onclick="decidir(${i}, 'APROBADA')">✓ Aprobar</button>
+          <button class="btn red" onclick="decidir(${i}, 'RECHAZADA')">✗ Rechazar</button>
+          <button class="btn outline" onclick="decidir(${i}, 'PENDIENTE')">Saltar</button>
+        </div>
+      </div>`;
+    });
+    document.getElementById('search-results').innerHTML += html;
+    window._fichasGeneradas = fichas;
+
+  } catch (e) {
+    results.innerHTML += `<div class="alert error">${e.message}</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Generar fichas con Claude';
+  }
+}
+
+async function decidir(idx, decision) {
+  const ficha = window._fichasGeneradas[idx];
+  const comentario = document.getElementById('cmt-' + idx)?.value || '';
+  const fp = document.getElementById('fp-' + idx);
+
+  await fetch('/api/decision', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ ficha, decision, comentario }) });
+
+  const color = decision === 'APROBADA' ? 'green' : decision === 'RECHAZADA' ? 'red' : 'yellow';
+  fp.style.borderLeft = `4px solid var(--${color})`;
+  fp.querySelectorAll('.decision-btns button').forEach(b => b.disabled = true);
+  fp.querySelector('.decision-btns').insertAdjacentHTML('beforeend', `<span class="badge ${decision.toLowerCase()}">${decision}</span>`);
+
+  if (decision !== 'PENDIENTE') corpusLoaded = false;
+}
+
+// Init
+loadStats();
+</script>
+</body>
+</html>

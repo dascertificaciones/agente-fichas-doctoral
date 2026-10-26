@@ -2,9 +2,9 @@ node_modules/
 .env
 *.log
 
-# Datos generados (no se suben al repo)
-corpus_estado_del_arte.json
-corpus_estado_del_arte.txt
-rechazados.json
+# Archivos generados por sesión (se regeneran al correr)
 sesiones.json
-fichas_generadas/
+
+# El corpus y rechazados SÍ se incluyen para que el tutor los vea
+# corpus_estado_del_arte.json  ← incluido
+# rechazados.json              ← incluido
