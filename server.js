@@ -99,6 +99,26 @@ async function semanticScholar(query, pagina) {
   }).filter(w => w.titulo.length > 5);
 }
 
+async function doaj(query, pagina) {
+  const p = new URLSearchParams({ page: String(pagina), pageSize: "8" });
+  const url = `https://doaj.org/api/v3/search/articles/${encodeURIComponent(query)}?${p}`;
+  const res = await fetch(url, { headers: { "User-Agent": "Agente/11.0" } });
+  if (!res.ok) throw new Error(`DOAJ ${res.status}`);
+  const data = await res.json();
+  return (data.results || []).map(w => {
+    const b = w.bibjson || {};
+    const titulo = b.title || "";
+    const autores = (b.author || []).slice(0, 3).map(a => a.name || "").filter(Boolean).join("; ");
+    const revista = b.journal?.title || "DOAJ";
+    const anio = b.year || "s.f.";
+    const resumen = (b.abstract || "Sin resumen").slice(0, 500);
+    const doiObj = (b.identifier || []).find(i => i.type === "doi");
+    const doi = doiObj?.id || null;
+    const urlFuente = (b.link || []).find(l => l.type === "fulltext")?.url || (doi ? `https://doi.org/${doi}` : `https://doaj.org`);
+    return { titulo, autores, revista: `${revista} (DOAJ)`, anio, resumen, doi, citas: 0, api: "DOAJ", tipo: "Artículo", url_fuente: urlFuente, acceso_abierto: true };
+  }).filter(w => w.titulo.length > 5);
+}
+
 async function buscarFuentes(dim, tipo) {
   const corpus = loadJSON(CORPUS_JSON, []);
   const rechazados = loadJSON(RECHAZADOS_JSON, { dois: [], titulos: [] });
@@ -134,6 +154,9 @@ async function buscarFuentes(dim, tipo) {
     try { const r = await crossref(q, p); agregar(r); log.push(`Crossref: ${r.length} artículos`); } catch (e) { log.push(`Crossref: ${e.message}`); }
     await new Promise(r => setTimeout(r, 700));
     try { const r = await semanticScholar(q, p); agregar(r); log.push(`Semantic Scholar: ${r.length}`); } catch (e) { log.push(`SemanticScholar: ${e.message}`); }
+    await new Promise(r => setTimeout(r, 700));
+    try { const r = await doaj(q, p); agregar(r); log.push(`DOAJ: ${r.length} (acceso abierto)`); } catch (e) { log.push(`DOAJ: ${e.message}`); }
+    await new Promise(r => setTimeout(r, 700));
     if (sA.pagina < 3) sA.pagina++; else { sA.pagina = 1; sA.queryIdx++; }
   }
 

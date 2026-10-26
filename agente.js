@@ -223,6 +223,26 @@ async function semanticScholar(query,pagina){
   }).filter(w=>w.titulo.length>5);
 }
 
+async function doaj(query,pagina){
+  const p=new URLSearchParams({page:String(pagina),pageSize:"8"});
+  const url=`https://doaj.org/api/v3/search/articles/${encodeURIComponent(query)}?${p}`;
+  const res=await fetch(url,{headers:{"User-Agent":"Agente/11.0"}});
+  if(!res.ok)throw new Error(`DOAJ ${res.status}`);
+  const data=await res.json();
+  return (data.results||[]).map(w=>{
+    const b=w.bibjson||{};
+    const titulo=b.title||"";
+    const autores=(b.author||[]).slice(0,3).map(a=>a.name||"").filter(Boolean).join("; ");
+    const revista=b.journal?.title||"DOAJ";
+    const anio=b.year||"s.f.";
+    const resumen=(b.abstract||"Sin resumen").slice(0,500);
+    const doiObj=(b.identifier||[]).find(i=>i.type==="doi");
+    const doi=doiObj?.id||null;
+    const urlFuente=(b.link||[]).find(l=>l.type==="fulltext")?.url||(doi?`https://doi.org/${doi}`:`https://doaj.org`);
+    return{titulo,autores,revista:`${revista} (DOAJ)`,anio,resumen,doi,citas:0,api:"DOAJ",tipo:"Artículo",url_fuente:urlFuente,acceso_abierto:true};
+  }).filter(w=>w.titulo.length>5);
+}
+
 // ─── BÚSQUEDA PRINCIPAL CON PAGINACIÓN ───────────────────────────────────────
 async function buscarFuentes(dim,tipo,spinner,corpus,rechazados,sesiones){
 
@@ -263,6 +283,9 @@ async function buscarFuentes(dim,tipo,spinner,corpus,rechazados,sesiones){
     await new Promise(r=>setTimeout(r,700));
 
     try{spinner.text=`Semantic Scholar p${p}: "${q.slice(0,35)}..."`;const r=await semanticScholar(q,p);agregar(r);if(r.length)log(`Semantic Scholar: ${r.length}`,"ok");}catch(e){log(`Semantic Scholar: ${e.message}`,"warn");}
+    await new Promise(r=>setTimeout(r,700));
+
+    try{spinner.text=`DOAJ p${p}: "${q.slice(0,40)}..."`;const r=await doaj(q,p);agregar(r);if(r.length)log(`DOAJ: ${r.length} (acceso abierto)`,"ok");}catch(e){log(`DOAJ: ${e.message}`,"warn");}
     await new Promise(r=>setTimeout(r,700));
 
     // Avanzar: si página < 3 incrementar página, si no rotar query y resetear página

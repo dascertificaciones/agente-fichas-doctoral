@@ -175,7 +175,7 @@
 
   <div class="section-title" style="margin-top:2rem;">¿Cómo funciona la selección de fuentes?</div>
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;font-size:0.9rem;line-height:1.8;">
-    <p><strong>1. Búsqueda automatizada</strong> — El agente consulta tres bases de datos académicas: <strong>OpenAlex</strong>, <strong>Crossref</strong> y <strong>Semantic Scholar</strong>. Ninguna fuente es inventada; todas tienen DOI verificable.</p>
+    <p><strong>1. Búsqueda automatizada</strong> — El agente consulta cuatro bases de datos académicas: <strong>OpenAlex</strong>, <strong>Crossref</strong>, <strong>Semantic Scholar</strong> y <strong>DOAJ</strong> (Directory of Open Access Journals). Ninguna fuente es inventada; todas tienen DOI verificable.</p>
     <br>
     <p><strong>2. Criterios de relevancia</strong> — Claude analiza cada fuente y la filtra por pertinencia a la dimensión de investigación, año de publicación (2018-2025), número de citas y disponibilidad del resumen.</p>
     <br>
@@ -220,7 +220,7 @@
       <div class="form-group">
         <label>Tipo de fuente</label>
         <select id="s-tipo">
-          <option value="1">Solo artículos</option>
+          <option value="1">Solo artículos (OpenAlex · Crossref · Semantic Scholar · DOAJ)</option>
           <option value="2">Solo tesis</option>
           <option value="3" selected>Artículos + tesis</option>
         </select>
@@ -405,6 +405,7 @@ async function iniciarBusqueda() {
           <span class="chip">${f.api}</span>
           <span class="chip">${f.tipo}</span>
           ${f.citas > 0 ? `<span class="chip">${f.citas} citas</span>` : ''}
+          ${f.acceso_abierto ? `<span class="chip oa">Acceso abierto</span>` : ''}
           ${f.doi ? `<a class="doi-link" href="https://doi.org/${f.doi}" target="_blank" style="font-size:0.78rem;">DOI ↗</a>` : ''}
         </div>
       </div>`;
