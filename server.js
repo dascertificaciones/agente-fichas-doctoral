@@ -180,7 +180,7 @@ async function generarFichas(dim, fuentes, n) {
   if (!API_KEY) throw new Error("Falta ANTHROPIC_API_KEY");
   const lista = fuentes.map((a, i) => [`[${i + 1}] Tipo: ${a.tipo}`, `    Titulo: ${a.titulo}`, `    Autores: ${a.autores || "--"}`, `    Fuente: ${a.revista} | Año: ${a.anio} | Citas: ${a.citas}`, `    DOI: ${a.doi || "--"} | API: ${a.api}`, `    Resumen: ${a.resumen}`].join("\n")).join("\n\n");
   const prompt = `Dimension: ${dim} - ${DIMS[dim].label}\nFichas a generar: ${n}\n\nFUENTES REALES:\n\n${lista}\n\nSelecciona las ${n} MAS RELEVANTES para el proyecto.`;
-  const res = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "Content-Type": "application/json", "x-api-key": API_KEY, "anthropic-version": "2023-06-01" }, body: JSON.stringify({ model: MODELO, max_tokens: 5000, system: SYS_AUTO, messages: [{ role: "user", content: prompt }] }) });
+  const res = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "Content-Type": "application/json", "x-api-key": API_KEY, "anthropic-version": "2023-06-01" }, body: JSON.stringify({ model: MODELO, max_tokens: 8000, system: SYS_AUTO, messages: [{ role: "user", content: prompt }] }) });
   if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message || `API ${res.status}`); }
   const data = await res.json();
   const txt = data.content?.find(b => b.type === "text")?.text || "";
