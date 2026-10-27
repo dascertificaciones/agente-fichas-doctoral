@@ -1,0 +1,275 @@
+% ============================================================
+% Sección insertable en el Avance 2 (Seminario de Tesis Doctoral II)
+% Procedimiento de búsqueda y selección de fuentes con el
+% Agente de Fichas Bibliográficas v11
+%
+% Requiere en el preámbulo:
+%   \usepackage{booktabs,longtable,array,url}
+% La tabla de bitácora se incluye con:  \input{bitacora_corpus}
+% (archivo generado por scripts/generar_bitacora.py)
+% ============================================================
+
+\section{Procedimiento de búsqueda y selección de fuentes}
+\label{sec:agente}
+
+Atendiendo a la observación de que la estrategia del Avance~1 no constituía
+una búsqueda reproducible, esta sección describe la herramienta con la que se
+construyó el corpus del estado del arte, el procedimiento que ejecuta y las
+evidencias que deja. La descripción sigue los campos de reporte por base que
+recomienda la extensión PRISMA-S (Rethlefsen et al., 2021): ecuación literal,
+campos consultados, filtros, fecha, registros recuperados, duplicados,
+cribado y colección final.
+
+\subsection{Identificación de la herramienta}
+
+La búsqueda se ejecutó con el \emph{Agente de Fichas Bibliográficas},
+versión~11, un programa propio escrito en Node.js y versionado en Git, de
+modo que cada modificación del procedimiento queda fechada. El agente consulta
+cuatro bases abiertas, sin inicio de sesión ni extracción de páginas web, y
+emplea el modelo de lenguaje Claude Sonnet~4 (Anthropic, identificador
+\texttt{claude-sonnet-4-20250514}) únicamente para redactar la ficha
+estructurada a partir de los metadatos recuperados. El modelo no busca ni
+decide la inclusión. El código del agente se desarrolló con apoyo de Claude
+Code (Anthropic), lo que consta en el historial del repositorio.
+
+\begin{table}[htbp]\centering\small
+\caption{Bases consultadas por el agente y su naturaleza.}
+\label{tab:bases}
+\begin{tabular}{@{}p{3.1cm}p{5.3cm}p{5.6cm}@{}}
+\toprule
+Base & Naturaleza & Uso en el agente \\
+\midrule
+DOAJ & Directorio de revistas arbitradas de acceso abierto & Primera consulta para artículos; garantiza texto completo disponible \\
+OpenAlex & Índice bibliográfico abierto & Artículos y tesis; verificación de DOI, citas y acceso abierto \\
+Crossref & Agencia de registro de DOI con metadatos editoriales & Artículos de revista; verificación de DOI de respaldo \\
+Semantic Scholar & Grafo académico con resúmenes e identificadores & Artículos y tesis; citas y PDF de acceso abierto \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Esta distinción corrige el Cuadro~12 del Avance~1: Springer Nature, Elsevier,
+MDPI y PLoS son las editoriales de los artículos recuperados, no las bases en
+las que se ejecutó la búsqueda.
+
+\subsection{Lógica del procedimiento}
+
+Cada sesión del agente ejecuta cinco etapas; las cuatro primeras son
+automáticas y la quinta es siempre humana:
+(1)~recuperación en las cuatro bases con la ecuación y la página que
+corresponden a la sesión;
+(2)~depuración: deduplicación por DOI y por título, exclusión de fuentes ya
+aprobadas o rechazadas, orden por citas y corte en veinte candidatos;
+(3)~redacción de $N$ fichas ($2 \le N \le 5$) por el modelo de lenguaje a
+partir de los metadatos reales;
+(4)~verificación del DOI de cada ficha en OpenAlex y, en su defecto, en
+Crossref, con registro de estado, título real, citas y acceso abierto;
+(5)~decisión de la autora sobre cada ficha (aprobar, rechazar de forma
+permanente o saltar) con comentario, fecha y hora.
+
+Tres propiedades sostienen la trazabilidad. Ninguna fuente entra al corpus
+sin decisión humana registrada. Ninguna fuente se evalúa dos veces, porque las
+aprobadas y las rechazadas se excluyen de las búsquedas posteriores por DOI o
+por título. La búsqueda avanza de forma determinista: el archivo de sesiones
+guarda, por dimensión y tipo documental, la ecuación y la página consultadas,
+y cada ecuación se recorre tres páginas antes de rotar a la siguiente.
+
+\subsection{Especificación reproducible}
+
+El corpus se organiza en las cuatro dimensiones definidas en Seminario de
+Tesis~I. Para cada una, el agente tiene seis ecuaciones en inglés para
+artículos y cuatro en español para tesis, que se transcriben en el
+Anexo~\ref{anx:ecuaciones}. Son cadenas de términos en lenguaje natural, no
+expresiones booleanas, porque las cuatro bases operan con motores de
+relevancia; esto sustituye la fórmula booleana del Anexo~C del Avance~1, que
+arrojaba más de catorce mil registros en Scopus.
+
+\begin{table}[htbp]\centering\scriptsize
+\caption{Sintaxis, campos y filtros por base.}
+\label{tab:sintaxis}
+\begin{tabular}{@{}p{2.2cm}p{3.2cm}p{3.0cm}p{3.3cm}p{1.6cm}p{0.9cm}@{}}
+\toprule
+Base & Punto de acceso & Campo consultado & Filtros fijos & Orden & Reg./pág. \\
+\midrule
+DOAJ & \texttt{/api/v3/search/articles/} & Registro completo & Ninguno & Relevancia & 8 \\
+OpenAlex (artículos) & \texttt{/works?search=} & Título, resumen, texto indexado & \texttt{publication\_year:2018-2025}, \texttt{type:article} & Relevancia & 10 \\
+OpenAlex (tesis) & \texttt{/works?search=} & Ídem & \texttt{publication\_year:2018-2025}, \texttt{type:dissertation} & Relevancia & 10 \\
+Crossref & \texttt{/works?query=} & Metadatos bibliográficos & \texttt{from-pub-date:2018}, \texttt{type:journal-article} & Relevancia & 8 \\
+Semantic Scholar & \texttt{/graph/v1/paper/search} & Título y resumen & Ninguno; para tesis se añade \emph{thesis dissertation} y se filtra por tipo & Relevancia & 8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+De cada registro se recuperan título, hasta tres autores, revista o
+institución, año, resumen truncado a 500 caracteres, DOI, citas y base de
+origen. Dos registros se consideran duplicados si comparten DOI o los
+primeros cincuenta caracteres del título; prevalece el recuperado primero, por
+lo que se conserva la versión de acceso abierto cuando existe. Una sesión
+completa recupera como máximo 52 registros antes de deduplicar y presenta 20
+al modelo.
+
+La instrucción de sistema que recibe el modelo impone seis reglas: usar
+exclusivamente los datos entregados; extraer los hallazgos del resumen y, si
+no lo hay, escribir «Sin resumen, verificar en fuente»; no generar URL;
+priorizar 2020--2025 y mayor número de citas; limitar cada campo a sesenta
+palabras; y devolver sólo JSON. La instrucción de usuario indica la
+dimensión, el número de fichas y la lista de candidatos, y pide seleccionar
+las $N$ más relevantes para el proyecto. Las fichas contienen folio, tipo,
+referencia, DOI, dimensión, revista y base de origen, contexto, año,
+paradigma, metodología, objeto de estudio, tres hallazgos, aportación,
+brecha, pertinencia para el marco teórico, justificación de inclusión y
+resumen preliminar.
+
+Las tesis de TESIUNAM, BUAP o UAEM, que no tienen DOI en estas bases, se
+incorporan por un modo manual en el que la autora pega el registro del
+repositorio; la ficha queda marcada con origen «Manual» y estado «sin DOI».
+
+\subsection{Evolución de las versiones}
+
+El procedimiento se calibró a lo largo de varias versiones. La versión~6
+consultaba OpenAlex y Crossref con un término por dimensión y generaba tres
+fichas por sesión; su limitación era que cada sesión repetía los primeros
+resultados y no conservaba memoria de lo ya evaluado. La versión~11 incorporó
+la paginación automática, la rotación de ecuaciones, la lista de rechazadas
+permanentes, el modo manual para tesis de repositorios mexicanos y Semantic
+Scholar como tercera base. Sobre esa línea base, el historial del
+repositorio fecha el 26 de octubre de 2026 cuatro cambios: la interfaz web
+para mostrar el corpus y las decisiones; la incorporación de DOAJ como
+cuarta base y, acto seguido, como primera en el orden de consulta, para que
+en los duplicados prevalezca la versión de acceso abierto; y los campos
+obligatorios de justificación de inclusión y resumen preliminar en cada
+ficha. [Las versiones intermedias 7 a 10 se completan con los registros de
+la autora.]
+
+\subsection{Discriminación automática y embudo de selección}
+
+Las fuentes rechazadas por la autora son la última etapa de un embudo cuya
+mayor parte ejecuta el agente por reglas declaradas. Los filtros codificados
+son: ventana temporal desde 2018 (con prioridad 2020--2025 en la instrucción
+al modelo); tipo documental restringido a artículos de revista y tesis, lo
+que excluye blogs, notas de prensa y materiales sin respaldo metodológico;
+preferencia por acceso abierto mediante la consulta prioritaria a DOAJ;
+identificador verificable, pues toda fuente automática debe tener DOI y las
+que carecen de él sólo entran por modo manual; exclusión de lo ya revisado;
+corte por relevancia (tres páginas por ecuación), orden por citas y
+presentación de veinte candidatos; y selección por el modelo de sólo $N$
+fichas por sesión. Además, en la revisión la autora aplicó tres criterios de
+descarte rápido que no están codificados como exclusión dura: ausencia de
+DOI, ausencia de versión descargable y antigüedad mayor a tres años salvo
+referencia obligada. El corpus muestra que operaron como preferencia y no
+como filtro: contiene cuatro tesis sin DOI, siete fuentes sin versión de
+acceso abierto y once fuentes de 2018--2021.
+
+\begin{table}[htbp]\centering\small
+\caption{Embudo de una sesión del agente (cotas fijadas por el código).}
+\label{tab:embudo}
+\begin{tabular}{@{}p{7.2cm}p{3.4cm}p{3.0cm}@{}}
+\toprule
+Etapa & Registros & Quién descarta \\
+\midrule
+Hits totales de la ecuación en las cuatro bases & Miles (no se visitan) & Corte de paginación \\
+Recuperados en la página de la sesión & Hasta 52 & --- \\
+Tras deduplicar y excluir ya revisadas & Variable & Agente \\
+Presentados al modelo & 20 & Agente (orden por citas) \\
+Fichas redactadas & 2 a 5 (por defecto 3) & Modelo \\
+Aprobadas & 0 a 3 & Autora \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Con 64 decisiones registradas (41 aprobadas y 23 rechazadas) y tres fichas
+por sesión, se estiman unas 21 sesiones, unos 420 candidatos presentados al
+modelo y hasta unos 1\,100 registros brutos recuperados. Las 23 rechazadas a
+mano representan menos del 6\,\% de lo descartado. Esta cifra es una
+estimación porque la versión~11 no persiste los conteos por sesión; el
+script \texttt{conteos\_por\_base.mjs} del repositorio obtiene el total de
+registros por ecuación y base con los filtros del agente, y su salida se
+anexará como «registros recuperados» conforme a PRISMA-S.
+
+\subsection{Evidencias y colección final}
+
+El agente deja cuatro archivos: el corpus aprobado (JSON y texto), la lista
+de rechazadas, el estado de sesiones y el historial de cambios del
+procedimiento. A partir de ellos se genera la bitácora de la
+Tabla~\ref{tab:bitacora-corpus} (Anexo). El resumen cuantitativo se presenta
+en la Tabla~\ref{tab:resumen-corpus}. Dos de las cinco fuentes de la matriz
+inicial del artículo provienen del corpus del agente (Seeger et al., 2026,
+folio D2-A02; Axelsson et al., 2021, folio D3-A02); las fuentes del
+etiquetado alimentario se localizaron por revisión de listas de referencias y
+constituyen el estrato analógico, que se reporta por separado.
+
+\subsection{Límites del registro y ajustes derivados}
+
+La versión~11 no persiste la fecha de cada consulta, el total de registros
+que devuelve cada base ni el motivo de cada rechazo; tampoco lee el texto
+completo, pues la ficha se redacta a partir del resumen. En consecuencia, la
+estrategia debe declararse como muestreo por relevancia (tres primeras
+páginas por ecuación) y no como búsqueda exhaustiva, lo que es congruente con
+una revisión de alcance; los campos de diseño, muestra, instrumentos y
+hallazgos de la matriz se extraen de la lectura completa y no de la ficha
+automática. Dos ajustes se derivan del análisis del corpus. Primero, las
+ecuaciones de D2 contenían «transparency» y «disclosure» y atrajeron
+literatura de explicabilidad; sólo Seeger et al. (2026) estudia una etiqueta
+de contenido generado con IA. La afirmación del Avance~1 sobre un único
+antecedente directo se retira: las referencias señaladas por el asesor
+muestran que la literatura existe y que las ecuaciones no incluían su
+vocabulario. Segundo, la ventana se ajusta a 2022--2026 para la evidencia
+directa, con 2018--2021 como antecedentes, y se incorpora un bloque de
+ecuaciones sobre diseño y evaluación de etiquetas de contenido sintético.
+
+% ------------------------------------------------------------
+\appendix
+\section{Ecuaciones de búsqueda del agente}
+\label{anx:ecuaciones}
+
+\begin{description}\small
+\item[D1 Gobernanza y ética de la IA en educación.]
+Artículos: \emph{AI governance higher education ethics transparency};
+\emph{artificial intelligence academic integrity university policy};
+\emph{responsible AI education institutional governance};
+\emph{AI ethics higher education accountability};
+\emph{algorithmic accountability academic institutions policy};
+\emph{generative AI governance university Mexico}.
+Tesis: \emph{gobernanza inteligencia artificial educacion superior};
+\emph{etica inteligencia artificial universidad Mexico};
+\emph{uso responsable IA educacion superior posgrado};
+\emph{politicas institucionales inteligencia artificial universidad}.
+
+\item[D2 Transparencia y etiquetado de IA en contenidos.]
+Artículos: \emph{AI disclosure labeling academic content transparency};
+\emph{artificial intelligence transparency labeling education};
+\emph{algorithmic transparency content authorship higher education};
+\emph{AI generated content labeling standards};
+\emph{machine learning content disclosure academic writing};
+\emph{generative AI authorship transparency university}.
+Tesis: \emph{transparencia inteligencia artificial contenidos educativos};
+\emph{etiquetado IA materiales educativos universidad};
+\emph{declaracion autoria inteligencia artificial academia Mexico};
+\emph{sistema etiquetado contenidos generados IA educacion}.
+
+\item[D3 Diseño participativo en tecnología educativa.]
+Artículos: \emph{participatory design educational technology usability};
+\emph{co-design learning materials higher education};
+\emph{heuristic evaluation usability educational materials Nielsen};
+\emph{user centered design learning tools students};
+\emph{participatory action research educational technology};
+\emph{co-creation digital learning resources university}.
+Tesis: \emph{diseno participativo tecnologia educativa universidad};
+\emph{co-diseno materiales educativos digitales posgrado};
+\emph{usabilidad recursos educativos digitales Mexico};
+\emph{evaluacion heuristica materiales aprendizaje}.
+
+\item[D4 Perspectiva crítica de la IA en la educación latinoamericana.]
+Artículos: \emph{critical educational technology AI Latin America};
+\emph{critical digital literacy higher education AI};
+\emph{AI education inequality critical perspective Mexico};
+\emph{technology education power critical pedagogy};
+\emph{digital colonialism education artificial intelligence};
+\emph{critical algorithm studies education equity}.
+Tesis: \emph{tecnologia educativa critica America Latina inteligencia artificial};
+\emph{pedagogia critica inteligencia artificial Mexico universidad};
+\emph{alfabetizacion digital critica educacion superior};
+\emph{desigualdad tecnologica educacion superior Mexico}.
+\end{description}
+
+\section{Bitácora del corpus}
+\input{bitacora_corpus}
