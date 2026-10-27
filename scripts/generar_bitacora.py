@@ -53,6 +53,8 @@ for f in corpus:
     v = f.get("verificacion") or {}
     doi = f.get("doi") or ""
     doi = doi.replace("https://doi.org/", "") if doi else "--"
+    if not doi.startswith("10.") and not doi.startswith("http"):
+        doi = "--"
     rows.append({
         "dim": f.get("dimension", "--"),
         "folio": f.get("folio", "--"),
@@ -60,7 +62,7 @@ for f in corpus:
         "tipo": f.get("tipo", "--"),
         "anio": f.get("anio", "--"),
         "doi": doi,
-        "api": f.get("api") or (f.get("revista_repositorio", "").split(" - ")[-1] if " - " in f.get("revista_repositorio", "") else "--"),
+        "api": (f.get("api") or (f.get("revista_repositorio", "").split(" - ")[-1] if " - " in f.get("revista_repositorio", "") else "--")).replace(" verificado", "").replace("Semantic Scholar", "S. Scholar"),
         "verif": v.get("estado", "--"),
         "citas": v.get("citas", 0),
         "oa": "Sí" if v.get("acceso_abierto") else "No",
@@ -123,33 +125,51 @@ for i in range(max(len(dois), len(tits))):
     md.append(f"| {i+1} | {dois[i] if i < len(dois) else '--'} | {tits[i] if i < len(tits) else '--'} |")
 (ROOT / "docs" / "bitacora_corpus.md").write_text("\n".join(md) + "\n", "utf8")
 
-# ---------- LaTeX ----------
+# ---------- LaTeX (formato del Avance: tablas con borde y encabezado bgCotejo) ----------
 tx = []
-tx.append("% Generado por scripts/generar_bitacora.py — no editar a mano.")
-tx.append("% Requiere: \\usepackage{longtable,booktabs,array}")
-tx.append("\\begin{longtable}{@{}p{0.55cm}p{3.2cm}p{3.6cm}p{1.9cm}p{1.1cm}p{0.6cm}p{3.1cm}@{}}")
-tx.append("\\caption{Bitácora de fichas aprobadas por el Agente de Fichas Bibliográficas v11 (decisión humana registrada).}\\label{tab:bitacora-corpus}\\\\")
-tx.append("\\toprule Dim. & Fuente & DOI & Verificación & Citas & AA & Comentario de decisión \\\\ \\midrule \\endfirsthead")
-tx.append("\\toprule Dim. & Fuente & DOI & Verificación & Citas & AA & Comentario de decisión \\\\ \\midrule \\endhead")
-tx.append("\\bottomrule \\endfoot")
+tx.append("% Generado por scripts/generar_bitacora.py a partir de corpus_estado_del_arte.json y rechazados.json. No editar a mano.")
+tx.append("% Requiere en el preámbulo: longtable, colortbl/xcolor[table] y el color bgCotejo definido en main.tex.")
+tx.append("{\\footnotesize\\setlength{\\tabcolsep}{4pt}")
+tx.append("\\begin{longtable}{|p{0.55cm}|p{2.6cm}|p{2.8cm}|p{1.3cm}|p{1.6cm}|p{0.8cm}|p{0.45cm}|p{2.4cm}|}")
+tx.append("\\caption{Bitácora de fichas aprobadas con el Agente de Fichas Bibliográficas v11 (una fila por decisión registrada).}\\label{tab:bitacora-corpus}\\\\")
+hdr="\\hline\n\\rowcolor{bgCotejo}\n\\textbf{Dim.} & \\textbf{Fuente} & \\textbf{DOI} & \\textbf{Base} & \\textbf{Verif.} & \\textbf{Citas} & \\textbf{AA} & \\textbf{Comentario de decisión} \\\\\n\\hline"
+tx.append(hdr+"\n\\endfirsthead")
+tx.append(hdr+"\n\\endhead")
 for r in rows:
-    tx.append(f"{tex(r['dim'])} & {tex(r['fuente'])} & {{\\scriptsize {tex(r['doi'])}}} & {tex(r['verif'])} & {tex(r['citas'])} & {tex(r['oa'])} & {{\\small {tex(r['comentario'])}}} \\\\")
-tx.append("\\end{longtable}")
+    tx.append(f"{tex(r['dim'])} & {tex(r['fuente'])} & {{\\scriptsize {('\\url{'+r['doi']+'}') if r['doi']!='--' else '--'}}} & {tex(r['api'])} & {tex(r['verif']).replace('SIN DOI — URL manual','Sin DOI (manual)').replace('SIN DOI - fuente manual','Sin DOI (manual)').replace('VERIFICADA','Verificada').replace('NO ENCONTRADA','No localizada')} & {tex(r['citas'])} & {tex(r['oa'])} & {tex(r['comentario'])} \\\\")
+    tx.append("\\hline")
+tx.append("\\end{longtable}}")
 tx.append("")
-tx.append("\\begin{table}[htbp]\\centering\\small")
+tx.append("\\begin{table}[H]\\centering\\footnotesize")
 tx.append("\\caption{Resumen cuantitativo del corpus generado con el agente.}\\label{tab:resumen-corpus}")
-tx.append("\\begin{tabular}{@{}lr@{}}\\toprule Indicador & Valor \\\\ \\midrule")
-tx.append(f"Fichas aprobadas & {len(rows)} \\\\")
+tx.append("\\renewcommand{\\arraystretch}{1.3}")
+tx.append("\\begin{tabular}{|p{9.5cm}|c|}\\hline\\rowcolor{bgCotejo}\\textbf{Indicador} & \\textbf{Valor} \\\\\\hline")
+tx.append(f"Fichas aprobadas & {len(rows)} \\\\\\hline")
 for d, lab in DIMS.items():
-    tx.append(f"\\quad {d} · {tex(lab)} & {por_dim.get(d, 0)} \\\\")
-tx.append(f"Fuentes rechazadas con DOI & {n_rech_doi} \\\\")
-tx.append(f"Fuentes rechazadas registradas por título & {n_rech_tit} \\\\")
-tx.append(f"DOI verificado & {verif.get('VERIFICADA', 0)} \\\\")
-tx.append(f"DOI no localizado & {verif.get('NO ENCONTRADA', 0)} \\\\")
-tx.append(f"Sin DOI (tesis de repositorio, modo manual) & {sum(v for k, v in verif.items() if k.startswith('SIN DOI'))} \\\\")
-tx.append(f"Acceso abierto & {oa.get('Sí', 0)} \\\\")
-tx.append(f"Fechas de sesión & {tex(', '.join(fechas))} \\\\")
-tx.append("\\bottomrule\\end{tabular}\\end{table}")
+    tx.append(f"\\quad {d} · {tex(lab)} & {por_dim.get(d, 0)} \\\\\\hline")
+tx.append(f"Fuentes rechazadas con DOI (bloqueo permanente) & {n_rech_doi} \\\\\\hline")
+tx.append(f"Fuentes rechazadas registradas por título (incluye sin DOI) & {n_rech_tit} \\\\\\hline")
+tx.append(f"DOI verificado en OpenAlex o Crossref & {verif.get('VERIFICADA', 0)} \\\\\\hline")
+tx.append(f"DOI no localizado & {verif.get('NO ENCONTRADA', 0)} \\\\\\hline")
+tx.append(f"Sin DOI (tesis de repositorio, modo manual) & {sum(v for k, v in verif.items() if k.startswith('SIN DOI'))} \\\\\\hline")
+tx.append(f"Con versión de acceso abierto & {oa.get('Sí', 0)} \\\\\\hline")
+tx.append(f"Tesis o tesinas & {sum(v for k, v in tipos.items() if 'esis' in k or 'esina' in k)} \\\\\\hline")
+tx.append(f"Publicadas en 2022--2026 & {sum(v for k, v in anios.items() if k.isdigit() and int(k) >= 2022)} \\\\\\hline")
+tx.append(f"Fechas de las sesiones de decisión & {tex(' y '.join(fechas))} \\\\\\hline")
+tx.append("\\end{tabular}\\end{table}")
+tx.append("")
+tx.append("{\\footnotesize")
+tx.append("\\begin{longtable}{|c|p{4.0cm}|p{8.2cm}|}")
+tx.append("\\caption{Fuentes rechazadas de forma permanente (el agente conserva el DOI y los primeros sesenta caracteres de la referencia).}\\label{tab:rechazadas}\\\\")
+hdr2="\\hline\n\\rowcolor{bgCotejo}\n\\textbf{\\#} & \\textbf{DOI} & \\textbf{Referencia (truncada)} \\\\\n\\hline"
+tx.append(hdr2+"\n\\endfirsthead")
+tx.append(hdr2+"\n\\endhead")
+dois_l = [d for d in rech.get("dois", []) if d and d != "--"]
+tits_l = rech.get("titulos", [])
+for i in range(max(len(dois_l), len(tits_l))):
+    tx.append(f"{i+1} & {{\\scriptsize {('\\url{'+dois_l[i]+'}') if i < len(dois_l) else '--'}}} & {{\\small {tex(tits_l[i]) if i < len(tits_l) else '--'}}} \\\\")
+    tx.append("\\hline")
+tx.append("\\end{longtable}}")
 (ROOT / "docs" / "bitacora_corpus.tex").write_text("\n".join(tx) + "\n", "utf8")
 
 print(f"corpus={len(rows)} por_dim={dict(por_dim)} verif={dict(verif)} oa={dict(oa)} rech_doi={n_rech_doi} rech_tit={n_rech_tit} fechas={fechas}")

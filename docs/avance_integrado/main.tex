@@ -1,0 +1,1134 @@
+% !TeX program = pdflatex
+% !BIB program = bibtex
+
+\documentclass[letter,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage{csquotes}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{eso-pic}
+\usepackage{url}
+\usepackage{pdfpages}
+\usepackage{ragged2e}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage[authoryear,round]{natbib}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{color}
+\usepackage[table]{xcolor}
+\usepackage{colortbl}
+\usepackage{mdframed}
+\usepackage{float}
+\usepackage{longtable}
+
+\usepackage{caption}
+\captionsetup[table]{skip=6pt}
+\usetikzlibrary{arrows.meta,positioning,fit}
+
+\geometry{left=3cm,right=3cm,top=3cm,bottom=3cm}
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+% CAJAS Proyecto Final de STD I)
+
+\definecolor{colorOriginal}{RGB}{153,60,29}
+\definecolor{colorPropuesto}{RGB}{15,110,86}
+\definecolor{colorNota}{RGB}{74,53,128}
+\definecolor{colorCotejo}{RGB}{28,72,135}
+\definecolor{bgOriginal}{RGB}{250,236,231}
+\definecolor{bgPropuesto}{RGB}{225,245,238}
+\definecolor{bgNota}{RGB}{232,230,245}
+\definecolor{bgCotejo}{RGB}{228,236,248}
+
+\definecolor{colorNuevo}{RGB}{200,90,10}
+\definecolor{bgNuevo}{RGB}{255,243,224}
+\definecolor{colorConservado}{RGB}{30,80,150}
+\definecolor{bgConservado}{RGB}{225,236,252}
+
+\mdfdefinestyle{cajaOriginal}{
+  backgroundcolor=bgOriginal,
+  linecolor=colorOriginal,
+  linewidth=1.5pt,
+  leftline=true, rightline=false, topline=false, bottomline=false,
+  innerleftmargin=10pt, innerrightmargin=8pt,
+  innertopmargin=6pt, innerbottommargin=6pt,
+  skipabove=6pt, skipbelow=6pt
+}
+\mdfdefinestyle{cajaPropuesta}{
+  backgroundcolor=bgPropuesto,
+  linecolor=colorPropuesto,
+  linewidth=1.5pt,
+  leftline=true, rightline=false, topline=false, bottomline=false,
+  innerleftmargin=10pt, innerrightmargin=8pt,
+  innertopmargin=6pt, innerbottommargin=6pt,
+  skipabove=6pt, skipbelow=6pt
+}
+\mdfdefinestyle{cajaNota}{
+  backgroundcolor=bgNota,
+  linecolor=colorNota,
+  linewidth=1.5pt,
+  leftline=true, rightline=false, topline=false, bottomline=false,
+  innerleftmargin=10pt, innerrightmargin=8pt,
+  innertopmargin=6pt, innerbottommargin=6pt,
+  skipabove=6pt, skipbelow=6pt
+}
+\mdfdefinestyle{cajaCotejo}{
+  backgroundcolor=bgCotejo,
+  linecolor=colorCotejo,
+  linewidth=1.5pt,
+  leftline=true, rightline=false, topline=false, bottomline=false,
+  innerleftmargin=10pt, innerrightmargin=8pt,
+  innertopmargin=6pt, innerbottommargin=6pt,
+  skipabove=6pt, skipbelow=6pt
+}
+\mdfdefinestyle{cajaNuevo}{
+  backgroundcolor=bgNuevo,
+  linecolor=colorNuevo,
+  linewidth=1.5pt,
+  leftline=true, rightline=false, topline=false, bottomline=false,
+  innerleftmargin=10pt, innerrightmargin=8pt,
+  innertopmargin=6pt, innerbottommargin=6pt,
+  skipabove=6pt, skipbelow=6pt
+}
+\mdfdefinestyle{cajaConservado}{
+  backgroundcolor=bgConservado,
+  linecolor=colorConservado,
+  linewidth=1.5pt,
+  leftline=true, rightline=false, topline=false, bottomline=false,
+  innerleftmargin=10pt, innerrightmargin=8pt,
+  innertopmargin=6pt, innerbottommargin=6pt,
+  skipabove=6pt, skipbelow=6pt
+}
+
+% Imagen de fondo (encabezado institucional)
+\AddToShipoutPictureBG*{%
+\includegraphics[width=\paperwidth,height=\paperheight]{encabezado1.jpg}
+}
+
+
+
+% color DE ESTADO PARA EL TABLERO DE CONTROL
+\newcommand{\bOK}{\colorbox{colorPropuesto}{\textcolor{white}{\scriptsize\textbf{~ATENDIDO~}}}}
+\newcommand{\bCOR}{\colorbox{colorNuevo}{\textcolor{white}{\scriptsize\textbf{~CORREGIDO~}}}}
+\newcommand{\bNVO}{\colorbox{colorConservado}{\textcolor{white}{\scriptsize\textbf{~NUEVO~}}}}
+\newcommand{\bPEN}{\colorbox{colorOriginal}{\textcolor{white}{\scriptsize\textbf{~PENDIENTE~}}}}
+\newcommand{\bCON}{\colorbox{colorNota}{\textcolor{white}{\scriptsize\textbf{~CONSERVADO~}}}}
+\newcommand{\si}{\textcolor{colorPropuesto}{\textbf{\checkmark}}}
+\newcommand{\no}{\textcolor{colorOriginal}{\textbf{--}}}
+\newcommand{\parcial}{\textcolor{colorNuevo}{$\blacktriangle$}}
+
+\begin{document}
+
+
+% PORTADA
+\begin{titlepage}
+    \centering
+    \vspace*{2.0cm}
+
+    \Huge
+    \textbf{UNIVERSIDAD DIGITAL DEL ESTADO DE MÉXICO}
+
+    \vspace{1.0cm}
+    \LARGE
+    DOCTORADO EN GESTIÓN E INNOVACIÓN EDUCATIVA
+
+    \vspace{0.7cm}
+
+    \textbf{Erandi Carrasco Alcántara}
+
+    \vspace{0.5cm}
+
+    \textbf{Matrícula: UDX112510016}
+
+    \vspace{0.5cm}
+
+    \textbf{ASESOR: Dr. Luciano Martínez Balbuena}
+
+    \vspace{0.5cm}
+
+    \textbf{Seminario de tesis doctoral II}
+
+    \vspace{0.7cm}
+
+    \large
+    \textbf{AVANCE 1 --- VERSIÓN CORREGIDA}\\[4pt]
+    \textit{Mapeo epistémico, estrategia de búsqueda reproducible\\ y matriz inicial de literatura para el artículo de revisión}
+
+    \vspace{1.0cm}
+
+    \textbf{FECHA DE ENTREGA: 27 DE OCTUBRE DE 2026}
+    \vfill
+\end{titlepage}
+
+
+% DECLARACIÓN DE USO DE IA
+
+\section*{Declaración del Uso de Inteligencia Artificial}
+\addcontentsline{toc}{section}{Declaración del Uso de Inteligencia Artificial}
+
+\textbf{Protocolo de Transparencia Tecnológica}
+    \begin{description}[style=nextline, leftmargin=0.5cm, labelsep=0.2cm]
+
+        \item[\textbf{Herramientas utilizadas (identificadas por nombre):}]
+        (1)~\textit{Agente de Fichas Bibliográficas}, versión~11: programa propio escrito en Node.js que consulta las bases abiertas DOAJ, OpenAlex, Crossref y Semantic Scholar y emplea el modelo de lenguaje Claude Sonnet~4 (Anthropic, identificador de API \texttt{claude-sonnet-4-20250514}) únicamente para redactar la ficha estructurada a partir de los metadatos recuperados; el modelo no busca ni decide la inclusión. Se describe en la Sección~\ref{sec:busqueda} y en los Anexos~\ref{anx:busqueda} y~\ref{anx:bitacora}. (2)~Claude Code (Anthropic), como asistente de programación durante el desarrollo del agente; esa coautoría consta en el historial del repositorio del código. (3)~[Nombre y versión del asistente conversacional empleado para contrastar la redacción de este avance: completar].
+
+        \item[\textbf{Prompts y alcance:}]
+        Las instrucciones literales de sistema y de usuario que recibe el modelo dentro del agente se transcriben en el Anexo~\ref{anx:busqueda} (C.3). Al asistente conversacional se le solicitó contrastar el protocolo con los materiales de la Unidad~1 del Seminario de Tesis~II, organizar el mapeo epistémico conforme a las cinco dimensiones de \citet{deroncele2021}, localizar literatura sobre diseño y evaluación de sistemas gráficos de etiquetado fuera del campo de la IA y revisar la consistencia entre paradigma, constructos e instrumentos.
+
+        \item[\textbf{Manejo de resultados y autoría:}]
+        Toda ficha producida por el agente fue aprobada, rechazada o pospuesta por la autora con un comentario fechado; el corpus es, por construcción, el registro de esas decisiones (Anexo~\ref{anx:bitacora}). Las sugerencias del asistente conversacional se emplearon como base de contraste para generar redacción propia. La delimitación del tema y la pregunta del artículo, los criterios de inclusión y exclusión, la valoración de pertinencia de cada fuente y las decisiones de adaptación instrumental son elaboración propia.
+
+        \item[\textbf{Verificación de integridad:}]
+        Cada DOI se verificó automáticamente contra OpenAlex y, en su defecto, Crossref (35 de 41 fichas verificadas; 4 tesis sin DOI incorporadas a mano desde repositorios institucionales; 2 DOI no localizados, en revisión). Esa verificación no sustituye la lectura del texto completo: los campos de diseño, muestra, instrumentos y hallazgos de la matriz se extrajeron de la lectura íntegra de cada fuente, no de la ficha automática. Las fuentes de acceso restringido y el procedimiento adoptado se documentan en el Anexo~\ref{anx:busqueda}.
+
+        \item[\textbf{Distribución de la producción:}]
+        Se estima que aproximadamente un \textbf{30\,\%} del avance se elaboró con asistencia de IA (búsqueda y fichado asistidos por el agente; borradores de contraste), mientras que el \textbf{70\,\%} restante corresponde a procesos de reformulación, verificación documental y redacción original de la autora.
+
+    \end{description}
+\vspace*{\fill}
+\clearpage
+
+% TABLERO DE CONTROL DEL AVANCE
+% ══════════════════════════════════════════════════════
+\section*{Tablero de control del Avance 1}
+\addcontentsline{toc}{section}{Tablero de control del Avance 1}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Estado de los diez elementos solicitados en la sesión~2 del seminario.}
+\label{tab:tablero}
+\renewcommand{\arraystretch}{1.28}
+\begin{tabular}{|c|p{6.0cm}|c|p{3.4cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{\#} & \textbf{Elemento solicitado} & \textbf{Estado} & \textbf{Ubicación} \\
+\hline
+1 & Lista de cotejo de observaciones atendidas & \bOK & \S\ref{sec:cotejo} · Anexo~\ref{anx:correcciones} \\
+\hline
+2 & Tema del artículo & \bNVO & \S\ref{sec:tema-articulo} \\
+\hline
+3 & Pregunta de investigación del artículo & \bNVO & \S\ref{sec:pregunta-articulo} \\
+\hline
+4 & Justificación de pertinencia para la tesis & \bNVO & \S\ref{sec:pertinencia} \\
+\hline
+5 & Mapeo epistémico & \bNVO & \S\ref{sec:mapeo-epistemico} · Anexo~\ref{anx:epistemico} \\
+\hline
+6 & Estrategia de búsqueda & \bNVO & \S\ref{sec:busqueda} · Anexo~\ref{anx:busqueda} \\
+\hline
+7 & Criterios de inclusión y exclusión & \bNVO & \S\ref{sec:criterios} \\
+\hline
+8 & Matriz inicial de literatura & \bNVO & \S\ref{sec:matriz} \\
+\hline
+9 & Mapeo metodológico de las fuentes & \bNVO & \S\ref{sec:mapeo-metodologico} · Anexo~\ref{anx:hallazgos} \\
+\hline
+10 & Primer esquema tentativo del artículo & \bNVO & \S\ref{sec:esquema} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Estado de las observaciones y de las inconsistencias detectadas.}
+\label{tab:tablero-correcciones}
+\renewcommand{\arraystretch}{1.28}
+\begin{tabular}{|c|p{5.6cm}|c|c|p{2.8cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{\#} & \textbf{Observación} & \textbf{Origen} & \textbf{Estado} & \textbf{Evidencia} \\
+\hline
+1 & Ampliar repositorios más allá del acceso abierto en español & Asesor & \bOK & \S\ref{sec:busqueda} \\
+\hline
+2 & Reducir el número de fuentes y profundizar & Asesor & \bOK & \S\ref{sec:matriz} \\
+\hline
+3 & Adaptar instrumentos existentes, no inventarlos & Asesor & \bOK & Cuadro~\ref{tab:adaptacion} \\
+\hline
+4 & Declarar paradigma, ontología y epistemología & Asesor & \bOK & Cuadro~\ref{tab:coherencia} \\
+\hline
+5 & Doble numeración de fases del estudio & Autor & \bCOR & Cuadro~\ref{tab:etapas} \\
+\hline
+6 & Muestreo ambiguo entre etapas & Autor & \bCOR & Cuadro~\ref{tab:adaptacion} \\
+\hline
+7 & Cita invertida de Lincoln y Guba (1985) & Autor & \bCOR & \citep{lincolnguba1985} \\
+\hline
+8 & Alcance y rigor declarados sin diferenciar por etapa & Autor & \bCOR & Cuadro~\ref{tab:rigor} \\
+\hline
+9 & Supuesto en clave VI/VD para todo el estudio & Autor & \bCOR & Anexo~\ref{anx:correcciones} \\
+\hline
+10 & Diagnóstico fáctico en el nivel micro & Autor & \bPEN & Avance~2 \\
+\hline
+11 & Versiones adaptadas de instrumentos y juicio de expertos & Autor & \bPEN & Avance~2 \\
+\hline
+12 & Nombrar cada herramienta de IA y conservar bitácora de prompts y decisiones & Asesor & \bOK & Declaración · Anexo~\ref{anx:bitacora} \\
+\hline
+13 & Búsqueda reproducible: bases, sintaxis, filtros, conteos, duplicados y exclusiones & Asesor & \bOK & \S\ref{sec:busqueda} · Anexo~\ref{anx:busqueda} \\
+\hline
+14 & Afirmación de un único antecedente directo & Asesor & \bCOR & \S\ref{sec:tema-articulo} · \S\ref{sec:matriz} \\
+\hline
+15 & Matriz de quince fuentes con campos completos, en dos estratos & Asesor & \bPEN & Avance~2 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Cobertura de constructos por fase, instrumento de origen y disponibilidad.}
+\label{tab:cobertura}
+\renewcommand{\arraystretch}{1.28}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Constructo} & \textbf{Etapa} & \textbf{Fase} & \textbf{Objetivo} & \textbf{Instrumento} & \textbf{Validado} & \textbf{Acceso} \\
+\hline
+C1 & Cualitativa & F1 & OE1 & \si & \parcial & \si \\
+\hline
+C2 & Cualitativa & F2 & OE2 & \si & \si & \si \\
+\hline
+C3 & Cuantitativa & F3 & OE3 & \si & \si & \si \\
+\hline
+C4 & Cuantitativa & F4 & OE4 & \si & \si & \si \\
+\hline
+V1 & Cuantitativa & F3 & OE3 & \si & \si & \si \\
+\hline
+V2 & Cuantitativa & F3 & OE3 & \si & \si & \si \\
+\hline
+V3 & Cuantitativa & F4 & OE4 & \si & \si & \si \\
+\hline
+V4 & Cuantitativa & F4 & OE4 & \si & \parcial & \si \\
+\hline
+\end{tabular}
+
+\vspace{4pt}
+{\footnotesize \si~Cubierto \quad \parcial~Cubierto parcialmente \quad \no~No cubierto}
+\end{table}
+
+\newpage
+\justifying
+
+% 
+% 1. LISTA DE COTEJO
+\section{Lista de cotejo de observaciones}\label{sec:cotejo}
+
+La lista se presenta en el formato de tres columnas indicado en la sesión. Las entradas 1 a 4 corresponden a la retroalimentación del Proyecto Final de Seminario de Tesis~I. Las entradas 5 a 9 corresponden a inconsistencias detectadas por el propio autor al contrastar el protocolo con los materiales de la Unidad~1 de este seminario, y se registran conforme al principio de trazabilidad de la bitácora de decisiones metodológicas. El detalle de cada corrección, con la redacción previa y la corregida, se presenta en el Anexo~\ref{anx:correcciones}.
+
+\begin{longtable}{|p{0.5cm}|p{4.4cm}|p{5.2cm}|p{3.4cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{\#} & \textbf{Observación} & \textbf{Forma en que se atendió} & \textbf{Estado / evidencia} \\
+\hline
+\endfirsthead
+\hline
+\rowcolor{bgCotejo}
+\textbf{\#} & \textbf{Observación} & \textbf{Forma en que se atendió} & \textbf{Estado / evidencia} \\
+\hline
+\endhead
+
+1 & Ampliar los repositorios más allá de fuentes de acceso abierto en español. & Se incorporaron búsquedas en Scopus, Springer Nature, Elsevier, PubMed Central, PLoS y MDPI. El corpus del artículo integra siete fuentes nuevas en inglés con DOI verificado. & \bOK~\S\ref{sec:busqueda} \\
+\hline
+
+2 & Reducir el número de fuentes de la matriz y trabajarlas a profundidad. & Se pasó de un corpus general de 40 fuentes a una matriz inicial de cinco fuentes seleccionadas por disponibilidad del instrumento y leídas a texto completo. & \bOK~\S\ref{sec:matriz} \\
+\hline
+
+3 & Adaptar instrumentos existentes y someterlos a juicio de expertos, en lugar de construir metodología propia. & Se identificaron instrumentos publicados y validados para cada variable y se documentó de qué estudio se toma cada componente. Se incorpora el juicio de expertos como procedimiento de validez de contenido. & \bOK~Cuadro~\ref{tab:adaptacion} \\
+\hline
+
+4 & Declarar el paradigma, la ontología y la epistemología del estudio. & Se incorpora el mapeo epistémico con sus cinco dimensiones y el cuadro de coherencia ontología--epistemología--perspectiva--metodología. & \bOK~Cuadro~\ref{tab:coherencia} \\
+\hline
+
+5 & Doble numeración de fases entre la tabla de constructos y la ruta metodológica. & Se adopta una numeración única de cinco fases y se renombra el segundo nivel como etapas: cualitativa, cuantitativa y de cierre. & \bCOR~Cuadro~\ref{tab:etapas} \\
+\hline
+
+6 & Muestreo ambiguo: no se distinguía el correspondiente a talleres del de la etapa cuantitativa. & Se separa el muestreo por etapa y se incorpora una justificación de tamaño muestral por prototipo tomada de \citet{reyes2019desarrollo}. & \bCOR~Anexo~\ref{anx:hallazgos} \\
+\hline
+
+7 & Cita invertida: se consignaba «Guba y Lincoln (1985)». & Se corrigió a Lincoln y Guba (1985), \textit{Naturalistic Inquiry}, en el archivo de referencias. & \bCOR~\citep{lincolnguba1985} \\
+\hline
+
+8 & Alcance declarado sin diferenciar entre componentes cualitativo y cuantitativo. & Se adopta un plan de rigor diferenciado por etapa, con criterios y evidencias distintos para cada una. & \bCOR~Cuadro~\ref{tab:rigor} \\
+\hline
+
+9 & Supuesto redactado en clave de variable independiente y dependiente para la totalidad del estudio. & Se acota el supuesto a la rama cuantitativa; la etapa cualitativa se orienta por preguntas de investigación. & \bCOR~Anexo~\ref{anx:correcciones} \\
+\hline
+\rowcolor{bgNuevo}
+\multicolumn{4}{|l|}{\textbf{\textcolor{colorNuevo}{Observaciones de la retroalimentación del Avance 1}}} \\
+\hline
+
+12 & La declaración de IA debe nombrar cada herramienta y conservar una bitácora con prompts, resultados aceptados o descartados y verificaciones. & Se identifican por nombre el agente propio, el modelo de lenguaje y el asistente de programación; se transcriben los prompts literales y se anexa la bitácora de decisiones generada por el agente. & \bOK~Declaración · Anexo~\ref{anx:bitacora} \\
+\hline
+
+13 & La búsqueda no es reproducible: mezcla bases, editoriales y repositorios; ecuaciones demasiado amplias; sin sintaxis por base, fechas, campos, conteos, duplicados ni exclusiones. & Se sustituye la descripción por la especificación del agente: cuatro bases abiertas distinguidas por su naturaleza, cuarenta ecuaciones literales, campos, filtros, paginación, regla de deduplicación, orden, corte y embudo de descarte. Se declaran los conteos que el agente aún no persiste. & \bOK~\S\ref{sec:busqueda} · Anexo~\ref{anx:busqueda} \\
+\hline
+
+14 & No puede afirmarse que \citet{seeger2026} sea el único antecedente directo. & Se retira la afirmación; se explica como límite del vocabulario de las ecuaciones de D2 y se incorporan las fuentes directas señaladas por el asesor. & \bCOR~\S\ref{sec:tema-articulo} \\
+\hline
+
+15 & La matriz debe alcanzar quince fuentes con los campos exigidos y separar evidencia directa y analógica. & Se define la regla de paso del corpus del agente a la matriz (\S\ref{sec:busqueda}); la ampliación se ejecuta en el Avance~2. & \bPEN~Avance~2 \\
+\hline
+
+\end{longtable}
+
+% 2. TEMA DEL ARTÍCULO
+\section{Tema del artículo de revisión}\label{sec:tema-articulo}
+
+\noindent\textbf{Tema:}
+
+\begin{quote}
+Transparencia declarativa del uso de inteligencia artificial generativa en contenidos educativos: revisión sistemática de los mecanismos de etiquetado propuestos y de la evidencia empírica sobre su comprensión y aceptación (2018--2026).
+\end{quote}
+
+La tesis pregunta cómo diseñar participativamente y evaluar un sistema gráfico de etiquetado del nivel de intervención de la inteligencia artificial. Responder esa pregunta exige datos de campo aún no producidos, de modo que excede el alcance de un artículo de revisión. El artículo recorta, por tanto, un subconjunto respondible con la literatura ya revisada: el estado de la cuestión sobre los mecanismos de declaración visual y sobre la evidencia disponible acerca de su comprensión y aceptación.
+
+El tema se sostiene sobre dos constataciones. La primera proviene del corpus construido con el agente de búsqueda (Sección~\ref{sec:busqueda}): dentro del eje D2 ---transparencia y etiquetado de inteligencia artificial en contenidos--- solo \citet{seeger2026} estudia una etiqueta de contenido generado con IA, y lo hace en redes sociales. Esa constatación describe el alcance de las ecuaciones empleadas, no el estado del campo: las ecuaciones de D2 contenían los términos \textit{transparency} y \textit{disclosure} y atrajeron literatura de explicabilidad algorítmica. La literatura directa existe, como muestran \citet{gamage2025}, que comparan diez diseños de etiqueta que varían en texto, color, iconografía y ubicación; \citet{wittenberg2025}, sobre el etiquetado de medios generados con IA; \citet{perezperez2026}, revisión de alcance de los mecanismos de transparencia en evaluación universitaria; y \citet{micallef2026}, que proponen declaraciones de uso de IA ajustadas a tareas de escritura y programación. La segunda constatación es que un campo contiguo y maduro ---el etiquetado frontal de advertencia en alimentos--- ha desarrollado durante dos décadas procedimientos de diseño participativo y de medición de comprensión de sistemas gráficos dirigidos a población general. La revisión tratará ambos cuerpos como estratos distintos: evidencia directa sobre declaración y etiquetado de IA, y evidencia analógica sobre sistemas gráficos de advertencia, sin sintetizarlos como equivalentes.
+
+% 3. PREGUNTA DEL ARTÍCULO
+\section{Pregunta de investigación del artículo}\label{sec:pregunta-articulo}
+
+\noindent\textbf{Pregunta principal:}
+
+\begin{quote}
+¿Qué mecanismos de declaración del nivel de intervención de la inteligencia artificial en contenidos académicos se han propuesto en la literatura entre 2018 y 2026, con qué fundamento conceptual y con qué evidencia empírica de comprensión y aceptación por parte de sus destinatarios?
+\end{quote}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Preguntas derivadas y su correspondencia con las secciones del artículo.}
+\label{tab:preguntas}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|c|p{8.6cm}|c|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{\#} & \textbf{Pregunta derivada} & \textbf{Sección del artículo} \\
+\hline
+P1 & ¿Qué procedimientos de diseño se han empleado para construir sistemas gráficos dirigidos a población no especializada, y qué grado de participación se ha concedido a los destinatarios? & \S5 \\
+\hline
+P2 & ¿Con qué instrumentos y con qué definiciones operacionales se ha medido la comprensión y la aceptación de estos sistemas? & \S4 \\
+\hline
+P3 & ¿Qué evidencia existe sobre el desempeño diferencial según escolaridad, nivel socioeconómico u otras condiciones de vulnerabilidad? & \S6 \\
+\hline
+P4 & ¿Qué vacíos persisten al trasladar esta experiencia al ámbito de la gobernanza académica de la IA en educación superior? & \S7 \\
+\hline
+\end{tabular}
+\end{table}
+
+Las cuatro preguntas derivadas son respondibles con literatura existente y no requieren trabajo de campo. La pregunta P2, en particular, produce el insumo directo para la fase instrumental del proceso doctoral.
+
+% 4. PERTINENCIA
+\section{Justificación de la pertinencia del artículo}\label{sec:pertinencia}
+
+El artículo constituye una etapa del propio proceso de tesis. Su pertinencia se sostiene en los cuatro planos de justificación empleados en el protocolo.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Pertinencia del artículo de revisión por plano de justificación.}
+\label{tab:pertinencia}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{2.2cm}|p{6.3cm}|p{3.6cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Plano} & \textbf{Aporte del artículo} & \textbf{Componente de la tesis} \\
+\hline
+Teórico & Documenta que la literatura sobre etiquetado de contenidos con IA es incipiente mientras la de etiquetado de advertencia es madura, lo que fundamenta una transferencia analógica entre campos. & Capítulo de fundamentación \\
+\hline
+Metodológico & Identifica escalas y tareas validadas en población mexicana e hispanohablante, susceptibles de adaptación y recalibración por juicio de expertos. & Instrumentos de F3--F4 \\
+\hline
+Práctico & Reúne decisiones de diseño y sus consecuencias en sistemas que hoy operan como política pública. & Diseño del sistema gráfico \\
+\hline
+Relevancia social & Examina si estos sistemas reducen o reproducen desigualdades de comprensión según escolaridad y nivel socioeconómico. & Argumento de equidad \\
+\hline
+\end{tabular}
+\end{table}
+
+La analogía con el etiquetado alimentario opera en el plano metodológico y semiótico. Su fundamento está en un problema de diseño común a ambos dominios: comunicar mediante un signo gráfico, en pocos segundos y a una población heterogénea, un atributo no visible del objeto, con el fin de habilitar una decisión informada. El contenido sustantivo de cada dominio permanece distinto, y sus diferencias se discuten explícitamente en la sección 7 del artículo.
+
+% 5. MAPEO EPISTÉMICO
+\section{Mapeo epistémico}\label{sec:mapeo-epistemico}
+
+Siguiendo a \citet{deroncele2021}, el mapeo se organiza en cinco dimensiones, cada una con su cualidad asociada y su lugar en el documento de tesis.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Mapeo epistémico del proyecto doctoral.}
+\label{tab:mapeo}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{2.0cm}|p{1.9cm}|p{6.4cm}|p{2.6cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Dimensión} & \textbf{Cualidad} & \textbf{Contenido en este proyecto} & \textbf{Ubicación} \\
+\hline
+Ontológica & Necesidad y actualidad & Adopción acelerada de IA generativa sin instrumentos visuales compartidos de declaración; diagnóstico fáctico de lineamientos institucionales, en construcción. & Introducción \\
+\hline
+Epistemológica & Cientificidad & Categoría meta desarrollada antes que la categoría herramienta; antecedentes posteriores a las bases teóricas. & Fundamentación \\
+\hline
+Metodológica & Viabilidad & Enfoque mixto, diseño exploratorio secuencial, cinco fases en tres etapas, categorías C1--C4 y variables V1--V4. & Metodología \\
+\hline
+Praxiológica & Aplicabilidad & Alcance transformativo: se diseña, aplica y evalúa una propuesta de mejora, con lineamientos institucionales como producto. & Resultados \\
+\hline
+Axiológica & --- & Posicionamiento del investigador como integrante de la comunidad que sería etiquetada; tensión declarada con el solucionismo tecnológico. & Transversal \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Objeto de investigación, campo de acción y categorías.}
+\label{tab:objeto}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{3.4cm}|p{9.2cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Elemento} & \textbf{Contenido} \\
+\hline
+Objeto de investigación & El proceso de gobernanza académica de la inteligencia artificial generativa en la educación superior mexicana. \\
+\hline
+Campo de acción & La declaración visual del nivel de intervención algorítmica en contenidos educativos. \\
+\hline
+Vacío epistemológico & Los cuatro componentes del problema se encuentran desarrollados por separado, pero no articulados en un instrumento visual diseñado y probado con la comunidad académica mexicana. \\
+\hline
+Categoría meta & Gobernanza académica de la inteligencia artificial. \\
+\hline
+Categoría herramienta & Sistema gráfico de etiquetado co-diseñado. \\
+\hline
+\end{tabular}
+\end{table}
+
+La justificación de esta reformulación, que distingue el sistema gráfico como producto de la investigación frente al objeto propiamente dicho, se desarrolla en el Anexo~\ref{anx:epistemico}.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Cadena de coherencia del proyecto, verificada con la guía de \citet{moonblackman2014}.}
+\label{tab:coherencia}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{2.9cm}|p{3.5cm}|p{6.2cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Nivel} & \textbf{Posición adoptada} & \textbf{Fundamento} \\
+\hline
+Ontología & Realismo crítico & La intervención algorítmica es real y su comprensión produce efectos medibles; la legitimidad de una etiqueta reside en su reconocimiento colectivo. \\
+\hline
+Epistemología & Construccionismo & Si la legitimidad se construye socialmente, el conocimiento válido debe generarse con la comunidad: el co-diseño es exigencia epistemológica. \\
+\hline
+Perspectiva teórica & Interpretativismo con inflexión crítica & La pregunta por la IA en educación posee una dimensión política además de la ética \citep{selwyn2022}. \\
+\hline
+Cosmovisión & Transformativa con flexibilidad pragmática & Congruente con la vinculación entre cosmovisión transformativa y métodos mixtos de \citet{creswell2023}. \\
+\hline
+Metodología & Mixta, exploratoria secuencial & El orden cualitativo--cuantitativo se deriva de la epistemología adoptada. \\
+\hline
+Métodos & Documental, talleres, pruebas de usabilidad y escala Likert & Correspondencia con las fases F1--F4. \\
+\hline
+Análisis & Análisis temático aplicado \citep{guest2012} y estadística descriptiva & Se declara el método de análisis cualitativo, ausente en versiones anteriores. \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Numeración unificada de fases y agrupación por etapas.}
+\label{tab:etapas}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{2.4cm}|c|p{4.6cm}|c|p{2.0cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Etapa} & \textbf{Fase} & \textbf{Contenido} & \textbf{Objetivo} & \textbf{Constructos} \\
+\hline
+Cualitativa & F1 & Diagnóstico documental y exploración & OE1 & C1 \\
+\hline
+Cualitativa & F2 & Co-diseño participativo & OE2 & C2 \\
+\hline
+Cuantitativa & F3 & Validación de usabilidad & OE3 & C3, V1, V2 \\
+\hline
+Cuantitativa & F4 & Evaluación de aceptación & OE4 & C4, V3, V4 \\
+\hline
+Cierre & F5 & Triangulación y lineamientos & OE5 & Integración \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Criterios de rigor diferenciados por etapa, conforme a \citet{gaete} y \citet{lincolnguba1985}.}
+\label{tab:rigor}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{1.6cm}|p{2.7cm}|p{4.4cm}|p{3.6cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Etapa} & \textbf{Criterio} & \textbf{Estrategia} & \textbf{Evidencia a anexar} \\
+\hline
+F1--F2 & Credibilidad & Triangulación de datos, metodológica e interdisciplinaria & Matriz de convergencia por categoría \\
+\hline
+F1--F2 & Transferibilidad & Muestreo intencional y descripción densa del contexto & Ficha de caracterización \\
+\hline
+F1--F2 & Dependencia & Coherencia metodológica & Bitácora de decisiones \\
+\hline
+F1--F2 & Confirmabilidad & Auditoría externa & Dictamen de asesor o pares \\
+\hline
+F1--F2 & Suficiencia & Saturación de códigos & Curva de saturación \\
+\hline
+F3--F4 & Validez de contenido & Juicio de expertos sobre ítems y tareas & Formato de validación e índice de acuerdo \\
+\hline
+F3--F4 & Validez de constructo & Anclaje teórico de la aceptación & Matriz constructo--ítem \\
+\hline
+F3--F4 & Confiabilidad & Consistencia interna y prueba piloto & Coeficiente y reporte del piloto \\
+\hline
+\end{tabular}
+\end{table}
+
+% 6. ESTRATEGIA DE BÚSQUEDA
+\section{Estrategia de búsqueda}\label{sec:busqueda}
+
+Atendiendo a la observación de que la estrategia anterior no constituía una búsqueda reproducible, esta sección describe la herramienta con la que se construyó el corpus del estado del arte, el procedimiento que ejecuta y las evidencias que deja. La descripción sigue los campos de reporte por base que recomienda la extensión PRISMA-S \citep{rethlefsen2021}: ecuación literal, campos consultados, filtros, fecha, registros recuperados, duplicados, cribado y colección final. Se distinguen dos vías de recuperación: la búsqueda automatizada en bases, que alimentó el corpus de las dimensiones D1--D4, y la revisión de listas de referencias, que localizó el estrato analógico del etiquetado alimentario (por ejemplo, \citet{reyes2019desarrollo} a partir de la bibliografía de \citet{jauregui2020intenciones}).
+
+\subsection{Identificación de la herramienta}
+
+La búsqueda automatizada se ejecutó con el \textit{Agente de Fichas Bibliográficas}, versión~11, programa propio en Node.js cuyo código está versionado en Git, de modo que cada modificación del procedimiento queda fechada. El agente consulta cuatro bases abiertas, sin inicio de sesión ni extracción de páginas web, y emplea el modelo Claude Sonnet~4 (Anthropic) sólo para redactar la ficha a partir de los metadatos recuperados. El Cuadro~\ref{tab:bases} distingue la naturaleza de cada base, como pidió el asesor; corrige así la versión anterior de este cuadro, en la que Springer Nature, Elsevier, MDPI y PLoS figuraban como repositorios cuando son las editoriales de los artículos recuperados.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Bases consultadas por el agente y su naturaleza.}
+\label{tab:bases}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{2.6cm}|p{4.6cm}|p{5.2cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Base} & \textbf{Naturaleza} & \textbf{Uso en el agente} \\
+\hline
+DOAJ & Directorio de revistas arbitradas de acceso abierto & Primera consulta para artículos; garantiza texto completo disponible \\
+\hline
+OpenAlex & Índice bibliográfico abierto & Artículos y tesis; verificación de DOI, conteo de citas y estado de acceso abierto \\
+\hline
+Crossref & Agencia de registro de DOI con metadatos depositados por las editoriales & Artículos de revista; verificación de DOI de respaldo \\
+\hline
+Semantic Scholar & Grafo académico con resúmenes e identificadores externos & Artículos y tesis; citas y PDF de acceso abierto cuando existe \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Lógica del procedimiento}
+
+Cada sesión del agente ejecuta cinco etapas; las cuatro primeras son automáticas y la quinta es siempre humana: (1)~recuperación en las cuatro bases con la ecuación y la página que corresponden a la sesión; (2)~depuración: deduplicación por DOI y por título, exclusión de fuentes ya aprobadas o rechazadas, orden por citas y corte en veinte candidatos; (3)~redacción de $N$ fichas ($2 \le N \le 5$) por el modelo a partir de los metadatos reales; (4)~verificación del DOI en OpenAlex y, en su defecto, en Crossref, con registro de estado, título real, citas y acceso abierto; (5)~decisión de la autora sobre cada ficha (aprobar, rechazar de forma permanente o posponer) con comentario, fecha y hora.
+
+Tres propiedades sostienen la trazabilidad. Ninguna fuente entra al corpus sin decisión humana registrada. Ninguna fuente se evalúa dos veces, porque las aprobadas y las rechazadas se excluyen de las búsquedas posteriores por DOI o por título. La búsqueda avanza de forma determinista: el archivo de sesiones guarda, por dimensión y tipo documental, la ecuación y la página consultadas, y cada ecuación se recorre tres páginas antes de rotar a la siguiente; quien conozca ese índice puede repetir la consulta.
+
+\subsection{Especificación reproducible}
+
+El corpus se organiza en las cuatro dimensiones definidas en Seminario de Tesis~I. Para cada una, el agente tiene seis ecuaciones en inglés para artículos y cuatro en español para tesis, transcritas en el Anexo~\ref{anx:busqueda} (C.1). Son cadenas de términos en lenguaje natural, no expresiones booleanas, porque las cuatro bases operan con motores de relevancia; sustituyen a la fórmula booleana exploratoria de la versión anterior, que arrojaba más de catorce mil registros en Scopus y no era operativa. El Cuadro~\ref{tab:sintaxis} fija la sintaxis, los campos y los filtros por base.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\caption{Sintaxis, campos y filtros por base.}
+\label{tab:sintaxis}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{1.9cm}|p{2.9cm}|p{2.5cm}|p{3.3cm}|p{1.4cm}|c|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Base} & \textbf{Punto de acceso} & \textbf{Campo consultado} & \textbf{Filtros fijos} & \textbf{Orden} & \textbf{Reg./pág.} \\
+\hline
+DOAJ & \texttt{/api/v3/search/ articles/} & Registro completo & Ninguno (todo DOAJ es arbitrado y de acceso abierto) & Relevancia & 8 \\
+\hline
+OpenAlex (artículos) & \texttt{/works?search=} & Título, resumen y texto indexado & \texttt{publication\_year: 2018-2025}, \texttt{type:article} & Relevancia & 10 \\
+\hline
+OpenAlex (tesis) & \texttt{/works?search=} & Ídem & \texttt{publication\_year: 2018-2025}, \texttt{type:dissertation} & Relevancia & 10 \\
+\hline
+Crossref & \texttt{/works?query=} & Metadatos bibliográficos & \texttt{from-pub-date:2018}, \texttt{type:journal-article} & Relevancia & 8 \\
+\hline
+Semantic Scholar & \texttt{/graph/v1/paper/ search} & Título y resumen & Ninguno; para tesis se añade \textit{thesis dissertation} y se filtra por tipo & Relevancia & 8 \\
+\hline
+\end{tabular}
+\end{table}
+
+De cada registro se recuperan título, hasta tres autores, revista o institución, año, resumen truncado a 500 caracteres, DOI, citas y base de origen. Dos registros se consideran duplicados si comparten DOI o los primeros cincuenta caracteres del título; prevalece el recuperado primero, por lo que se conserva la versión de acceso abierto cuando existe. Entre consultas se espera 0.7~s y las peticiones se identifican con el correo institucional, como piden OpenAlex y Crossref. Las tesis de TESIUNAM, BUAP o UAEM, sin DOI en estas bases, se incorporan por un modo manual en el que la autora pega el registro del repositorio; la ficha queda marcada con origen «Manual» y estado «sin DOI».
+
+\subsection{Discriminación automática y embudo de selección}
+
+Las fuentes rechazadas por la autora son la última etapa de un embudo cuya mayor parte ejecuta el agente por reglas declaradas, calibradas para ahorrar tiempo de revisión. Conviene distinguir tres niveles de criterio. El primero son los \textbf{filtros codificados}, que operan siempre: ventana temporal desde 2018, con prioridad 2020--2025 en la instrucción al modelo; tipo documental restringido a artículos de revista y tesis, lo que deja fuera notas de prensa, blogs y materiales sin respaldo metodológico (criterio E3); preferencia por acceso abierto mediante la consulta prioritaria a DOAJ; identificador verificable, pues toda fuente automática debe tener DOI y las que carecen de él sólo entran por modo manual; exclusión de lo ya revisado; corte por relevancia (tres páginas por ecuación), orden por citas y presentación de veinte candidatos; y selección por el modelo de sólo $N$ fichas por sesión. El segundo nivel son los \textbf{criterios de calibración aplicados en la revisión}, que no están codificados como exclusión dura: ausencia de DOI, ausencia de versión descargable y antigüedad mayor a tres años salvo referencia obligada del campo. El corpus muestra que operaron como preferencia y no como filtro: contiene cuatro tesis sin DOI, siete fuentes sin versión de acceso abierto y once fuentes de 2018--2021. El tercer nivel es la \textbf{decisión final} con comentario fechado.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Embudo de una sesión del agente (cotas fijadas por el código).}
+\label{tab:embudo}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{6.6cm}|p{3.2cm}|p{2.8cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Etapa} & \textbf{Registros} & \textbf{Quién descarta} \\
+\hline
+Registros totales de la ecuación en las cuatro bases & Miles (no se visitan) & Corte de paginación \\
+\hline
+Recuperados en la página de la sesión & Hasta 52 (34 artículos + 18 tesis) & --- \\
+\hline
+Tras deduplicar y excluir ya revisadas & Variable; se informa en pantalla & Agente \\
+\hline
+Presentados al modelo & 20 & Agente (orden por citas) \\
+\hline
+Fichas redactadas & 2 a 5 (por defecto 3) & Modelo \\
+\hline
+Aprobadas & 0 a 3 & Autora \\
+\hline
+\end{tabular}
+\end{table}
+
+Con 64 decisiones registradas (41 aprobadas y 23 rechazadas) y tres fichas por sesión, se estiman unas 21 sesiones, unos 420 candidatos presentados al modelo y hasta unos 1\,100 registros brutos recuperados antes de deduplicar. Las 23 rechazadas a mano representan, por tanto, menos del 6\,\% de lo descartado: la discriminación fue en su mayoría automática y por reglas declaradas. Esta cifra se presenta como estimación porque la versión~11 no persiste los conteos por sesión; el repositorio incluye un script que obtiene el total de registros por ecuación y base con los filtros del agente, cuya salida se anexará como «registros recuperados» en el Avance~2. Los conteos que el agente todavía no registra se declaran en el Anexo~\ref{anx:busqueda} (C.4).
+
+\subsection{Evolución de las versiones}
+
+El procedimiento se calibró en varias versiones; cada regla responde a un problema observado en el uso y queda fechada en el repositorio.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Versiones del agente y problema que motivó cada cambio.}
+\label{tab:versiones}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{2.6cm}|p{5.2cm}|p{4.6cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Versión} & \textbf{Qué hacía} & \textbf{Problema que motivó el cambio} \\
+\hline
+v6 & OpenAlex y Crossref con un término sugerido por dimensión; tres fichas por sesión en archivos por día; verificación por DOI; sin \textit{scraping} ni inicio de sesión & Cada sesión repetía los primeros resultados; no había memoria de lo ya evaluado \\
+\hline
+v7--v10 & [Completar con los registros de la autora: incorporación de Semantic Scholar, formato de ficha, manejo de errores] & --- \\
+\hline
+v11 (26/10/2026) & Paginación automática; rotación de ecuaciones; rechazadas permanentes; modo manual para repositorios mexicanos; orden por citas y corte en 20 & Era necesario mostrar el corpus y las decisiones fuera de la terminal \\
+\hline
+v11 + interfaz web (26/10/2026) & Panel de progreso por dimensión, corpus con decisiones, lista de rechazadas y búsqueda en tiempo real & Muchos candidatos eran de pago o sin texto completo accesible \\
+\hline
+v11 + DOAJ (26/10/2026) & DOAJ como cuarta base y, acto seguido, como primera, para que en los duplicados prevalezca la versión de acceso abierto & La rúbrica exige justificar cada inclusión \\
+\hline
+v11 + justificación (26/10/2026) & Campos obligatorios de justificación de inclusión y resumen preliminar; 20 candidatos visibles & Versión vigente \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Resultado y relación con la matriz}
+
+El corpus vigente contiene 41 fichas aprobadas (D1:~11, D2:~10, D3:~11, D4:~9), 35 con DOI verificado y 34 con versión de acceso abierto; 28 se publicaron entre 2022 y 2026. La bitácora completa, con una fila por decisión, se presenta en el Anexo~\ref{anx:bitacora}. Dos de las cinco fuentes de la matriz inicial provienen de este corpus: \citet{seeger2026} (folio D2-A02, recuperada por Crossref) y \citet{axelsson2021} (folio D3-A02, recuperada por OpenAlex); las fuentes del etiquetado alimentario se localizaron por revisión de listas de referencias y forman el estrato analógico.
+
+La regla de paso del corpus a la matriz se formula de manera explícita y distinta del criterio de disponibilidad del instrumento, que el asesor identificó como fuente de sesgo: entran a la matriz las fuentes que respondan a la pregunta del artículo ---qué dimensiones de la intervención humana y de IA se comunican, cómo se representan y con qué criterios se evalúa su comprensión---, estratificadas en directas y analógicas; la disponibilidad del instrumento se usa después, sólo para elegir qué adaptar. Para el Avance~2 se incorpora un bloque de ecuaciones de D2 orientado al diseño y la evaluación de etiquetas de contenido sintético, con el vocabulario de las fuentes señaladas por el asesor y ventana 2022--2026 (Anexo~\ref{anx:busqueda}, C.5).
+
+% 7. CRITERIOS
+
+\section{Criterios de inclusión y exclusión}\label{sec:criterios}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Criterios de inclusión y exclusión aplicados al corpus del artículo.}
+\label{tab:criterios}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|c|p{11.4cm}|}
+\hline
+\rowcolor{bgPropuesto}
+\multicolumn{2}{|l|}{\textbf{\textcolor{colorPropuesto}{Criterios de inclusión}}} \\
+\hline
+I1 & Estudios empíricos o revisiones sistemáticas publicados entre 2018 y 2026, o anteriores si constituyen el marco conceptual de referencia del campo. \\
+\hline
+I2 & Estudios cuyo objeto sea el diseño, la comprensión, la aceptación o el uso de un sistema gráfico dirigido a población no especializada. \\
+\hline
+I3 & Estudios que reporten el instrumento empleado, en el cuerpo del texto o en material suplementario de acceso público. Constituye el criterio de mayor peso en la selección de la matriz inicial. \\
+\hline
+I4 & Documentos normativos que definan especificaciones gráficas de un sistema de etiquetado vigente. \\
+\hline
+\rowcolor{bgOriginal}
+\multicolumn{2}{|l|}{\textbf{\textcolor{colorOriginal}{Criterios de exclusión}}} \\
+\hline
+E1 & Estudios centrados exclusivamente en efectos sobre reformulación industrial o variables económicas, sin componente de comprensión o aceptación. \\
+\hline
+E2 & Estudios de detección automática de texto generado por IA, por corresponder a una estrategia de verificación y no de declaración. \\
+\hline
+E3 & Notas de prensa, entradas de blog y materiales de divulgación sin respaldo metodológico. \\
+\hline
+E4 & Documentos duplicados entre bases. \\
+\hline
+\end{tabular}
+\end{table}
+
+Se decidió no excluir las fuentes sin acceso abierto, pues el acceso restringido no es un criterio de calidad. El criterio I3 se aplica únicamente para seleccionar candidatos a adaptación instrumental y no para formar el corpus de la revisión; la justificación y el procedimiento para las fuentes sin acceso se desarrollan en el Anexo~\ref{anx:busqueda} (C.6).
+
+% 8. MATRIZ INICIAL DE LITERATURA
+\section{Matriz inicial de literatura}\label{sec:matriz}
+
+Conforme a la orientación de la sesión, el criterio principal de selección fue la disponibilidad del instrumento empleado en cada estudio. Cada fuente se eligió por el componente específico que aporta al diseño de la tesis.
+
+\begin{longtable}{|c|p{3.0cm}|p{4.2cm}|p{4.4cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{\#} & \textbf{Fuente} & \textbf{Aporte sustantivo} & \textbf{Componente para la tesis} \\
+\hline
+\endfirsthead
+\hline
+\rowcolor{bgCotejo}
+\textbf{\#} & \textbf{Fuente} & \textbf{Aporte sustantivo} & \textbf{Componente para la tesis} \\
+\hline
+\endhead
+
+1 & \citet{reyes2019desarrollo} & Describe el proceso completo de desarrollo del sistema de advertencia chileno mediante un estudio mixto por etapas: revisión, fase cualitativa con audiencia lega y panel de expertos, y fase cuantitativa con dos subestudios. & Ruta metodológica para F1--F4; técnica participativa; embudo de prototipos; justificación de tamaño muestral; instrumento en material suplementario. \\
+\hline
+
+2 & \citet{vargasmeza2019comprension} & Explora la comprensión subjetiva y la aceptabilidad de siete sistemas de etiquetado mediante diez grupos focales en cámara Gesell con cinco perfiles poblacionales. & Instrumentos cualitativos para F1--F2: guía de grupos focales, cuestionario y guía de codificación, publicados como material suplementario. \\
+\hline
+
+3 & \citet{vargasmeza2019aceptabilidad} & Experimento aleatorizado de tres brazos que compara aceptabilidad, comprensión objetiva y tiempo de decisión entre sistemas de etiquetado en población mexicana. & Escala de aceptación de diez ítems en tres dimensiones, validada en población mexicana; tarea de comprensión objetiva y registro de tiempo, para V1--V3. \\
+\hline
+
+4 & \citet{axelsson2021} & Aplica procedimientos de diseño participativo con instrumentos estructurados de sesión para el co-diseño de artefactos tecnológicos con usuarios no expertos. & Instrumentos de sesión para los talleres de F2; articulación entre voz del participante y decisión de diseño. \\
+\hline
+
+5 & \citet{seeger2026} & Antecedente directo recuperado por el agente en la dimensión D2 (folio D2-A02): experimento sobre etiquetado de contenidos generados con IA y su efecto en la percepción del destinatario. & Antecedente directo del objeto; se contrastará con \citet{gamage2025}, \citet{wittenberg2025}, \citet{perezperez2026} y \citet{micallef2026} en la ampliación de la matriz. \\
+\hline
+
+\end{longtable}
+
+El corpus de cuarenta fuentes organizado en los ejes D1--D4 durante el seminario anterior se conserva íntegro como base del estado del arte de la tesis. Esta matriz constituye el subconjunto de trabajo del artículo de revisión y de la fase instrumental. Las fuentes complementarias incorporadas en este avance ---\citet{jauregui2020intenciones}, \citet{tolentinomayo2025sefam}, \citet{egnell2018objetiva}, \citet{ares2020cocreacion} y \citet{nom051mod2020}--- se integran al corpus general.
+
+% 9. MAPEO METODOLÓGICO
+\section{Mapeo metodológico de las fuentes}\label{sec:mapeo-metodologico}
+
+\begin{longtable}{|p{2.3cm}|p{1.7cm}|p{2.6cm}|p{3.0cm}|p{2.6cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Fuente} & \textbf{Enfoque} & \textbf{Diseño} & \textbf{Muestra} & \textbf{Análisis} \\
+\hline
+\endfirsthead
+\hline
+\rowcolor{bgCotejo}
+\textbf{Fuente} & \textbf{Enfoque} & \textbf{Diseño} & \textbf{Muestra} & \textbf{Análisis} \\
+\hline
+\endhead
+
+\citet{reyes2019desarrollo} & Mixto & Por etapas: revisión, cualitativa y cuantitativa & 6 grupos focales; 14 expertos; 600 y 700 mujeres, más adolescentes & Análisis de contenido con tabulación de frecuencias; ji cuadrada, ANOVA y prueba $t$ \\
+\hline
+
+\citet{vargasmeza2019comprension} & Cualitativo & Dos fases de grupos focales & 200 participantes en 20 sesiones, cinco perfiles etarios & Análisis de contenido con triangulación de investigadores y matrices de doble entrada \\
+\hline
+
+\citet{vargasmeza2019aceptabilidad} & Cuantitativo & Experimento aleatorizado de tres brazos & 2\,105 adultos de nivel socioeconómico bajo y medio & Ji cuadrada, razones de momios y regresión de mediana \\
+\hline
+
+\citet{axelsson2021} & Cualitativo & Diseño participativo con sesiones estructuradas & Usuarios no expertos & Análisis cualitativo de producciones de sesión \\
+\hline
+
+\citet{seeger2026} & Cuantitativo & Experimental & Usuarios de plataformas digitales & Contraste entre condiciones de etiquetado \\
+\hline
+
+\end{longtable}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Origen y adaptación prevista de cada componente instrumental.}
+\label{tab:adaptacion}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|c|p{3.4cm}|p{3.6cm}|p{4.0cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Constructo} & \textbf{Instrumento de origen} & \textbf{Adaptación prevista} & \textbf{Observación} \\
+\hline
+C1, C2 & Guía de grupos focales y de codificación \citep{vargasmeza2019comprension}; técnica Metaplan \citep{reyes2019desarrollo,cortes2004metaplan} & Sustitución del dominio nutrimental por el de intervención algorítmica; incorporación de los tres perfiles de actores & Se conserva la estructura de tarjetas por atributo de diseño \\
+\hline
+V1 & Tarea de comprensión objetiva por elección entre tres opciones \citep{vargasmeza2019aceptabilidad} & Elección del documento con mayor nivel de intervención entre tres documentos etiquetados & Se sustituye la decodificación del ícono por el uso del signo para decidir \\
+\hline
+V2 & Registro automatizado de tiempo de decisión \citep{vargasmeza2019aceptabilidad} & Cronometraje de la tarea de V1 & Existen valores de referencia en la literatura revisada \\
+\hline
+V3 & Escala de aceptabilidad de diez ítems en tres dimensiones \citep{vargasmeza2019aceptabilidad} & Traducción de los ítems al dominio del etiquetado de IA, conservando las tres dimensiones & Ya validada en población mexicana e hispanohablante \\
+\hline
+V4 & Medición de intención de uso \citep{jauregui2020intenciones} & Disposición declarada a utilizar y a exigir el sistema en la práctica académica & Se contrastará con modelos de aceptación tecnológica \\
+\hline
+\end{tabular}
+\end{table}
+
+Conforme a la indicación del seminario, el procedimiento consiste en tomar componentes de instrumentos ya publicados, adaptarlos al objeto de la tesis y someterlos a juicio de expertos para su recalibración contextual. Ese mismo procedimiento aporta la evidencia de validez de contenido consignada en el Cuadro~\ref{tab:rigor}. Los hallazgos metodológicos con consecuencia directa sobre el diseño se desarrollan en el Anexo~\ref{anx:hallazgos}.
+
+% 10. ESQUEMA DEL ARTÍCULO
+\section{Primer esquema tentativo del artículo}\label{sec:esquema}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Esquema tentativo del artículo de revisión.}
+\label{tab:esquema}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|c|p{4.6cm}|p{6.4cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{\S} & \textbf{Sección} & \textbf{Contenido} \\
+\hline
+1 & Introducción & Adopción de IA generativa en educación superior; distinción entre detección y declaración; propósito de la revisión. \\
+\hline
+2 & Método & Estrategia de búsqueda, bases, ecuaciones, criterios y procedimiento de análisis. \\
+\hline
+3 & Mecanismos de declaración propuestos & Tipología: marcas de agua, metadatos de procedencia, declaraciones textuales y sistemas gráficos. \\
+\hline
+4 & Evidencia sobre comprensión y aceptación & Síntesis de la evidencia disponible, incluida la del campo del etiquetado de advertencia. \\
+\hline
+5 & Procedimientos de diseño y grado de participación & Comparación entre modelos consultivos y de co-diseño; lugar del destinatario en cada procedimiento. \\
+\hline
+6 & Desempeño diferencial y equidad & Diferencias por escolaridad y nivel socioeconómico; implicaciones para la carga de la transparencia. \\
+\hline
+7 & Discusión & Límites de la analogía entre dominios; vacíos identificados; agenda de investigación. \\
+\hline
+8 & Conclusiones & Respuesta a la pregunta de revisión y derivaciones para la gobernanza académica de la IA. \\
+\hline
+\end{tabular}
+\end{table}
+
+\noindent\textbf{Tesis del artículo.} La experiencia del etiquetado frontal de advertencia demuestra que un sistema gráfico puede ser comprendido y aceptado de manera transversal, incluso por poblaciones con menor escolaridad. Esa experiencia se construyó bajo un modelo consultivo, en el que los destinatarios evaluaron alternativas diseñadas por equipos técnicos. El vacío que la revisión identifica, y que el proyecto doctoral se propone atender, es la ausencia de evidencia sobre lo que ocurre cuando quienes serán etiquetados participan en la definición misma de la etiqueta.
+
+% CONSIDERACIONES FINALES
+\section{Consideraciones finales}
+
+Esta versión corregida presenta los diez elementos solicitados en la sesión~2 del seminario, atiende cinco inconsistencias detectadas al contrastar el protocolo anterior con los materiales de la Unidad~1 e incorpora las observaciones de la retroalimentación del Avance~1 que podían resolverse sin ampliar todavía la matriz: la identificación por nombre de cada herramienta de IA, la especificación reproducible de la búsqueda ejecutada con el agente propio y la bitácora de decisiones. Las incorporaciones de mayor consecuencia son tres. Primera, la declaración explícita del paradigma, la ontología y la epistemología, ausente en versiones previas, que permite sostener la convivencia de vocabularios cuantitativos y construccionistas en calidad de decisión declarada y verificable. Segunda, la distinción entre el sistema gráfico como producto de la investigación y la gobernanza académica de la inteligencia artificial como objeto de investigación, corrección que reordena la secuencia de la fundamentación teórica. Tercera, la identificación de un antecedente metodológico directo que aplica una ruta mixta por etapas al desarrollo de un sistema gráfico de etiquetado, con instrumentos publicados y susceptibles de adaptación.
+
+Quedan pendientes para el siguiente avance las tareas consignadas en el Cuadro~\ref{tab:tablero-correcciones}: la ampliación de la matriz a quince fuentes en dos estratos, con los campos metodológicos completos y a partir de la nueva ronda de búsqueda de D2; la obtención de los conteos de registros por base para completar el reporte PRISMA-S; y dos tareas ya previstas. La primera es la construcción del diagnóstico fáctico en el nivel micro, mediante la revisión sistemática de los lineamientos institucionales de una muestra de instituciones de educación superior mexicanas, tarea que además da contenido al primer objetivo específico. La segunda es la elaboración de las versiones adaptadas de los instrumentos señalados en el Cuadro~\ref{tab:adaptacion} y su envío a juicio de expertos, con miras al pilotaje previsto para el siguiente periodo.
+
+% ANEXOS
+\clearpage
+\appendix
+\renewcommand{\thesection}{\Alph{section}}
+\section*{Anexos}
+\addcontentsline{toc}{section}{Anexos}
+
+\vspace{0.3cm}
+\noindent Los anexos reúnen el material de sustento del avance: el detalle de las correcciones con su redacción previa y corregida, las precisiones conceptuales del mapeo epistémico, el aparato completo de búsqueda y los hallazgos metodológicos derivados de la lectura a texto completo de las fuentes de la matriz.
+
+% ------------------------------------------------------
+\section{Detalle de las correcciones}\label{anx:correcciones}
+
+\subsection*{A.1 Supuesto de investigación}
+
+\begin{mdframed}[style=cajaOriginal]
+\textbf{\textcolor{colorOriginal}{Versión previa (Proyecto Final, Seminario de Tesis~I)}}\\[4pt]
+«A mayor participación de la comunidad académica en el diseño del sistema gráfico (VI), mayor será la comprensión y la aceptación del mismo (VD) en instituciones de educación superior mexicanas.»
+\end{mdframed}
+
+\begin{mdframed}[style=cajaPropuesta]
+\textbf{\textcolor{colorPropuesto}{Versión corregida (Avance 1, Seminario de Tesis~II)}}\\[4pt]
+«En la etapa cuantitativa del estudio (F3--F4) se anticipa que el sistema gráfico co-diseñado presentará niveles de identificación correcta (V1), tiempo de comprensión (V2), aceptación (V3) y disposición al uso (V4) superiores a los de una versión de referencia elaborada sin participación de la comunidad. La etapa cualitativa (F1--F2) se orienta por preguntas de investigación abiertas, congruentes con su base construccionista.»
+\end{mdframed}
+
+\noindent\textit{Fundamento.} El supuesto original enunciaba una relación de variable independiente y dependiente para la totalidad del estudio, incluido el componente de co-diseño, cuya base construccionista no admite esa formulación. \citet{moonblackman2014} advierten que la validez de un diseño se compromete cuando los supuestos incorporados permanecen sin reconocer, con independencia de cuántos convivan en él. La versión corregida conserva ambos vocabularios y delimita el alcance de cada uno.
+
+\subsection*{A.2 Numeración de fases}
+
+En el Proyecto Final anterior la tabla de constructos ubicaba los objetivos específicos tercero y cuarto en la Fase~2, mientras que la ruta metodológica les asignaba las Fases~3 y~4. Se adopta una numeración única de cinco fases y se renombra el segundo nivel como etapas, según el Cuadro~\ref{tab:etapas}.
+
+\subsection*{A.3 Alcance y rigor}
+
+El protocolo declaraba transferibilidad analítica y no generalización estadística para el conjunto del estudio, pese a producir datos cuantitativos con muestreo intencional. \citet{gaete} señala que los criterios de rigor difieren según el paradigma; en consecuencia se adopta un plan diferenciado por etapa (Cuadro~\ref{tab:rigor}). Siguiendo además la advertencia de \citet{guest2012} sobre el uso de estadística basada en probabilidad con muestras no probabilísticas, los resultados de V1--V4 se reportarán mediante descriptivos, distribuciones y magnitudes de efecto, sin presentar valores $p$ como prueba confirmatoria.
+
+% ------------------------------------------------------
+\section{Precisiones del mapeo epistémico}\label{anx:epistemico}
+
+\subsection*{B.1 Objeto de investigación frente a producto de investigación}
+
+\citet{deroncele2021} definen el objeto de investigación como la categoría científica sobre la que se interviene, y lo distinguen tanto de los sujetos participantes como del producto obtenido. En versiones anteriores del protocolo el sistema gráfico se nombraba como objeto de estudio. La corrección adoptada separa ambos planos: el sistema gráfico ocupa el lugar del producto, mientras que el objeto corresponde al proceso de gobernanza académica de la inteligencia artificial que se busca transformar.
+
+Esta reformulación tiene una consecuencia práctica sobre la estructura del marco teórico. Los mismos autores señalan que la fundamentación debe iniciar por la categoría meta. En consecuencia, el capítulo teórico se reordena para desarrollar primero la gobernanza académica de la inteligencia artificial y a continuación la semiótica del sistema gráfico.
+
+\subsection*{B.2 Alcance del estudio en el plano praxiológico}
+
+\citet{deroncele2021} describen el alcance transformativo como aquel propio de estudios que diseñan, aplican y evalúan una propuesta de mejora, y precisan que en el nivel doctoral la tesis debe aportar una contribución teórico-práctica que trascienda la caracterización del fenómeno. El presente proyecto se inscribe en ese alcance: produce un sistema gráfico probado y un documento de lineamientos institucionales.
+
+\subsection*{B.3 Sobre la pluralidad de vocabularios}
+
+El protocolo emplea simultáneamente lenguaje de variables, propio del postpositivismo, y lenguaje de co-construcción, propio del construccionismo. Siguiendo la guía de \citet{moonblackman2014}, la línea vertical que une realismo crítico, construccionismo e interpretativismo constituye una combinación congruente. \citet{creswell2023} señalan asimismo que la cosmovisión transformativa puede vincularse a enfoques cualitativos, cuantitativos o mixtos. El Cuadro~\ref{tab:coherencia} cumple la función de declarar esos supuestos, de modo que la convivencia de vocabularios resulte una decisión explícita y verificable.
+
+% ------------------------------------------------------
+\section{Aparato de búsqueda}\label{anx:busqueda}
+
+\subsection*{C.1 Ecuaciones literales del agente, por dimensión}
+
+Las ecuaciones se transcriben tal como están codificadas; el agente las envía literalmente a cada base. Las de artículos están en inglés y las de tesis en español, porque los repositorios de tesis indexados responden mejor a términos en español.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Ecuaciones de búsqueda del agente por dimensión y tipo documental.}
+\label{tab:ecuaciones-agente}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{1.1cm}|p{1.3cm}|p{10.2cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Dim.} & \textbf{Tipo} & \textbf{Ecuaciones (una por sesión, tres páginas cada una)} \\
+\hline
+D1 & Artículos & \textit{AI governance higher education ethics transparency} · \textit{artificial intelligence academic integrity university policy} · \textit{responsible AI education institutional governance} · \textit{AI ethics higher education accountability} · \textit{algorithmic accountability academic institutions policy} · \textit{generative AI governance university Mexico} \\
+\hline
+D1 & Tesis & \textit{gobernanza inteligencia artificial educacion superior} · \textit{etica inteligencia artificial universidad Mexico} · \textit{uso responsable IA educacion superior posgrado} · \textit{politicas institucionales inteligencia artificial universidad} \\
+\hline
+D2 & Artículos & \textit{AI disclosure labeling academic content transparency} · \textit{artificial intelligence transparency labeling education} · \textit{algorithmic transparency content authorship higher education} · \textit{AI generated content labeling standards} · \textit{machine learning content disclosure academic writing} · \textit{generative AI authorship transparency university} \\
+\hline
+D2 & Tesis & \textit{transparencia inteligencia artificial contenidos educativos} · \textit{etiquetado IA materiales educativos universidad} · \textit{declaracion autoria inteligencia artificial academia Mexico} · \textit{sistema etiquetado contenidos generados IA educacion} \\
+\hline
+D3 & Artículos & \textit{participatory design educational technology usability} · \textit{co-design learning materials higher education} · \textit{heuristic evaluation usability educational materials Nielsen} · \textit{user centered design learning tools students} · \textit{participatory action research educational technology} · \textit{co-creation digital learning resources university} \\
+\hline
+D3 & Tesis & \textit{diseno participativo tecnologia educativa universidad} · \textit{co-diseno materiales educativos digitales posgrado} · \textit{usabilidad recursos educativos digitales Mexico} · \textit{evaluacion heuristica materiales aprendizaje} \\
+\hline
+D4 & Artículos & \textit{critical educational technology AI Latin America} · \textit{critical digital literacy higher education AI} · \textit{AI education inequality critical perspective Mexico} · \textit{technology education power critical pedagogy} · \textit{digital colonialism education artificial intelligence} · \textit{critical algorithm studies education equity} \\
+\hline
+D4 & Tesis & \textit{tecnologia educativa critica America Latina inteligencia artificial} · \textit{pedagogia critica inteligencia artificial Mexico universidad} · \textit{alfabetizacion digital critica educacion superior} · \textit{desigualdad tecnologica educacion superior Mexico} \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{C.2 Ecuaciones exploratorias de la versión anterior (sustituidas)}
+
+Se conservan por trazabilidad las ecuaciones booleanas del Avance~1 original. No fueron operativas: la primera arrojaba más de catorce mil registros en Scopus. Quedan sustituidas por las del Cuadro~\ref{tab:ecuaciones-agente}.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Ecuaciones exploratorias por bloque temático (versión anterior).}
+\label{tab:ecuaciones}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{3.0cm}|p{9.4cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Bloque} & \textbf{Ecuación} \\
+\hline
+Etiquetado de IA & (\textit{AI-generated} OR \textit{generative AI}) AND (\textit{label*} OR \textit{disclosure} OR \textit{provenance} OR \textit{watermark*}) AND (\textit{transparency} OR \textit{trust}) \\
+\hline
+Etiquetado en educación & (\textit{generative AI}) AND (\textit{higher education}) AND (\textit{policy} OR \textit{governance} OR \textit{academic integrity}) AND (\textit{declaration} OR \textit{disclosure}) \\
+\hline
+Comprensión de etiquetas gráficas & (\textit{front-of-pack} OR \textit{warning label}) AND (\textit{objective understanding} OR \textit{comprehension}) AND (\textit{experiment*} OR \textit{randomi*}) \\
+\hline
+Diseño participativo de etiquetas & (\textit{co-design} OR \textit{participatory design} OR \textit{co-creation}) AND (\textit{label*} OR \textit{warning} OR \textit{signage}) \\
+\hline
+Contexto mexicano & «etiquetado frontal» AND (comprensión OR aceptación) AND México \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{C.3 Instrucciones literales al modelo de lenguaje}
+
+\begin{mdframed}[style=cajaCotejo]
+\textbf{\textcolor{colorCotejo}{Instrucción de sistema (modo automático, versión 11)}}\\[4pt]
+\footnotesize
+Eres asistente de investigacion doctoral. Datos REALES de OpenAlex/Crossref/SemanticScholar/DOAJ. PROYECTO: Sistema grafico etiquetado IA en contenidos educativos. Erandi Carrasco UDEMEX 2026. REGLAS: 1)~Datos exactos del JSON 2)~Hallazgos del resumen, si no hay: «Sin resumen - verificar en fuente» 3)~Sin URLs propias 4)~Prioriza 2020-2025 y mayor citas 5)~Max 60 palabras/campo excepto resumen\_preliminar 6)~SOLO JSON sin markdown. CAMPOS NUEVOS OBLIGATORIOS: justificacion\_inclusion: por que esta fuente debe incluirse en el estado del arte (relacion directa con el tema, en 2-3 oraciones). resumen\_preliminar: parrafo de 4-5 oraciones listo para insertar en la seccion de estado del arte de la tesis, redactado en tercera persona academica, citando al autor. [Sigue el esquema JSON de la ficha: folio, tipo, referencia\_apa, doi, dimension, revista\_repositorio, pais\_contexto, anio, paradigma, metodologia, objeto\_estudio, hallazgos, aportacion, brecha, marco\_teorico, archivo, justificacion\_inclusion, resumen\_preliminar.]
+\end{mdframed}
+
+\begin{mdframed}[style=cajaCotejo]
+\textbf{\textcolor{colorCotejo}{Instrucción de usuario (modo automático)}}\\[4pt]
+\footnotesize
+Dimension: \{D\} - \{etiqueta de la dimensión\}. Fichas a generar: \{N\}. FUENTES REALES: \{lista numerada de los veinte candidatos con tipo, título, autores, fuente, año, citas, DOI, base y resumen\}. Selecciona las \{N\} MAS RELEVANTES para el proyecto.
+\end{mdframed}
+
+\begin{mdframed}[style=cajaCotejo]
+\textbf{\textcolor{colorCotejo}{Instrucción de sistema (modo manual, tesis de repositorios)}}\\[4pt]
+\footnotesize
+Eres asistente de investigacion doctoral. Texto/datos de fuente proporcionada manualmente. PROYECTO: Sistema grafico etiquetado IA en contenidos educativos. REGLAS: 1)~Solo info del texto - faltante: «Verificar en fuente» 2)~Sin inventar 3)~No generes URLs que no esten en el texto 4)~Max 60 palabras/campo 5)~SOLO JSON sin markdown.
+\end{mdframed}
+
+Las reglas 1 a 3 son las salvaguardas contra la invención de datos: el modelo sólo puede usar los metadatos entregados, debe marcar «verificar en fuente» cuando el resumen no existe y no puede generar direcciones. Las fichas del corpus que contienen esa marca son evidencia de que la regla operó.
+
+\subsection*{C.4 Lo que el agente todavía no registra}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Requisitos de reporte PRISMA-S frente al registro de la versión 11.}
+\label{tab:limites-registro}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{3.2cm}|p{4.6cm}|p{4.6cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{Requisito} & \textbf{Estado en la versión 11} & \textbf{Qué se hará en el Avance 2} \\
+\hline
+Ecuación, campos, filtros, orden & Codificados y fijos (C.1, Cuadro~\ref{tab:sintaxis}) & Se reportan tal cual \\
+\hline
+Fecha de cada consulta & Sólo se guarda la fecha de la decisión sobre cada ficha & Se reportan las fechas de sesión (19 y 22/04/2026); se registrará la fecha de búsqueda en el archivo de sesiones \\
+\hline
+Total de registros por base & No se guarda; sólo se recuperan las primeras páginas & Se declara la estrategia como muestreo por relevancia, congruente con una revisión de alcance; se obtendrán los totales con el script de conteos \\
+\hline
+Duplicados eliminados & Se eliminan y se informan en pantalla; no se persisten & Se añadirá el conteo al registro de sesión \\
+\hline
+Cribado por título y resumen & Lo realiza el modelo (20 a $N$) y la autora (A/R/S); el motivo de rechazo se escribe pero no se guarda & Se modificará el agente para persistir el motivo; se reconstruirán los motivos de las 23 rechazadas \\
+\hline
+Lectura de texto completo & Fuera del agente: la ficha se redacta a partir del resumen & Los campos metodológicos de la matriz se extraen de la lectura íntegra \\
+\hline
+Evaluación de calidad o riesgo de sesgo & No la hace & Se aplicará un instrumento de calidad a las fuentes que pasen a la matriz \\
+\hline
+Ventana temporal & OpenAlex fija 2018--2025; la instrucción prioriza 2020--2025; Crossref y Semantic Scholar no tienen límite superior & Se ajusta a 2022--2026 para evidencia directa y 2018--2021 como antecedentes \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{C.5 Ecuaciones propuestas para la nueva ronda de D2}
+
+Con el vocabulario de \citet{gamage2025}, \citet{wittenberg2025}, \citet{perezperez2026} y \citet{micallef2026}, ventana 2022--2026 y las cuatro bases actuales: \textit{AI-generated content label design user perception} · \textit{labeling synthetic content disclosure experiment} · \textit{AI disclosure framework higher education writing} · \textit{generative AI declaration assessment transparency mechanisms} · \textit{content credentials provenance label comprehension} · \textit{AI label trust credibility randomized}. Las fuentes alojadas sólo en arXiv entran por modo manual, pues arXiv no está entre las bases del agente.
+
+\subsection*{C.6 Tratamiento de las fuentes sin acceso}
+
+Se decidió conservar las fuentes de acceso restringido dentro del registro, porque el acceso restringido no es un criterio de calidad y porque disponibilidad y pertinencia resultaron independientes entre sí: en el subconjunto trabajado, la única fuente restringida ---\citet{grunert2007modelo}--- es de carácter conceptual, mientras que la totalidad de las fuentes portadoras de instrumento resultaron de acceso libre. Las fuentes sin acceso se conservan con la marca correspondiente y se gestionan mediante solicitud del identificador digital al asesor o a la biblioteca institucional; cuando de ellas se extraigan datos metodológicos, se obtendrá el documento original y no se sustituirá por una fuente secundaria. Esta decisión queda asentada en la bitácora de decisiones metodológicas.
+
+% ------------------------------------------------------
+\section{Hallazgos metodológicos con consecuencia sobre el diseño}\label{anx:hallazgos}
+
+Los siguientes hallazgos se derivan de la lectura a texto completo de las fuentes de la matriz inicial y tienen consecuencia directa sobre decisiones del proyecto doctoral.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Hallazgos y su consecuencia sobre el diseño de la tesis.}
+\label{tab:hallazgos}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|c|p{5.4cm}|p{5.8cm}|}
+\hline
+\rowcolor{bgCotejo}
+\textbf{\#} & \textbf{Hallazgo} & \textbf{Consecuencia} \\
+\hline
+H1 & Tensión entre preferencia declarada y desempeño observado: en la fase cualitativa los participantes preferían etiquetas con información detallada, mientras que en la cuantitativa los prototipos más simples obtuvieron mejor desempeño \citep{reyes2019desarrollo}. & Documenta empíricamente la tensión entre diseño participativo crítico y usabilidad, y refuerza la pertinencia de un diseño secuencial capaz de detectarla. \\
+\hline
+H2 & Desacuerdo entre actores legos y expertos en las preferencias léxicas del sistema \citep{reyes2019desarrollo}. & Aporta evidencia sobre asimetrías en el poder de nombrar, eje central del marco crítico del proyecto. \\
+\hline
+H3 & El sistema finalmente implementado modificó su enunciado por restricciones legales, con posterioridad al proceso participativo \citep{reyes2019desarrollo}. & Sostiene la delimitación conceptual del protocolo: el sistema gráfico es insumo para la gobernanza y no mecanismo de gobernanza. \\
+\hline
+H4 & La presentación desagregada de múltiples atributos superó a la presentación agregada en un solo elemento \citep{reyes2019desarrollo}. & Decisión de diseño que se llevará como pregunta abierta a los talleres de la Fase~2. \\
+\hline
+H5 & Los estudios revisados operaron con equipos interdisciplinarios que incluyeron perfiles de diseño gráfico profesional \citep{reyes2019desarrollo,vargasmeza2019comprension}. & Se prevé incorporar dicha figura en la Fase~2 del proyecto. \\
+\hline
+H6 & Justificación de tamaño muestral por prototipo: cuarenta participantes permiten detectar una diferencia de quince por ciento en medias, con desviación estándar de veinticinco por ciento \citep{reyes2019desarrollo}. & Sustituye la indicación previa de treinta a cincuenta participantes sin justificación estadística. \\
+\hline
+\end{tabular}
+\end{table}
+
+% ------------------------------------------------------
+\section{Bitácora del corpus generado con el agente}\label{anx:bitacora}
+
+La bitácora se genera automáticamente a partir de los archivos del agente (corpus aprobado y lista de rechazadas) con el script \texttt{generar\_bitacora.py}; cada fila corresponde a una decisión registrada con fecha. Las sesiones de decisión se realizaron el 19 y el 22 de abril de 2026. Los comentarios de decisión se reproducen tal como se registraron; los que resultan insuficientes como justificación se reescribirán en el Avance~2 con los campos de justificación de inclusión que incorpora la versión vigente del agente.
+
+\input{bitacora_corpus}
+
+% ══════════════════════════════════════════════════════
+% REFERENCIAS
+% ══════════════════════════════════════════════════════
+\clearpage
+\renewcommand{\thesection}{\arabic{section}}
+\section*{Referencias}
+\addcontentsline{toc}{section}{Referencias}
+\renewcommand{\refname}{}
+\vspace{-2.5\baselineskip}
+\bibliographystyle{apalike-ejor}
+\bibliography{referencias}
+
+\end{document}

@@ -57,17 +57,17 @@ Generada automáticamente desde `corpus_estado_del_arte.json` y `rechazados.json
 | D1 | D1-A03 | Dwivedi et al. (2023) | 2023 | 10.1016/j.ijinfomgt.2023.102642 | OpenAlex | VERIFICADA | 3421 | Sí | Internacional | Opinion multidisciplinaria | (URL de acceso registrada) | 19/04/2026 |
 | D1 | D1-A03 | Johnston et al. (2024) | 2024 | 10.1007/s40979-024-00149-4 | OpenAlex | VERIFICADA | 219 | Sí | Reino Unido | Encuesta mixta | a | 19/04/2026 |
 | D1 | D1-A04 | Acosta Enríquez et al. (2024) | 2024 | 10.1007/s40979-024-00157-4 | OpenAlex | VERIFICADA | 82 | Sí | Peru | Encuesta descriptiva | arco etico cultural | 19/04/2026 |
-| D1 | D1-A05 | Plata et al. (2023) | 2023 | 10.24191/ajue.v19i4.24697 | OpenAlex verificado | VERIFICADA | 46 | Sí | Asia | Revision sistematica | tendencias de investigación en integridad académica | 19/04/2026 |
+| D1 | D1-A05 | Plata et al. (2023) | 2023 | 10.24191/ajue.v19i4.24697 | OpenAlex | VERIFICADA | 46 | Sí | Asia | Revision sistematica | tendencias de investigación en integridad académica | 19/04/2026 |
 | D1 | D1-A05 | Wang et al. (2024) | 2024 | 10.1016/j.caeai.2024.100326 | OpenAlex | VERIFICADA | 130 | Sí | Estados Unidos | Analisis documental | JUSTO LO QUE BUCAMOS | 19/04/2026 |
-| D1 | D1-T01 | Shah et al. (2025) | 2025 | Verificar en fuente | Manual | NO ENCONTRADA | 0 | No | Verificar en fuente | Revisión narrativa | (URL de acceso registrada) | 19/04/2026 |
+| D1 | D1-T01 | Shah et al. (2025) | 2025 | -- | Manual | NO ENCONTRADA | 0 | No | Verificar en fuente | Revisión narrativa | (URL de acceso registrada) | 19/04/2026 |
 | D1 | D1-T01 | Watson et al. (2025) | 2025 | 10.1007/s00146-024-02174-w | Manual | VERIFICADA | 22 | Sí | Verificar en fuente | Teórica | porta marco de transparencia algorítmica' | 19/04/2026 |
-| D2 | D2-A01 | Barredo Arrieta et al. (2019) | 2019 | 10.1016/j.inffus.2019.12.012 | OpenAlex verificado | VERIFICADA | 8490 | Sí | Internacional | Revision sistematica | DA COPNCEPTOS DE MACHINE LEARNING | 19/04/2026 |
+| D2 | D2-A01 | Barredo Arrieta et al. (2019) | 2019 | 10.1016/j.inffus.2019.12.012 | OpenAlex | VERIFICADA | 8490 | Sí | Internacional | Revision sistematica | DA COPNCEPTOS DE MACHINE LEARNING | 19/04/2026 |
 | D2 | D2-A01 | Rughiniș et al. (2025) | 2025 | 10.3389/fcomp.2025.1608276 | Manual | VERIFICADA | 3 | Sí | Verificar en fuente | Cualitativa | ave para D2 — aporta marco de transparencia algorítmica | 19/04/2026 |
-| D2 | D2-A02 | Ali et al. (2023) | 2023 | 10.1016/j.inffus.2023.101805 | OpenAlex verificado | VERIFICADA | 1370 | Sí | Internacional | Revision sistematica | Discussion of different explainability assessment methods. | 19/04/2026 |
-| D2 | D2-A02 | Floridi et al. (2018) | 2018 | 10.1007/s11023-018-9482-5 | OpenAlex verificado | VERIFICADA | 3156 | Sí | Internacional | Framework teorico | marco etico | 19/04/2026 |
-| D2 | D2-A02 | Seeger et al. (2026) | 2026 | 10.1007/s12525-026-00883-2 | Crossref verificado | VERIFICADA | 0 | Sí | Internacional | Experimental | APORTA UN EJEMPLO DE ETIQUETADO  EN SOCUIAL MEDIA | 19/04/2026 |
-| D2 | D2-A03 | Hagendorff (2020) | 2020 | 10.1007/s11023-020-09517-8 | OpenAlex verificado | VERIFICADA | 1558 | Sí | Internacional | Evaluacion semi-sistematica | guia de marco etico | 19/04/2026 |
-| D2 | D2-A03 | Mohamed (2024) | 2024 | 10.29140/tltl.v6n3.1813 | OpenAlex verificado | VERIFICADA | 27 | Sí | Internacional | Revision de literatura | TRANSPARENCIA | 19/04/2026 |
+| D2 | D2-A02 | Ali et al. (2023) | 2023 | 10.1016/j.inffus.2023.101805 | OpenAlex | VERIFICADA | 1370 | Sí | Internacional | Revision sistematica | Discussion of different explainability assessment methods. | 19/04/2026 |
+| D2 | D2-A02 | Floridi et al. (2018) | 2018 | 10.1007/s11023-018-9482-5 | OpenAlex | VERIFICADA | 3156 | Sí | Internacional | Framework teorico | marco etico | 19/04/2026 |
+| D2 | D2-A02 | Seeger et al. (2026) | 2026 | 10.1007/s12525-026-00883-2 | Crossref | VERIFICADA | 0 | Sí | Internacional | Experimental | APORTA UN EJEMPLO DE ETIQUETADO  EN SOCUIAL MEDIA | 19/04/2026 |
+| D2 | D2-A03 | Hagendorff (2020) | 2020 | 10.1007/s11023-020-09517-8 | OpenAlex | VERIFICADA | 1558 | Sí | Internacional | Evaluacion semi-sistematica | guia de marco etico | 19/04/2026 |
+| D2 | D2-A03 | Mohamed (2024) | 2024 | 10.29140/tltl.v6n3.1813 | OpenAlex | VERIFICADA | 27 | Sí | Internacional | Revision de literatura | TRANSPARENCIA | 19/04/2026 |
 | D2 | D2-T01 | Arriaga Navarro (2026) | 2026 | -- | Repositorio institucional | SIN DOI — URL manual | 0 | No | México | Cualitativa | aporta marco de transparencia algorítmica | 19/04/2026 |
 | D2 | D2-T01 | Enríquez Jiménez (2024) | 2024 | https://hdl.handle.net/20.500.12371/24132 | Manual | NO ENCONTRADA | 0 | No | México | Verificar en fuente | porta marco de transparencia algorítmica' | 19/04/2026 |
 | D2 | D2-T01 | Verificar en fuente (2023) | 2023 | 10.1186/s41239-023-00408-3 | Manual | VERIFICADA | 1082 | Sí | Hong Kong | Mixta | importante inferencia en todo | 19/04/2026 |
@@ -83,11 +83,11 @@ Generada automáticamente desde `corpus_estado_del_arte.json` y `rechazados.json
 | D3 | D3-T01 | Moeini (2020) | 2020 | 10.13140/rg.2.2.32813.61921 | -- | VERIFICADA | 3 | Sí | Reino Unido | -- | diseño de etiquetado | 19/04/2026 |
 | D3 | D3-T01 | Parker et al. (2025) | 2025 | 10.1007/s10791-025-09745-5 | Manual | VERIFICADA | 3 | Sí | Hong Kong | Mixta | ave para D2 — aporta marco de transparencia algorítmica' | 19/04/2026 |
 | D4 | D4-A01 | Ponce Rojo et al. (2025) | 2025 | 10.3390/educsci15091134 | OpenAlex | VERIFICADA | 4 | Sí | Latinoamerica | Analisis cualitativo | aporta marco de transparencia algorítmica | 19/04/2026 |
-| D4 | D4-A01 | Rivadeneira et al. (2024) | 2024 | 10.1145/3689370 | OpenAlex verificado | VERIFICADA | 8 | Sí | Latinoamerica | Cualitativa | LOS CRITERIOS BAJO LOS QUE USAN CHAT GPT | 19/04/2026 |
+| D4 | D4-A01 | Rivadeneira et al. (2024) | 2024 | 10.1145/3689370 | OpenAlex | VERIFICADA | 8 | Sí | Latinoamerica | Cualitativa | LOS CRITERIOS BAJO LOS QUE USAN CHAT GPT | 19/04/2026 |
 | D4 | D4-A02 | Juarez Merino (2026) | 2026 | 10.18848/1832-3669/cgp/a1024 | Crossref | VERIFICADA | 0 | Sí | Latinoamerica | Analisis critico | Análisis crítico de IA como reconfigurador de poder y gobernanza en co | 19/04/2026 |
-| D4 | D4-A03 | Miralrio et al. (2024) | 2024 | 10.3389/fcomp.2024.1250992 | OpenAlex verificado | VERIFICADA | 8 | Sí | Latinoamerica | Revision sistematica | Gran potencial educativo pero debate continuo sobre riesgos sociales. | 19/04/2026 |
-| D4 | D4-A04 | Durso et al. (2022) | 2022 | 10.33225/pec/22.80.679 | OpenAlex verificado | VERIFICADA | 39 | Sí | Brasil | Revision sistematica | Brasil tiene mayor mercado de educacion superior en Latinoamerica | 19/04/2026 |
-| D4 | D4-A05 | Haroud et al. (2025) | 2025 | 10.3390/educsci15040396 | OpenAlex verificado | VERIFICADA | 43 | Sí | Marruecos | Mixta | ebates sobre potencial transformador de practicas pedagogicas y redefi | 19/04/2026 |
+| D4 | D4-A03 | Miralrio et al. (2024) | 2024 | 10.3389/fcomp.2024.1250992 | OpenAlex | VERIFICADA | 8 | Sí | Latinoamerica | Revision sistematica | Gran potencial educativo pero debate continuo sobre riesgos sociales. | 19/04/2026 |
+| D4 | D4-A04 | Durso et al. (2022) | 2022 | 10.33225/pec/22.80.679 | OpenAlex | VERIFICADA | 39 | Sí | Brasil | Revision sistematica | Brasil tiene mayor mercado de educacion superior en Latinoamerica | 19/04/2026 |
+| D4 | D4-A05 | Haroud et al. (2025) | 2025 | 10.3390/educsci15040396 | OpenAlex | VERIFICADA | 43 | Sí | Marruecos | Mixta | ebates sobre potencial transformador de practicas pedagogicas y redefi | 19/04/2026 |
 | D4 | D4-T01 | Aguilar Rivera (2025) | 2025 | -- | UNAM | SIN DOI — URL manual | 0 | No | México | Cualitativa | Concepto VIPOGIA y marco regulador basado en principios derechos human | 19/04/2026 |
 | D4 | D4-T01 | Henrickson (2021) | 2021 | 10.26174/thesis.lboro.10596404.v1 | -- | VERIFICADA | 15 | Sí | Internacional | Estudio hermeneutico interdisciplinario | Marco hermeneutico para comprender autoria e impacto social de conteni | 19/04/2026 |
 | D4 | D4-T01 | Verificar en fuente (Verificar en fuente) | Verificar en fuente | -- | Manual | SIN DOI - fuente manual | 0 | No | México | Verificar en fuente | aporta marco de transparencia algorítmica | 19/04/2026 |

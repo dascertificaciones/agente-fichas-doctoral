@@ -1,0 +1,75 @@
+AVANCE 1 (VERSIÓN CORREGIDA) — SEMINARIO DE TESIS DOCTORAL II
+Erandi Carrasco Alcántara — UDX112510016
+
+QUÉ CAMBIÓ RESPECTO DEL ZIP ANTERIOR
+------------------------------------
+Esta versión integra la justificación del procedimiento de búsqueda y
+selección de fuentes con el Agente de Fichas Bibliográficas v11, en
+respuesta a la retroalimentación del Avance 1 y a la sesión 4:
+
+  Portada           Errata "Dr.Asesor" corregida; título "Versión corregida";
+                    fecha 27 de octubre de 2026 (ajustar si procede).
+  Declaración IA    Herramientas nombradas una por una (agente propio,
+                    Claude Sonnet 4, Claude Code). Falta completar el nombre
+                    del asistente conversacional usado para la redacción
+                    (marcado entre corchetes).
+  Tablero / §1      Filas 12-15 con las observaciones de la retroalimentación
+                    del Avance 1 y su estado, en un bloque separado.
+  §2 Tema           Se retira la afirmación de "único antecedente directo";
+                    se citan Gamage 2025, Wittenberg 2025, Pérez-Pérez 2026 y
+                    Micallef y Petrovska 2026.
+  §6 Búsqueda       Sección nueva completa: bases y su naturaleza (Cuadro 12),
+                    lógica del agente, sintaxis y filtros por base (Cuadro 13),
+                    discriminación automática y embudo (Cuadro 14), evolución
+                    de versiones (Cuadro 15), resultado y regla de paso a la
+                    matriz.
+  §7 Criterios      Nota: el acceso restringido no es criterio de calidad; I3
+                    sólo selecciona candidatos a adaptación.
+  §8 Matriz         Fila de Seeger et al. (2026) reformulada.
+  §11               Primer párrafo ajustado (ya no afirma cumplimiento total).
+  Anexo C           Reescrito: C.1 ecuaciones literales del agente (40);
+                    C.2 ecuaciones booleanas anteriores (sustituidas);
+                    C.3 prompts literales al modelo; C.4 lo que el agente aún
+                    no registra (PRISMA-S); C.5 ecuaciones nuevas para D2;
+                    C.6 fuentes sin acceso.
+  Anexo E (nuevo)   Bitácora del corpus: 41 fichas aprobadas, resumen
+                    cuantitativo y 23 rechazadas. Archivo bitacora_corpus.tex,
+                    generado automáticamente desde los JSON del agente.
+  Bibliografía      Estilo apalike-ejor (como pide la actividad). Seis
+                    entradas nuevas (adenda 4 al final del .bib).
+
+CONTENIDO DE LA CARPETA
+-----------------------
+main.tex               Documento principal.
+bitacora_corpus.tex    Anexo E, se incluye con \input desde main.tex.
+referencias.bib        Bibliografía: 94 entradas.
+encabezado1.jpg        Encabezado institucional de fondo.
+vista_previa_main.pdf  PDF compilado de esta versión (39 páginas), con babel
+                       en español y apalike-ejor. Sólo para revisión rápida.
+
+CÓMO SUBIRLO A OVERLEAF
+-----------------------
+1. New Project > Upload Project > seleccionar este .zip.
+2. Menu > Compiler: pdfLaTeX.  Menu > Main document: main.tex.
+3. Compilar; Overleaf corre bibtex y las pasadas necesarias solo.
+
+VERIFICACIÓN REALIZADA
+----------------------
+Compila con pdflatex + bibtex sin errores, sin citas ni referencias
+cruzadas indefinidas. Quedan desbordes de ancho menores (< 10 pt) en
+tres filas de cuadros que ya existían en la versión anterior.
+
+PENDIENTES ANTES DE ENTREGAR
+----------------------------
+1. Completar el nombre del asistente conversacional en la Declaración de IA.
+2. Completar la fila "v7-v10" del Cuadro 15 con los registros propios.
+3. Reescribir en el Anexo E los comentarios de decisión insuficientes
+   ("ok", "a", "d2", URL) y renumerar los folios duplicados; después
+   regenerar bitacora_corpus.tex con scripts/generar_bitacora.py del
+   repositorio del agente.
+4. Correr scripts/conteos_por_base.mjs (repositorio del agente) para obtener
+   los totales por ecuación y base, y anexarlos como "registros recuperados".
+5. Completar los datos de edición de {gaete} en el .bib (publisher vacío).
+6. Pendientes del zip anterior que siguen vigentes: material suplementario
+   S1-S5 de Vargas-Meza et al. 2019; DOI de Grunert y Wills 2007 al asesor;
+   revisar el supuesto reformulado (Anexo A.1).
