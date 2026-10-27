@@ -276,6 +276,9 @@ async function buscarFuentes(dim,tipo,spinner,corpus,rechazados,sesiones){
     const p=sArts.pagina;
     log(`Artículos — query ${sArts.queryIdx+1}/${queriesArts.length}: "${q.slice(0,45)}"  página ${p}`,"info");
 
+    try{spinner.text=`DOAJ p${p}: "${q.slice(0,40)}..."`;const r=await doaj(q,p);agregar(r);if(r.length)log(`DOAJ: ${r.length} (acceso abierto)`,"ok");}catch(e){log(`DOAJ: ${e.message}`,"warn");}
+    await new Promise(r=>setTimeout(r,700));
+
     try{spinner.text=`OpenAlex p${p}: "${q.slice(0,40)}..."`;const r=await openalex(q,"article",p);agregar(r);if(r.length)log(`OpenAlex: ${r.length} artículos`,"ok");}catch(e){log(`OpenAlex: ${e.message}`,"warn");}
     await new Promise(r=>setTimeout(r,700));
 
@@ -283,9 +286,6 @@ async function buscarFuentes(dim,tipo,spinner,corpus,rechazados,sesiones){
     await new Promise(r=>setTimeout(r,700));
 
     try{spinner.text=`Semantic Scholar p${p}: "${q.slice(0,35)}..."`;const r=await semanticScholar(q,p);agregar(r);if(r.length)log(`Semantic Scholar: ${r.length}`,"ok");}catch(e){log(`Semantic Scholar: ${e.message}`,"warn");}
-    await new Promise(r=>setTimeout(r,700));
-
-    try{spinner.text=`DOAJ p${p}: "${q.slice(0,40)}..."`;const r=await doaj(q,p);agregar(r);if(r.length)log(`DOAJ: ${r.length} (acceso abierto)`,"ok");}catch(e){log(`DOAJ: ${e.message}`,"warn");}
     await new Promise(r=>setTimeout(r,700));
 
     // Avanzar: si página < 3 incrementar página, si no rotar query y resetear página

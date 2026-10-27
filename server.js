@@ -149,13 +149,13 @@ async function buscarFuentes(dim, tipo) {
     const q = DIMS[dim].queries[sA.queryIdx % DIMS[dim].queries.length];
     const p = sA.pagina;
     log.push(`Artículos — query ${sA.queryIdx + 1}: "${q.slice(0, 50)}" (pág. ${p})`);
+    try { const r = await doaj(q, p); agregar(r); log.push(`DOAJ: ${r.length} (acceso abierto)`); } catch (e) { log.push(`DOAJ: ${e.message}`); }
+    await new Promise(r => setTimeout(r, 700));
     try { const r = await openalex(q, "article", p); agregar(r); log.push(`OpenAlex: ${r.length} artículos`); } catch (e) { log.push(`OpenAlex: ${e.message}`); }
     await new Promise(r => setTimeout(r, 700));
     try { const r = await crossref(q, p); agregar(r); log.push(`Crossref: ${r.length} artículos`); } catch (e) { log.push(`Crossref: ${e.message}`); }
     await new Promise(r => setTimeout(r, 700));
     try { const r = await semanticScholar(q, p); agregar(r); log.push(`Semantic Scholar: ${r.length}`); } catch (e) { log.push(`SemanticScholar: ${e.message}`); }
-    await new Promise(r => setTimeout(r, 700));
-    try { const r = await doaj(q, p); agregar(r); log.push(`DOAJ: ${r.length} (acceso abierto)`); } catch (e) { log.push(`DOAJ: ${e.message}`); }
     await new Promise(r => setTimeout(r, 700));
     if (sA.pagina < 3) sA.pagina++; else { sA.pagina = 1; sA.queryIdx++; }
   }
