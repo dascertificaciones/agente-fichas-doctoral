@@ -330,7 +330,9 @@ function renderFichaCard(f, showDecision) {
         <dt>Hallazgos</dt><dd><ul>${hallazgos}</ul></dd>
         <dt>Aportación</dt><dd>${f.aportacion || '--'}</dd>
         <dt>Brecha</dt><dd>${f.brecha || '--'}</dd>
+        ${f.justificacion_inclusion ? `<dt>¿Por qué incluirla?</dt><dd>${f.justificacion_inclusion}</dd>` : ''}
       </dl>
+      ${f.resumen_preliminar ? `<div style="margin-top:0.75rem;background:var(--green-light);padding:0.75rem 1rem;border-radius:5px;border-left:3px solid var(--green);font-size:0.87rem;"><strong style="font-size:0.75rem;text-transform:uppercase;color:var(--green);display:block;margin-bottom:0.4rem;">Párrafo para el estado del arte</strong><em>${f.resumen_preliminar}</em></div>` : ''}
       <div style="margin-top:0.75rem;">${chips}</div>
       ${decisionBox}
     </div>
@@ -396,7 +398,7 @@ async function iniciarBusqueda() {
     // Mostrar fuentes
     let html = `<div class="section-title">Fuentes encontradas (${fuentesActuales.length})</div>`;
     html += '<div class="source-list">';
-    fuentesActuales.slice(0, 8).forEach((f, i) => {
+    fuentesActuales.forEach((f, i) => {
       const ico = f.tipo?.includes('Tesis') ? '📕' : '📄';
       html += `<div class="source-card">
         <h4>${ico} ${f.titulo}</h4>
@@ -444,6 +446,8 @@ async function generarFichas(dim, n) {
         <div class="field"><strong>Hallazgos</strong><ul>${hallazgos}</ul></div>
         <div class="field"><strong>Aportación a la tesis</strong>${f.aportacion}</div>
         <div class="field"><strong>Brecha identificada</strong>${f.brecha}</div>
+        ${f.justificacion_inclusion ? `<div class="field" style="background:var(--accent-light);padding:0.6rem 0.75rem;border-radius:5px;border-left:3px solid var(--accent)"><strong>¿Por qué incluirla?</strong>${f.justificacion_inclusion}</div>` : ''}
+        ${f.resumen_preliminar ? `<div class="field" style="background:var(--green-light);padding:0.6rem 0.75rem;border-radius:5px;border-left:3px solid var(--green)"><strong>Párrafo para el estado del arte</strong><em>${f.resumen_preliminar}</em></div>` : ''}
         ${f.doi ? `<div class="field"><a class="doi-link" href="https://doi.org/${f.doi}" target="_blank">Verificar fuente: DOI ${f.doi} ↗</a></div>` : ''}
         <div class="decision-btns">
           <input class="comment-input" placeholder="Comenta tu decisión (opcional)..." id="cmt-${i}">

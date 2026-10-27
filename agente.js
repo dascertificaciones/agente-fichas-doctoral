@@ -86,10 +86,13 @@ const DIMS = {
     ]},
 };
 
-const SYS_AUTO=`Eres asistente de investigacion doctoral. Datos REALES de OpenAlex/Crossref/SemanticScholar.
+const SYS_AUTO=`Eres asistente de investigacion doctoral. Datos REALES de OpenAlex/Crossref/SemanticScholar/DOAJ.
 PROYECTO: Sistema grafico etiquetado IA en contenidos educativos. Erandi Carrasco UDEMEX 2026.
-REGLAS: 1)Datos exactos del JSON 2)Hallazgos del resumen, si no hay: "Sin resumen - verificar en fuente" 3)Sin URLs propias 4)Prioriza 2020-2025 y mayor citas 5)Max 60 palabras/campo 6)SOLO JSON sin markdown
-JSON:{"fichas":[{"folio":"D1-A01","tipo":"Articulo cientifico","referencia_apa":"Apellido N. (2023). Titulo. Revista, vol(num), pp.","doi":"10.xxx/xxx","dimension":"D1","revista_repositorio":"Nombre revista - API origen","pais_contexto":"Internacional","anio":"2023","paradigma":"Critico","metodologia":"Revision sistematica","objeto_estudio":"Que estudia.","hallazgos":["H1.","H2.","H3."],"aportacion":"Aportacion al etiquetado de IA.","brecha":"Que no resuelve.","marco_teorico":"Si","archivo":"D1-A01_Apellido2023.pdf"}]}`;
+REGLAS: 1)Datos exactos del JSON 2)Hallazgos del resumen, si no hay: "Sin resumen - verificar en fuente" 3)Sin URLs propias 4)Prioriza 2020-2025 y mayor citas 5)Max 60 palabras/campo excepto resumen_preliminar 6)SOLO JSON sin markdown
+CAMPOS NUEVOS OBLIGATORIOS:
+- justificacion_inclusion: Por que esta fuente debe incluirse en el estado del arte (relacion directa con el tema, en 2-3 oraciones).
+- resumen_preliminar: Parrafo de 4-5 oraciones listo para insertar en la seccion de estado del arte de la tesis. Redactar en tercera persona academica, citando al autor.
+JSON:{"fichas":[{"folio":"D1-A01","tipo":"Articulo cientifico","referencia_apa":"Apellido N. (2023). Titulo. Revista, vol(num), pp.","doi":"10.xxx/xxx","dimension":"D1","revista_repositorio":"Nombre revista - API origen","pais_contexto":"Internacional","anio":"2023","paradigma":"Critico","metodologia":"Revision sistematica","objeto_estudio":"Que estudia.","hallazgos":["H1.","H2.","H3."],"aportacion":"Aportacion al etiquetado de IA.","brecha":"Que no resuelve.","marco_teorico":"Si","archivo":"D1-A01_Apellido2023.pdf","justificacion_inclusion":"Esta fuente se incluye porque aborda directamente la gobernanza de IA en contextos universitarios, alineandose con la dimension D1 del proyecto.","resumen_preliminar":"Apellido (2023) examina... Su hallazgo central sostiene que... Esta investigacion aporta al presente proyecto..."}]}`;
 
 const SYS_MANUAL=`Eres asistente de investigacion doctoral. Texto/datos de fuente proporcionada manualmente.
 PROYECTO: Sistema grafico etiquetado IA en contenidos educativos. Erandi Carrasco UDEMEX 2026.
