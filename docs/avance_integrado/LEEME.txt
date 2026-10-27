@@ -1,13 +1,13 @@
-AVANCE 1 (VERSIÓN CORREGIDA) — SEMINARIO DE TESIS DOCTORAL II
+AVANCE 2 — SEMINARIO DE TESIS DOCTORAL II
 Erandi Carrasco Alcántara — UDX112510016
 
 QUÉ CAMBIÓ RESPECTO DEL ZIP ANTERIOR
 ------------------------------------
-Esta versión integra la justificación del procedimiento de búsqueda y
-selección de fuentes con el Agente de Fichas Bibliográficas v11, en
+Este Avance 2 integra la justificación del procedimiento de búsqueda y
+selección de fuentes con el Fichas UDEMEX Doctorado v11, en
 respuesta a la retroalimentación del Avance 1 y a la sesión 4:
 
-  Portada           Errata "Dr.Asesor" corregida; título "Versión corregida";
+  Portada           Errata "Dr.Asesor" corregida; título "AVANCE 2" y subtítulo nuevo;
                     fecha 27 de octubre de 2026 (ajustar si procede).
   Declaración IA    Herramientas nombradas una por una (agente propio,
                     Claude Sonnet 4, Claude Code). Falta completar el nombre

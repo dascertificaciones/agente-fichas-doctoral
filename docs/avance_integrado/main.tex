@@ -162,8 +162,8 @@
     \vspace{0.7cm}
 
     \large
-    \textbf{AVANCE 1 --- VERSIÓN CORREGIDA}\\[4pt]
-    \textit{Mapeo epistémico, estrategia de búsqueda reproducible\\ y matriz inicial de literatura para el artículo de revisión}
+    \textbf{AVANCE 2}\\[4pt]
+    \textit{Atención a la retroalimentación del Avance 1: búsqueda reproducible,\\ bitácora del corpus y procedimiento de selección de fuentes}
 
     \vspace{1.0cm}
 
@@ -181,19 +181,19 @@
     \begin{description}[style=nextline, leftmargin=0.5cm, labelsep=0.2cm]
 
         \item[\textbf{Herramientas utilizadas (identificadas por nombre):}]
-        (1)~\textit{Agente de Fichas Bibliográficas}, versión~11: programa propio escrito en Node.js que consulta las bases abiertas DOAJ, OpenAlex, Crossref y Semantic Scholar y emplea el modelo de lenguaje Claude Sonnet~4 (Anthropic, identificador de API \texttt{claude-sonnet-4-20250514}) únicamente para redactar la ficha estructurada a partir de los metadatos recuperados; el modelo no busca ni decide la inclusión. Se describe en la Sección~\ref{sec:busqueda} y en los Anexos~\ref{anx:busqueda} y~\ref{anx:bitacora}. (2)~Claude Code (Anthropic), como asistente de programación durante el desarrollo del agente; esa coautoría consta en el historial del repositorio del código. (3)~[Nombre y versión del asistente conversacional empleado para contrastar la redacción de este avance: completar].
+        (1)~\textit{Fichas UDEMEX Doctorado}, versión~11: programa propio escrito en Node.js que consulta las bases abiertas DOAJ, OpenAlex, Crossref y Semantic Scholar y emplea el modelo de lenguaje Claude Sonnet~4 (Anthropic, identificador de API \texttt{claude-sonnet-4-20250514}) únicamente para redactar la ficha estructurada a partir de los metadatos recuperados; el modelo no busca ni decide la inclusión. Se describe en la Sección~\ref{sec:busqueda} y en los Anexos~\ref{anx:busqueda} y~\ref{anx:bitacora}. (2)~Claude Code (Anthropic), como asistente de programación durante el desarrollo del agente; esa coautoría consta en el historial del repositorio del código. (3)~[Nombre y versión del asistente conversacional empleado para contrastar la redacción de este avance: completar].
 
         \item[\textbf{Prompts y alcance:}]
         Las instrucciones literales de sistema y de usuario que recibe el modelo dentro del agente se transcriben en el Anexo~\ref{anx:busqueda} (C.3). Al asistente conversacional se le solicitó contrastar el protocolo con los materiales de la Unidad~1 del Seminario de Tesis~II, organizar el mapeo epistémico conforme a las cinco dimensiones de \citet{deroncele2021}, localizar literatura sobre diseño y evaluación de sistemas gráficos de etiquetado fuera del campo de la IA y revisar la consistencia entre paradigma, constructos e instrumentos.
 
         \item[\textbf{Manejo de resultados y autoría:}]
-        Toda ficha producida por el agente fue aprobada, rechazada o pospuesta por la autora con un comentario fechado; el corpus es, por construcción, el registro de esas decisiones (Anexo~\ref{anx:bitacora}). Las sugerencias del asistente conversacional se emplearon como base de contraste para generar redacción propia. La delimitación del tema y la pregunta del artículo, los criterios de inclusión y exclusión, la valoración de pertinencia de cada fuente y las decisiones de adaptación instrumental son elaboración propia.
+        Toda ficha producida por el agente fue aprobada, rechazada o pospuesta por el autor con un comentario fechado; el corpus es, por construcción, el registro de esas decisiones (Anexo~\ref{anx:bitacora}). Las sugerencias del asistente conversacional se emplearon como base de contraste para generar redacción propia. La delimitación del tema y la pregunta del artículo, los criterios de inclusión y exclusión, la valoración de pertinencia de cada fuente y las decisiones de adaptación instrumental son elaboración propia.
 
         \item[\textbf{Verificación de integridad:}]
         Cada DOI se verificó automáticamente contra OpenAlex y, en su defecto, Crossref (35 de 41 fichas verificadas; 4 tesis sin DOI incorporadas a mano desde repositorios institucionales; 2 DOI no localizados, en revisión). Esa verificación no sustituye la lectura del texto completo: los campos de diseño, muestra, instrumentos y hallazgos de la matriz se extrajeron de la lectura íntegra de cada fuente, no de la ficha automática. Las fuentes de acceso restringido y el procedimiento adoptado se documentan en el Anexo~\ref{anx:busqueda}.
 
         \item[\textbf{Distribución de la producción:}]
-        Se estima que aproximadamente un \textbf{30\,\%} del avance se elaboró con asistencia de IA (búsqueda y fichado asistidos por el agente; borradores de contraste), mientras que el \textbf{70\,\%} restante corresponde a procesos de reformulación, verificación documental y redacción original de la autora.
+        Se estima que aproximadamente un \textbf{30\,\%} del avance se elaboró con asistencia de IA (búsqueda y fichado asistidos por el agente; borradores de contraste), mientras que el \textbf{70\,\%} restante corresponde a procesos de reformulación, verificación documental y redacción original de el autor.
 
     \end{description}
 \vspace*{\fill}
@@ -201,8 +201,8 @@
 
 % TABLERO DE CONTROL DEL AVANCE
 % ══════════════════════════════════════════════════════
-\section*{Tablero de control del Avance 1}
-\addcontentsline{toc}{section}{Tablero de control del Avance 1}
+\section*{Tablero de control del Avance 2}
+\addcontentsline{toc}{section}{Tablero de control del Avance 2}
 
 \begin{table}[H]
 \centering
@@ -267,9 +267,9 @@
 \hline
 9 & Supuesto en clave VI/VD para todo el estudio & Autor & \bCOR & Anexo~\ref{anx:correcciones} \\
 \hline
-10 & Diagnóstico fáctico en el nivel micro & Autor & \bPEN & Avance~2 \\
+10 & Diagnóstico fáctico en el nivel micro & Autor & \bPEN & Avance~3 \\
 \hline
-11 & Versiones adaptadas de instrumentos y juicio de expertos & Autor & \bPEN & Avance~2 \\
+11 & Versiones adaptadas de instrumentos y juicio de expertos & Autor & \bPEN & Avance~3 \\
 \hline
 12 & Nombrar cada herramienta de IA y conservar bitácora de prompts y decisiones & Asesor & \bOK & Declaración · Anexo~\ref{anx:bitacora} \\
 \hline
@@ -277,7 +277,7 @@
 \hline
 14 & Afirmación de un único antecedente directo & Asesor & \bCOR & \S\ref{sec:tema-articulo} · \S\ref{sec:matriz} \\
 \hline
-15 & Matriz de quince fuentes con campos completos, en dos estratos & Asesor & \bPEN & Avance~2 \\
+15 & Matriz de quince fuentes con campos completos, en dos estratos & Asesor & \bPEN & Avance~3 \\
 \hline
 \end{tabular}
 \end{table}
@@ -375,7 +375,7 @@ La lista se presenta en el formato de tres columnas indicado en la sesión. Las 
 14 & No puede afirmarse que \citet{seeger2026} sea el único antecedente directo. & Se retira la afirmación; se explica como límite del vocabulario de las ecuaciones de D2 y se incorporan las fuentes directas señaladas por el asesor. & \bCOR~\S\ref{sec:tema-articulo} \\
 \hline
 
-15 & La matriz debe alcanzar quince fuentes con los campos exigidos y separar evidencia directa y analógica. & Se define la regla de paso del corpus del agente a la matriz (\S\ref{sec:busqueda}); la ampliación se ejecuta en el Avance~2. & \bPEN~Avance~2 \\
+15 & La matriz debe alcanzar quince fuentes con los campos exigidos y separar evidencia directa y analógica. & Se define la regla de paso del corpus del agente a la matriz (\S\ref{sec:busqueda}); la ampliación se ejecuta en el Avance~3. & \bPEN~Avance~3 \\
 \hline
 
 \end{longtable}
@@ -599,7 +599,7 @@ Atendiendo a la observación de que la estrategia anterior no constituía una b�
 
 \subsection{Identificación de la herramienta}
 
-La búsqueda automatizada se ejecutó con el \textit{Agente de Fichas Bibliográficas}, versión~11, programa propio en Node.js cuyo código está versionado en Git, de modo que cada modificación del procedimiento queda fechada. El agente consulta cuatro bases abiertas, sin inicio de sesión ni extracción de páginas web, y emplea el modelo Claude Sonnet~4 (Anthropic) sólo para redactar la ficha a partir de los metadatos recuperados. El Cuadro~\ref{tab:bases} distingue la naturaleza de cada base, como pidió el asesor; corrige así la versión anterior de este cuadro, en la que Springer Nature, Elsevier, MDPI y PLoS figuraban como repositorios cuando son las editoriales de los artículos recuperados.
+La búsqueda automatizada se ejecutó con el \textit{Fichas UDEMEX Doctorado}, versión~11, programa propio en Node.js cuyo código está versionado en Git, de modo que cada modificación del procedimiento queda fechada. El agente consulta cuatro bases abiertas, sin inicio de sesión ni extracción de páginas web, y emplea el modelo Claude Sonnet~4 (Anthropic) sólo para redactar la ficha a partir de los metadatos recuperados. El Cuadro~\ref{tab:bases} distingue la naturaleza de cada base, como pidió el asesor; corrige así la versión anterior de este cuadro, en la que Springer Nature, Elsevier, MDPI y PLoS figuraban como repositorios cuando son las editoriales de los artículos recuperados.
 
 \begin{table}[H]
 \centering
@@ -625,7 +625,7 @@ Semantic Scholar & Grafo académico con resúmenes e identificadores externos & 
 
 \subsection{Lógica del procedimiento}
 
-Cada sesión del agente ejecuta cinco etapas; las cuatro primeras son automáticas y la quinta es siempre humana: (1)~recuperación en las cuatro bases con la ecuación y la página que corresponden a la sesión; (2)~depuración: deduplicación por DOI y por título, exclusión de fuentes ya aprobadas o rechazadas, orden por citas y corte en veinte candidatos; (3)~redacción de $N$ fichas ($2 \le N \le 5$) por el modelo a partir de los metadatos reales; (4)~verificación del DOI en OpenAlex y, en su defecto, en Crossref, con registro de estado, título real, citas y acceso abierto; (5)~decisión de la autora sobre cada ficha (aprobar, rechazar de forma permanente o posponer) con comentario, fecha y hora.
+Cada sesión del agente ejecuta cinco etapas; las cuatro primeras son automáticas y la quinta es siempre humana: (1)~recuperación en las cuatro bases con la ecuación y la página que corresponden a la sesión; (2)~depuración: deduplicación por DOI y por título, exclusión de fuentes ya aprobadas o rechazadas, orden por citas y corte en veinte candidatos; (3)~redacción de $N$ fichas ($2 \le N \le 5$) por el modelo a partir de los metadatos reales; (4)~verificación del DOI en OpenAlex y, en su defecto, en Crossref, con registro de estado, título real, citas y acceso abierto; (5)~decisión de el autor sobre cada ficha (aprobar, rechazar de forma permanente o posponer) con comentario, fecha y hora.
 
 Tres propiedades sostienen la trazabilidad. Ninguna fuente entra al corpus sin decisión humana registrada. Ninguna fuente se evalúa dos veces, porque las aprobadas y las rechazadas se excluyen de las búsquedas posteriores por DOI o por título. La búsqueda avanza de forma determinista: el archivo de sesiones guarda, por dimensión y tipo documental, la ecuación y la página consultadas, y cada ecuación se recorre tres páginas antes de rotar a la siguiente; quien conozca ese índice puede repetir la consulta.
 
@@ -657,11 +657,11 @@ Semantic Scholar & \texttt{/graph/v1/paper/ search} & Título y resumen & Ningun
 \end{tabular}
 \end{table}
 
-De cada registro se recuperan título, hasta tres autores, revista o institución, año, resumen truncado a 500 caracteres, DOI, citas y base de origen. Dos registros se consideran duplicados si comparten DOI o los primeros cincuenta caracteres del título; prevalece el recuperado primero, por lo que se conserva la versión de acceso abierto cuando existe. Entre consultas se espera 0.7~s y las peticiones se identifican con el correo institucional, como piden OpenAlex y Crossref. Las tesis de TESIUNAM, BUAP o UAEM, sin DOI en estas bases, se incorporan por un modo manual en el que la autora pega el registro del repositorio; la ficha queda marcada con origen «Manual» y estado «sin DOI».
+De cada registro se recuperan título, hasta tres autores, revista o institución, año, resumen truncado a 500 caracteres, DOI, citas y base de origen. Dos registros se consideran duplicados si comparten DOI o los primeros cincuenta caracteres del título; prevalece el recuperado primero, por lo que se conserva la versión de acceso abierto cuando existe. Entre consultas se espera 0.7~s y las peticiones se identifican con el correo institucional, como piden OpenAlex y Crossref. Las tesis de TESIUNAM, BUAP o UAEM, sin DOI en estas bases, se incorporan por un modo manual en el que el autor pega el registro del repositorio; la ficha queda marcada con origen «Manual» y estado «sin DOI».
 
 \subsection{Discriminación automática y embudo de selección}
 
-Las fuentes rechazadas por la autora son la última etapa de un embudo cuya mayor parte ejecuta el agente por reglas declaradas, calibradas para ahorrar tiempo de revisión. Conviene distinguir tres niveles de criterio. El primero son los \textbf{filtros codificados}, que operan siempre: ventana temporal desde 2018, con prioridad 2020--2025 en la instrucción al modelo; tipo documental restringido a artículos de revista y tesis, lo que deja fuera notas de prensa, blogs y materiales sin respaldo metodológico (criterio E3); preferencia por acceso abierto mediante la consulta prioritaria a DOAJ; identificador verificable, pues toda fuente automática debe tener DOI y las que carecen de él sólo entran por modo manual; exclusión de lo ya revisado; corte por relevancia (tres páginas por ecuación), orden por citas y presentación de veinte candidatos; y selección por el modelo de sólo $N$ fichas por sesión. El segundo nivel son los \textbf{criterios de calibración aplicados en la revisión}, que no están codificados como exclusión dura: ausencia de DOI, ausencia de versión descargable y antigüedad mayor a tres años salvo referencia obligada del campo. El corpus muestra que operaron como preferencia y no como filtro: contiene cuatro tesis sin DOI, siete fuentes sin versión de acceso abierto y once fuentes de 2018--2021. El tercer nivel es la \textbf{decisión final} con comentario fechado.
+Las fuentes rechazadas por el autor son la última etapa de un embudo cuya mayor parte ejecuta el agente por reglas declaradas, calibradas para ahorrar tiempo de revisión. Conviene distinguir tres niveles de criterio. El primero son los \textbf{filtros codificados}, que operan siempre: ventana temporal desde 2018, con prioridad 2020--2025 en la instrucción al modelo; tipo documental restringido a artículos de revista y tesis, lo que deja fuera notas de prensa, blogs y materiales sin respaldo metodológico (criterio E3); preferencia por acceso abierto mediante la consulta prioritaria a DOAJ; identificador verificable, pues toda fuente automática debe tener DOI y las que carecen de él sólo entran por modo manual; exclusión de lo ya revisado; corte por relevancia (tres páginas por ecuación), orden por citas y presentación de veinte candidatos; y selección por el modelo de sólo $N$ fichas por sesión. El segundo nivel son los \textbf{criterios de calibración aplicados en la revisión}, que no están codificados como exclusión dura: ausencia de DOI, ausencia de versión descargable y antigüedad mayor a tres años salvo referencia obligada del campo. El corpus muestra que operaron como preferencia y no como filtro: contiene cuatro tesis sin DOI, siete fuentes sin versión de acceso abierto y once fuentes de 2018--2021. El tercer nivel es la \textbf{decisión final} con comentario fechado.
 
 \begin{table}[H]
 \centering
@@ -689,7 +689,7 @@ Aprobadas & 0 a 3 & Autora \\
 \end{tabular}
 \end{table}
 
-Con 64 decisiones registradas (41 aprobadas y 23 rechazadas) y tres fichas por sesión, se estiman unas 21 sesiones, unos 420 candidatos presentados al modelo y hasta unos 1\,100 registros brutos recuperados antes de deduplicar. Las 23 rechazadas a mano representan, por tanto, menos del 6\,\% de lo descartado: la discriminación fue en su mayoría automática y por reglas declaradas. Esta cifra se presenta como estimación porque la versión~11 no persiste los conteos por sesión; el repositorio incluye un script que obtiene el total de registros por ecuación y base con los filtros del agente, cuya salida se anexará como «registros recuperados» en el Avance~2. Los conteos que el agente todavía no registra se declaran en el Anexo~\ref{anx:busqueda} (C.4).
+Con 64 decisiones registradas (41 aprobadas y 23 rechazadas) y tres fichas por sesión, se estiman unas 21 sesiones, unos 420 candidatos presentados al modelo y hasta unos 1\,100 registros brutos recuperados antes de deduplicar. Las 23 rechazadas a mano representan, por tanto, menos del 6\,\% de lo descartado: la discriminación fue en su mayoría automática y por reglas declaradas. Esta cifra se presenta como estimación porque la versión~11 no persiste los conteos por sesión; el repositorio incluye un script que obtiene el total de registros por ecuación y base con los filtros del agente, cuya salida se anexará como «registros recuperados» en el Avance~3. Los conteos que el agente todavía no registra se declaran en el Anexo~\ref{anx:busqueda} (C.4).
 
 \subsection{Evolución de las versiones}
 
@@ -708,7 +708,7 @@ El procedimiento se calibró en varias versiones; cada regla responde a un probl
 \hline
 v6 & OpenAlex y Crossref con un término sugerido por dimensión; tres fichas por sesión en archivos por día; verificación por DOI; sin \textit{scraping} ni inicio de sesión & Cada sesión repetía los primeros resultados; no había memoria de lo ya evaluado \\
 \hline
-v7--v10 & [Completar con los registros de la autora: incorporación de Semantic Scholar, formato de ficha, manejo de errores] & --- \\
+v7--v10 & [Completar con los registros de el autor: incorporación de Semantic Scholar, formato de ficha, manejo de errores] & --- \\
 \hline
 v11 (26/10/2026) & Paginación automática; rotación de ecuaciones; rechazadas permanentes; modo manual para repositorios mexicanos; orden por citas y corte en 20 & Era necesario mostrar el corpus y las decisiones fuera de la terminal \\
 \hline
@@ -725,7 +725,7 @@ v11 + justificación (26/10/2026) & Campos obligatorios de justificación de inc
 
 El corpus vigente contiene 41 fichas aprobadas (D1:~11, D2:~10, D3:~11, D4:~9), 35 con DOI verificado y 34 con versión de acceso abierto; 28 se publicaron entre 2022 y 2026. La bitácora completa, con una fila por decisión, se presenta en el Anexo~\ref{anx:bitacora}. Dos de las cinco fuentes de la matriz inicial provienen de este corpus: \citet{seeger2026} (folio D2-A02, recuperada por Crossref) y \citet{axelsson2021} (folio D3-A02, recuperada por OpenAlex); las fuentes del etiquetado alimentario se localizaron por revisión de listas de referencias y forman el estrato analógico.
 
-La regla de paso del corpus a la matriz se formula de manera explícita y distinta del criterio de disponibilidad del instrumento, que el asesor identificó como fuente de sesgo: entran a la matriz las fuentes que respondan a la pregunta del artículo ---qué dimensiones de la intervención humana y de IA se comunican, cómo se representan y con qué criterios se evalúa su comprensión---, estratificadas en directas y analógicas; la disponibilidad del instrumento se usa después, sólo para elegir qué adaptar. Para el Avance~2 se incorpora un bloque de ecuaciones de D2 orientado al diseño y la evaluación de etiquetas de contenido sintético, con el vocabulario de las fuentes señaladas por el asesor y ventana 2022--2026 (Anexo~\ref{anx:busqueda}, C.5).
+La regla de paso del corpus a la matriz se formula de manera explícita y distinta del criterio de disponibilidad del instrumento, que el asesor identificó como fuente de sesgo: entran a la matriz las fuentes que respondan a la pregunta del artículo ---qué dimensiones de la intervención humana y de IA se comunican, cómo se representan y con qué criterios se evalúa su comprensión---, estratificadas en directas y analógicas; la disponibilidad del instrumento se usa después, sólo para elegir qué adaptar. Para el Avance~3 se incorpora un bloque de ecuaciones de D2 orientado al diseño y la evaluación de etiquetas de contenido sintético, con el vocabulario de las fuentes señaladas por el asesor y ventana 2022--2026 (Anexo~\ref{anx:busqueda}, C.5).
 
 % 7. CRITERIOS
 
@@ -898,7 +898,7 @@ Conforme a la indicación del seminario, el procedimiento consiste en tomar comp
 % CONSIDERACIONES FINALES
 \section{Consideraciones finales}
 
-Esta versión corregida presenta los diez elementos solicitados en la sesión~2 del seminario, atiende cinco inconsistencias detectadas al contrastar el protocolo anterior con los materiales de la Unidad~1 e incorpora las observaciones de la retroalimentación del Avance~1 que podían resolverse sin ampliar todavía la matriz: la identificación por nombre de cada herramienta de IA, la especificación reproducible de la búsqueda ejecutada con el agente propio y la bitácora de decisiones. Las incorporaciones de mayor consecuencia son tres. Primera, la declaración explícita del paradigma, la ontología y la epistemología, ausente en versiones previas, que permite sostener la convivencia de vocabularios cuantitativos y construccionistas en calidad de decisión declarada y verificable. Segunda, la distinción entre el sistema gráfico como producto de la investigación y la gobernanza académica de la inteligencia artificial como objeto de investigación, corrección que reordena la secuencia de la fundamentación teórica. Tercera, la identificación de un antecedente metodológico directo que aplica una ruta mixta por etapas al desarrollo de un sistema gráfico de etiquetado, con instrumentos publicados y susceptibles de adaptación.
+Este Avance~2 presenta los diez elementos solicitados en la sesión~2 del seminario, atiende cinco inconsistencias detectadas al contrastar el protocolo anterior con los materiales de la Unidad~1 e incorpora las observaciones de la retroalimentación del Avance~1 que podían resolverse sin ampliar todavía la matriz: la identificación por nombre de cada herramienta de IA, la especificación reproducible de la búsqueda ejecutada con el agente propio y la bitácora de decisiones. Las incorporaciones de mayor consecuencia son tres. Primera, la declaración explícita del paradigma, la ontología y la epistemología, ausente en versiones previas, que permite sostener la convivencia de vocabularios cuantitativos y construccionistas en calidad de decisión declarada y verificable. Segunda, la distinción entre el sistema gráfico como producto de la investigación y la gobernanza académica de la inteligencia artificial como objeto de investigación, corrección que reordena la secuencia de la fundamentación teórica. Tercera, la identificación de un antecedente metodológico directo que aplica una ruta mixta por etapas al desarrollo de un sistema gráfico de etiquetado, con instrumentos publicados y susceptibles de adaptación.
 
 Quedan pendientes para el siguiente avance las tareas consignadas en el Cuadro~\ref{tab:tablero-correcciones}: la ampliación de la matriz a quince fuentes en dos estratos, con los campos metodológicos completos y a partir de la nueva ronda de búsqueda de D2; la obtención de los conteos de registros por base para completar el reporte PRISMA-S; y dos tareas ya previstas. La primera es la construcción del diagnóstico fáctico en el nivel micro, mediante la revisión sistemática de los lineamientos institucionales de una muestra de instituciones de educación superior mexicanas, tarea que además da contenido al primer objetivo específico. La segunda es la elaboración de las versiones adaptadas de los instrumentos señalados en el Cuadro~\ref{tab:adaptacion} y su envío a juicio de expertos, con miras al pilotaje previsto para el siguiente periodo.
 
@@ -1052,7 +1052,7 @@ Las reglas 1 a 3 son las salvaguardas contra la invención de datos: el modelo s
 \begin{tabular}{|p{3.2cm}|p{4.6cm}|p{4.6cm}|}
 \hline
 \rowcolor{bgCotejo}
-\textbf{Requisito} & \textbf{Estado en la versión 11} & \textbf{Qué se hará en el Avance 2} \\
+\textbf{Requisito} & \textbf{Estado en la versión 11} & \textbf{Qué se hará en el Avance 3} \\
 \hline
 Ecuación, campos, filtros, orden & Codificados y fijos (C.1, Cuadro~\ref{tab:sintaxis}) & Se reportan tal cual \\
 \hline
@@ -1062,7 +1062,7 @@ Total de registros por base & No se guarda; sólo se recuperan las primeras pág
 \hline
 Duplicados eliminados & Se eliminan y se informan en pantalla; no se persisten & Se añadirá el conteo al registro de sesión \\
 \hline
-Cribado por título y resumen & Lo realiza el modelo (20 a $N$) y la autora (A/R/S); el motivo de rechazo se escribe pero no se guarda & Se modificará el agente para persistir el motivo; se reconstruirán los motivos de las 23 rechazadas \\
+Cribado por título y resumen & Lo realiza el modelo (20 a $N$) y el autor (A/R/S); el motivo de rechazo se escribe pero no se guarda & Se modificará el agente para persistir el motivo; se reconstruirán los motivos de las 23 rechazadas \\
 \hline
 Lectura de texto completo & Fuera del agente: la ficha se redacta a partir del resumen & Los campos metodológicos de la matriz se extraen de la lectura íntegra \\
 \hline
@@ -1115,7 +1115,7 @@ H6 & Justificación de tamaño muestral por prototipo: cuarenta participantes pe
 % ------------------------------------------------------
 \section{Bitácora del corpus generado con el agente}\label{anx:bitacora}
 
-La bitácora se genera automáticamente a partir de los archivos del agente (corpus aprobado y lista de rechazadas) con el script \texttt{generar\_bitacora.py}; cada fila corresponde a una decisión registrada con fecha. Las sesiones de decisión se realizaron el 19 y el 22 de abril de 2026. Los comentarios de decisión se reproducen tal como se registraron; los que resultan insuficientes como justificación se reescribirán en el Avance~2 con los campos de justificación de inclusión que incorpora la versión vigente del agente.
+La bitácora se genera automáticamente a partir de los archivos del agente (corpus aprobado y lista de rechazadas) con el script \texttt{generar\_bitacora.py}; cada fila corresponde a una decisión registrada con fecha. Las sesiones de decisión se realizaron el 19 y el 22 de abril de 2026. Los comentarios de decisión se reproducen tal como se registraron; los que resultan insuficientes como justificación se reescribirán en el Avance~3 con los campos de justificación de inclusión que incorpora la versión vigente del agente.
 
 \input{bitacora_corpus}
 

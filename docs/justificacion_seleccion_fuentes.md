@@ -1,4 +1,4 @@
-# Justificación del procedimiento de búsqueda y selección de fuentes: el Agente de Fichas Bibliográficas v11
+# Justificación del procedimiento de búsqueda y selección de fuentes: el Fichas UDEMEX Doctorado v11
 
 **Proyecto:** Sistema gráfico de etiquetado del nivel de intervención de IA en contenidos educativos
 **Estudiante:** Erandi Carrasco Alcántara · UDX112510016 · Seminario de Tesis Doctoral II
@@ -23,8 +23,8 @@ La sesión 4 fijó además el criterio transversal: «antes de ampliar el borrad
 
 ## 2. Identificación precisa de la herramienta
 
-**Nombre:** Agente de Fichas Bibliográficas, versión 11 (repositorio `agente-fichas-doctoral`).
-**Autoría:** desarrollado por la estudiante para este proyecto doctoral; el código fuente es propio y está versionado en Git, de modo que cada cambio en el procedimiento de búsqueda queda fechado y es auditable.
+**Nombre:** Fichas UDEMEX Doctorado, versión 11 (repositorio `agente-fichas-doctoral`).
+**Autoría:** desarrollado por el estudiante para este proyecto doctoral; el código fuente es propio y está versionado en Git, de modo que cada cambio en el procedimiento de búsqueda queda fechado y es auditable.
 **Lenguaje y entorno:** Node.js 18 o superior. Tiene dos interfaces que comparten la misma lógica de búsqueda: una de línea de comandos (`agente.js`) y una interfaz web local (`server.js` + `public/index.html`) que muestra el corpus, las fuentes rechazadas y el progreso por dimensión.
 **Modelo de lenguaje empleado:** Claude Sonnet 4 (identificador de API `claude-sonnet-4-20250514`, Anthropic), invocado mediante la API de mensajes. Su función está acotada: no busca ni decide; recibe metadatos reales recuperados de las bases y redacta la ficha estructurada. Las reglas que se le imponen se transcriben en §4.4.
 **Bases bibliográficas consultadas (todas abiertas, sin inicio de sesión ni *scraping*):**
@@ -40,15 +40,15 @@ Esta distinción corrige el Cuadro 12 del Avance 1, donde se enlistaron Scopus, 
 
 **Otras herramientas de IA usadas en el proceso y que deben declararse por nombre:**
 - Claude Code (Anthropic) como asistente de programación durante el desarrollo del agente; los mensajes de confirmación del repositorio registran esa coautoría en el código.
-- Los asistentes conversacionales empleados para contrastar la redacción del Avance 1 deben nombrarse individualmente en la declaración (por ejemplo, «Claude, versión web» o el producto que corresponda); este documento no puede identificarlos por la estudiante.
+- Los asistentes conversacionales empleados para contrastar la redacción del Avance 1 deben nombrarse individualmente en la declaración (por ejemplo, «Claude, versión web» o el producto que corresponda); este documento no puede identificarlos por el estudiante.
 
 ### 2.1 Evolución de las versiones: cómo se llegó a la versión 11
 
-El agente no se diseñó de una vez; se calibró a lo largo de varias versiones en función de los problemas que aparecían al usarlo. La reconstrucción siguiente se apoya en lo que queda documentado en el repositorio (el README conserva la versión 6, el encabezado del código describe los cambios de la 11 y el historial de Git fecha las modificaciones posteriores). Las versiones intermedias no están en el repositorio y deben completarse con los registros propios de la estudiante.
+El agente no se diseñó de una vez; se calibró a lo largo de varias versiones en función de los problemas que aparecían al usarlo. La reconstrucción siguiente se apoya en lo que queda documentado en el repositorio (el README conserva la versión 6, el encabezado del código describe los cambios de la 11 y el historial de Git fecha las modificaciones posteriores). Las versiones intermedias no están en el repositorio y deben completarse con los registros propios de el estudiante.
 
 | Versión | Qué hacía | Problema que motivó el cambio siguiente |
 |---|---|---|
-| v6 | Consultaba OpenAlex y Crossref con un término sugerido por dimensión; generaba 3 fichas por sesión en archivos `.txt` y `.json` por día; verificación por DOI; «sin *scraping*, sin inicio de sesión» como principio de diseño | Cada sesión repetía los mismos primeros resultados y la estudiante volvía a ver fuentes ya evaluadas; no había memoria entre sesiones |
+| v6 | Consultaba OpenAlex y Crossref con un término sugerido por dimensión; generaba 3 fichas por sesión en archivos `.txt` y `.json` por día; verificación por DOI; «sin *scraping*, sin inicio de sesión» como principio de diseño | Cada sesión repetía los mismos primeros resultados y el estudiante volvía a ver fuentes ya evaluadas; no había memoria entre sesiones |
 | v7 a v10 (intermedias) | [Completar con registros propios: por ejemplo, incorporación de Semantic Scholar como tercera base, mejoras al formato de ficha, manejo de errores de JSON] | — |
 | v11 (línea base del repositorio, 26/10/2026) | Paginación automática (tres páginas por ecuación); rotación de seis ecuaciones por dimensión; lista de rechazadas permanentes; modo manual para tesis de TESIUNAM, BUAP y UAEM; Semantic Scholar como tercera base; ordenamiento por citas y corte en 20 | El asesor pidió mostrar el corpus y las decisiones; la terminal no era un medio adecuado |
 | v11 + interfaz web (26/10/2026) | Servidor local con panel de progreso por dimensión, corpus aprobado con decisiones, lista de rechazadas y búsqueda en tiempo real | Muchos candidatos eran de pago o sin texto completo accesible |
@@ -75,9 +75,9 @@ El agente ejecuta un ciclo de cinco etapas por sesión. Las cuatro primeras son 
 
 Tres propiedades de diseño responden a las exigencias de trazabilidad de la sesión 4:
 
-1. **Ninguna fuente entra al corpus sin decisión humana.** El modelo redacta; la estudiante aprueba o rechaza cada ficha con un comentario y el agente registra fecha y hora. El corpus es, por construcción, la lista de decisiones tomadas.
+1. **Ninguna fuente entra al corpus sin decisión humana.** El modelo redacta; el estudiante aprueba o rechaza cada ficha con un comentario y el agente registra fecha y hora. El corpus es, por construcción, la lista de decisiones tomadas.
 2. **Ninguna fuente se evalúa dos veces.** Las aprobadas y las rechazadas se excluyen de las búsquedas siguientes por DOI (o por los primeros 60 caracteres del título cuando no hay DOI). Así el conteo de rechazadas es un registro real de exclusiones y no se infla por repetición.
-3. **La búsqueda avanza de forma determinista entre sesiones.** El archivo `sesiones.json` guarda, por dimensión y tipo documental, qué ecuación y qué página se consultó por última vez. Cada ecuación se recorre tres páginas antes de rotar a la siguiente. Una revisora que conozca el índice de ecuación y la página puede repetir la consulta.
+3. **La búsqueda avanza de forma determinista entre sesiones.** El archivo `sesiones.json` guarda, por dimensión y tipo documental, qué ecuación y qué página se consultó por última vez. Cada ecuación se recorre tres páginas antes de rotar a la siguiente. Una revisor que conozca el índice de ecuación y la página puede repetir la consulta.
 
 ---
 
@@ -115,7 +115,7 @@ Las ecuaciones son cadenas de términos en lenguaje natural, no expresiones bool
 | Crossref | `/works?query=` | Metadatos bibliográficos depositados | `from-pub-date:2018`, `type:journal-article` | `relevance desc` | 8 |
 | Semantic Scholar | `/graph/v1/paper/search?query=` | Título y resumen | Ninguno (para tesis se añade `thesis dissertation` a la ecuación y se filtra por tipo o por la palabra «thesis/tesis/dissert» en el título) | Relevancia de S2 | 8 |
 
-Campos recuperados de cada registro: título, hasta tres autores, revista o institución, año, resumen (truncado a 500 caracteres), DOI, conteo de citas y base de origen. Entre consultas se espera 0.7 s para respetar los límites de uso de cada servicio; las peticiones se identifican con el correo institucional de la estudiante, como piden OpenAlex y Crossref.
+Campos recuperados de cada registro: título, hasta tres autores, revista o institución, año, resumen (truncado a 500 caracteres), DOI, conteo de citas y base de origen. Entre consultas se espera 0.7 s para respetar los límites de uso de cada servicio; las peticiones se identifican con el correo institucional de el estudiante, como piden OpenAlex y Crossref.
 
 ### 4.3 Paginación, deduplicación, orden y corte
 
@@ -144,9 +144,9 @@ Para cada ficha el agente consulta `https://api.openalex.org/works/https://doi.o
 
 ### 4.6 Modo manual para tesis de repositorios nacionales
 
-Las tesis mexicanas de TESIUNAM, BUAP o UAEM no están indexadas con DOI en las bases anteriores. El agente tiene un modo manual en el que la estudiante pega la URL o el texto del registro del repositorio; el modelo redacta la ficha con una instrucción más restrictiva («solo información del texto, sin inventar, sin URL que no esté en el texto») y la ficha queda marcada con origen «Manual» y estado «SIN DOI – fuente manual». En el corpus hay cuatro tesis incorporadas por esta vía (UNAM, BUAP ×2 y TESIUNAM).
+Las tesis mexicanas de TESIUNAM, BUAP o UAEM no están indexadas con DOI en las bases anteriores. El agente tiene un modo manual en el que el estudiante pega la URL o el texto del registro del repositorio; el modelo redacta la ficha con una instrucción más restrictiva («solo información del texto, sin inventar, sin URL que no esté en el texto») y la ficha queda marcada con origen «Manual» y estado «SIN DOI – fuente manual». En el corpus hay cuatro tesis incorporadas por esta vía (UNAM, BUAP ×2 y TESIUNAM).
 
-### 4.7 Discriminación automática: lo que el agente descarta antes de que la estudiante decida
+### 4.7 Discriminación automática: lo que el agente descarta antes de que el estudiante decida
 
 Las 19 fuentes rechazadas con DOI (23 entradas por título) son solo la última etapa de un embudo. La mayor parte de la discriminación la hace el agente por defecto, y fue calibrada precisamente para ahorrar tiempo de revisión. Conviene distinguir con honestidad tres niveles de criterio, porque el asesor verificará cuál está en el código y cuál se aplicó en la revisión:
 
@@ -162,7 +162,7 @@ Las 19 fuentes rechazadas con DOI (23 entradas por título) son solo la última 
 | Corte por relevancia y citas | Solo las tres primeras páginas de cada ecuación; orden por citas; 20 candidatos por sesión | Miles de registros por ecuación nunca llegan a la revisión |
 | Selección del modelo | De los 20 candidatos, el modelo redacta solo las N más relevantes (2 a 5; por defecto 3) | Entre 15 y 18 candidatos por sesión se descartan sin ficha |
 
-**Nivel 2. Criterios de calibración aplicados en la revisión humana (no están codificados como exclusión dura).** La estudiante adoptó tres reglas de descarte rápido: fuente sin DOI, fuente sin versión descargable (de pago), y fuente con más de tres años desde la publicación salvo que fuese referencia obligada del campo. Estas reglas explican parte de las 23 rechazadas y de las saltadas. Debe declararse que operaron como criterios de revisora y no como filtros del programa, porque el corpus mismo lo demuestra: contiene 4 tesis sin DOI (modo manual), 7 fuentes sin versión de acceso abierto y 11 fuentes de 2018–2021. Si en el Avance 2 se quiere afirmar que esos tres criterios son filtros automáticos, deben codificarse en la versión 12 (ventana `2023-2026`, filtro `has_doi:true` y `is_oa:true` en OpenAlex) y rehacer la búsqueda; de lo contrario, se reportan como «criterios de preferencia» aplicados en el cribado.
+**Nivel 2. Criterios de calibración aplicados en la revisión humana (no están codificados como exclusión dura).** El estudiante adoptó tres reglas de descarte rápido: fuente sin DOI, fuente sin versión descargable (de pago), y fuente con más de tres años desde la publicación salvo que fuese referencia obligada del campo. Estas reglas explican parte de las 23 rechazadas y de las saltadas. Debe declararse que operaron como criterios de revisor y no como filtros del programa, porque el corpus mismo lo demuestra: contiene 4 tesis sin DOI (modo manual), 7 fuentes sin versión de acceso abierto y 11 fuentes de 2018–2021. Si en el Avance 2 se quiere afirmar que esos tres criterios son filtros automáticos, deben codificarse en la versión 12 (ventana `2023-2026`, filtro `has_doi:true` y `is_oa:true` en OpenAlex) y rehacer la búsqueda; de lo contrario, se reportan como «criterios de preferencia» aplicados en el cribado.
 
 **Nivel 3. Decisión final con comentario.** Aprobar, rechazar de forma permanente o saltar.
 
@@ -185,7 +185,7 @@ Las 19 fuentes rechazadas con DOI (23 entradas por título) son solo la última 
 
 | Archivo | Contenido | Función probatoria |
 |---|---|---|
-| `corpus_estado_del_arte.json` | Las 41 fichas aprobadas con todos sus campos, el resultado de verificación del DOI, la decisión, el comentario de la estudiante y la fecha y hora | Colección final y justificación de cada inclusión |
+| `corpus_estado_del_arte.json` | Las 41 fichas aprobadas con todos sus campos, el resultado de verificación del DOI, la decisión, el comentario de el estudiante y la fecha y hora | Colección final y justificación de cada inclusión |
 | `corpus_estado_del_arte.txt` | La misma información en formato legible para Word, agrupada por dimensión | Anexo para el asesor |
 | `rechazados.json` | DOI y título truncado de cada fuente rechazada (19 con DOI; 23 entradas por título) | Registro de exclusiones; impide que reaparezcan |
 | `sesiones.json` | Índice de ecuación y página por dimensión y tipo documental | Reconstrucción del punto exacto de la búsqueda |
@@ -226,7 +226,7 @@ La rúbrica exige, por recurso, «registros recuperados y duplicados eliminados,
 | Fecha de cada consulta | No se guarda por consulta; solo la fecha de la decisión sobre cada ficha | Reportar las fechas de sesión (19 y 22/04/2026) y, en adelante, registrar la fecha de búsqueda en `sesiones.json` |
 | Total de registros que devuelve cada base | No se guarda; el agente solo recupera las primeras páginas | Declarar que la estrategia es de muestreo por relevancia (primeras 3 páginas por ecuación) y no de exhaustividad; esto es coherente con una revisión de alcance, no con una revisión sistemática completa |
 | Duplicados eliminados entre bases | Se eliminan, y el conteo se imprime en pantalla, pero no se persiste | Añadir el conteo al registro de sesión |
-| Cribado por título y resumen | Lo realiza el modelo al elegir N de 20 y la estudiante al aprobar o rechazar; el motivo de rechazo se escribe en consola pero no se guarda en `rechazados.json` | Modificar el agente para persistir el comentario de rechazo; reconstruir los motivos de las 23 rechazadas actuales a partir de la lista |
+| Cribado por título y resumen | Lo realiza el modelo al elegir N de 20 y el estudiante al aprobar o rechazar; el motivo de rechazo se escribe en consola pero no se guarda en `rechazados.json` | Modificar el agente para persistir el comentario de rechazo; reconstruir los motivos de las 23 rechazadas actuales a partir de la lista |
 | Lectura de texto completo | Fuera del agente. Las fichas se redactan a partir del resumen (máximo 500 caracteres); el asesor advierte que verificar DOI y acceso «no sustituye la lectura del texto completo» | Declarar que la ficha automática es un cribado y que los campos de diseño, muestra, instrumentos y hallazgos de la matriz final se extraen de la lectura completa |
 | Evaluación de calidad o riesgo de sesgo | No la hace | Aplicar un instrumento de calidad (por ejemplo, la lista de verificación del tipo de estudio) sobre las fuentes que pasen a la matriz |
 | Ventana temporal | OpenAlex está fijado a 2018–2025 y la instrucción al modelo prioriza 2020–2025; Crossref y Semantic Scholar no tienen límite superior, por eso entró Seeger (2026) | Ajustar a 2022–2026 para evidencia directa y conservar 2018–2021 solo como antecedentes, según la indicación del asesor |
@@ -251,9 +251,9 @@ Tres limitaciones adicionales de la bitácora actual deben corregirse antes de a
 
 ## 8. Texto propuesto para la Declaración de Uso de IA del Avance 2
 
-> **Herramientas utilizadas.** (1) Agente de Fichas Bibliográficas v11, programa propio en Node.js que consulta DOAJ, OpenAlex, Crossref y Semantic Scholar y usa el modelo Claude Sonnet 4 (Anthropic, `claude-sonnet-4-20250514`) para redactar fichas estructuradas a partir de los metadatos recuperados. (2) Claude Code (Anthropic) como asistente de programación en el desarrollo del agente. (3) [Nombre y versión del asistente conversacional usado para contrastar la redacción].
+> **Herramientas utilizadas.** (1) Fichas UDEMEX Doctorado v11, programa propio en Node.js que consulta DOAJ, OpenAlex, Crossref y Semantic Scholar y usa el modelo Claude Sonnet 4 (Anthropic, `claude-sonnet-4-20250514`) para redactar fichas estructuradas a partir de los metadatos recuperados. (2) Claude Code (Anthropic) como asistente de programación en el desarrollo del agente. (3) [Nombre y versión del asistente conversacional usado para contrastar la redacción].
 > **Prompts y alcance.** Las instrucciones de sistema y de usuario del agente se transcriben en el Anexo [X]. Al asistente conversacional se le solicitó [describir].
-> **Manejo de resultados y autoría.** Toda ficha fue aprobada o rechazada por la autora con comentario fechado; el modelo no decide la inclusión. Los campos de diseño, muestra, instrumentos y hallazgos de la matriz se extrajeron de la lectura del texto completo, no de la ficha automática.
+> **Manejo de resultados y autoría.** Toda ficha fue aprobada o rechazada por el autor con comentario fechado; el modelo no decide la inclusión. Los campos de diseño, muestra, instrumentos y hallazgos de la matriz se extrajeron de la lectura del texto completo, no de la ficha automática.
 > **Verificación de integridad.** Cada DOI se verificó contra OpenAlex o Crossref (35 de 41 verificados; 4 tesis sin DOI incorporadas desde repositorios institucionales; 2 DOI no localizados que se revisarán). La bitácora completa se anexa.
 > **Distribución de la producción.** [Estimar por separado: búsqueda y fichado asistido; redacción propia].
 

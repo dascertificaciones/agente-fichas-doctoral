@@ -84,7 +84,7 @@ fechas = sorted({r["fecha"] for r in rows if r["fecha"] != "--"})
 
 # ---------- Markdown ----------
 md = []
-md.append("# Bitácora del corpus generado con el Agente de Fichas Bibliográficas v11\n")
+md.append("# Bitácora del corpus generado con el Fichas UDEMEX Doctorado v11\n")
 md.append("Generada automáticamente desde `corpus_estado_del_arte.json` y `rechazados.json`. "
           "Cada fila corresponde a una decisión humana registrada por el agente.\n")
 md.append("## Resumen cuantitativo\n")
@@ -131,7 +131,7 @@ tx.append("% Generado por scripts/generar_bitacora.py a partir de corpus_estado_
 tx.append("% Requiere en el preámbulo: longtable, colortbl/xcolor[table] y el color bgCotejo definido en main.tex.")
 tx.append("{\\footnotesize\\setlength{\\tabcolsep}{4pt}")
 tx.append("\\begin{longtable}{|p{0.55cm}|p{2.6cm}|p{2.8cm}|p{1.3cm}|p{1.6cm}|p{0.8cm}|p{0.45cm}|p{2.4cm}|}")
-tx.append("\\caption{Bitácora de fichas aprobadas con el Agente de Fichas Bibliográficas v11 (una fila por decisión registrada).}\\label{tab:bitacora-corpus}\\\\")
+tx.append("\\caption{Bitácora de fichas aprobadas con el Fichas UDEMEX Doctorado v11 (una fila por decisión registrada).}\\label{tab:bitacora-corpus}\\\\")
 hdr="\\hline\n\\rowcolor{bgCotejo}\n\\textbf{Dim.} & \\textbf{Fuente} & \\textbf{DOI} & \\textbf{Base} & \\textbf{Verif.} & \\textbf{Citas} & \\textbf{AA} & \\textbf{Comentario de decisión} \\\\\n\\hline"
 tx.append(hdr+"\n\\endfirsthead")
 tx.append(hdr+"\n\\endhead")

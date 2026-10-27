@@ -1,7 +1,7 @@
 % ============================================================
 % Sección insertable en el Avance 2 (Seminario de Tesis Doctoral II)
 % Procedimiento de búsqueda y selección de fuentes con el
-% Agente de Fichas Bibliográficas v11
+% Fichas UDEMEX Doctorado v11
 %
 % Requiere en el preámbulo:
 %   \usepackage{booktabs,longtable,array,url}
@@ -22,7 +22,7 @@ cribado y colección final.
 
 \subsection{Identificación de la herramienta}
 
-La búsqueda se ejecutó con el \emph{Agente de Fichas Bibliográficas},
+La búsqueda se ejecutó con el \emph{Fichas UDEMEX Doctorado},
 versión~11, un programa propio escrito en Node.js y versionado en Git, de
 modo que cada modificación del procedimiento queda fechada. El agente consulta
 cuatro bases abiertas, sin inicio de sesión ni extracción de páginas web, y
@@ -63,7 +63,7 @@ aprobadas o rechazadas, orden por citas y corte en veinte candidatos;
 partir de los metadatos reales;
 (4)~verificación del DOI de cada ficha en OpenAlex y, en su defecto, en
 Crossref, con registro de estado, título real, citas y acceso abierto;
-(5)~decisión de la autora sobre cada ficha (aprobar, rechazar de forma
+(5)~decisión de el autor sobre cada ficha (aprobar, rechazar de forma
 permanente o saltar) con comentario, fecha y hora.
 
 Tres propiedades sostienen la trazabilidad. Ninguna fuente entra al corpus
@@ -120,7 +120,7 @@ brecha, pertinencia para el marco teórico, justificación de inclusión y
 resumen preliminar.
 
 Las tesis de TESIUNAM, BUAP o UAEM, que no tienen DOI en estas bases, se
-incorporan por un modo manual en el que la autora pega el registro del
+incorporan por un modo manual en el que el autor pega el registro del
 repositorio; la ficha queda marcada con origen «Manual» y estado «sin DOI».
 
 \subsection{Evolución de las versiones}
@@ -138,11 +138,11 @@ cuarta base y, acto seguido, como primera en el orden de consulta, para que
 en los duplicados prevalezca la versión de acceso abierto; y los campos
 obligatorios de justificación de inclusión y resumen preliminar en cada
 ficha. [Las versiones intermedias 7 a 10 se completan con los registros de
-la autora.]
+el autor.]
 
 \subsection{Discriminación automática y embudo de selección}
 
-Las fuentes rechazadas por la autora son la última etapa de un embudo cuya
+Las fuentes rechazadas por el autor son la última etapa de un embudo cuya
 mayor parte ejecuta el agente por reglas declaradas. Los filtros codificados
 son: ventana temporal desde 2018 (con prioridad 2020--2025 en la instrucción
 al modelo); tipo documental restringido a artículos de revista y tesis, lo
@@ -152,7 +152,7 @@ identificador verificable, pues toda fuente automática debe tener DOI y las
 que carecen de él sólo entran por modo manual; exclusión de lo ya revisado;
 corte por relevancia (tres páginas por ecuación), orden por citas y
 presentación de veinte candidatos; y selección por el modelo de sólo $N$
-fichas por sesión. Además, en la revisión la autora aplicó tres criterios de
+fichas por sesión. Además, en la revisión el autor aplicó tres criterios de
 descarte rápido que no están codificados como exclusión dura: ausencia de
 DOI, ausencia de versión descargable y antigüedad mayor a tres años salvo
 referencia obligada. El corpus muestra que operaron como preferencia y no
