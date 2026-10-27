@@ -1,4 +1,4 @@
-# Bitácora del corpus generado con el Fichas UDEMEX Doctorado v11
+# Bitácora del corpus generado con la herramienta Fichas UDEMEX Doctorado v11
 
 Generada automáticamente desde `corpus_estado_del_arte.json` y `rechazados.json`. Cada fila corresponde a una decisión humana registrada por el agente.
 

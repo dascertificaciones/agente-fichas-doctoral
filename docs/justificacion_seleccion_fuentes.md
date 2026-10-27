@@ -1,4 +1,4 @@
-# Justificación del procedimiento de búsqueda y selección de fuentes: el Fichas UDEMEX Doctorado v11
+# Justificación del procedimiento de búsqueda y selección de fuentes: la herramienta Fichas UDEMEX Doctorado v11
 
 **Proyecto:** Sistema gráfico de etiquetado del nivel de intervención de IA en contenidos educativos
 **Estudiante:** Erandi Carrasco Alcántara · UDX112510016 · Seminario de Tesis Doctoral II

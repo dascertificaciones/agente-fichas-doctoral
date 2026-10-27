@@ -4,7 +4,7 @@ Erandi Carrasco Alcántara — UDX112510016
 QUÉ CAMBIÓ RESPECTO DEL ZIP ANTERIOR
 ------------------------------------
 Este Avance 2 integra la justificación del procedimiento de búsqueda y
-selección de fuentes con el Fichas UDEMEX Doctorado v11, en
+selección de fuentes con la herramienta Fichas UDEMEX Doctorado v11, en
 respuesta a la retroalimentación del Avance 1 y a la sesión 4:
 
   Portada           Errata "Dr.Asesor" corregida; título "AVANCE 2" y subtítulo nuevo;
